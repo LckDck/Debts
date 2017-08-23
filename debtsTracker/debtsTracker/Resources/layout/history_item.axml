@@ -28,7 +28,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/count"
-                    android:textColor="@android:color/black"
                     android:textAlignment="viewStart"
                     android:textSize="22sp" />
                 <TextView
@@ -36,7 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/date"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/light_gray"
                     android:textAlignment="viewEnd"
                     android:textSize="14sp"
                     android:layout_alignParentRight="true"
@@ -46,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/comment"
-                android:textColor="@android:color/black"
+                android:textColor="@color/title_gray"
                 android:textAlignment="viewStart"
                 android:textSize="14sp"
                 android:layout_marginBottom="8dp"

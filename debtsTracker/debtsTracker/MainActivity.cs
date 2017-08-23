@@ -8,6 +8,8 @@ using debtsTracker.Adapters;
 using System;
 using System.Collections.Generic;
 using debtsTracker.Entities;
+using Java.Util;
+using Android.Graphics;
 
 namespace debtsTracker
 {
@@ -20,7 +22,24 @@ namespace debtsTracker
             base.OnCreate (savedInstanceState);
 
             // Set our view from the "main" layout resource
-            SetContentView (Resource.Layout.Main);
+            //SetContentView (Resource.Layout.Main);
+            SetContentView (Resource.Layout.history);
+            //var dateView = FindViewById<EditText> (Resource.Id.date);
+            //dateView.Text = DateTime.Now.ToString (Utils.DatePattern);
+            //dateView.Click += (sender, e) => {
+            //    Calendar calendar = Calendar.GetInstance (Java.Util.TimeZone.Default);
+            //    DatePickerDialog dialog = new DatePickerDialog (CrossCurrentActivity.Current.Activity, ChangeText,
+            //                                                    calendar.Get (CalendarField.Year), calendar.Get (CalendarField.Month),
+            //                                                    calendar.Get (CalendarField.DayOfMonth));
+            //    dialog.Show ();
+            //};
+
+            //var amountView = FindViewById<EditText> (Resource.Id.amount);
+            //amountView.TextChanged += (sender, e) => {
+            //    var color = (e.Text.ToString ().StartsWith ("-")) ? Utils.DarkGray : Utils.Green;
+            //    amountView.SetTextColor (color);
+            //};
+
             var listView = FindViewById<RecyclerView> (Resource.Id.list);
 
             var linearLayoutManager = new LinearLayoutManager (CrossCurrentActivity.Current.Activity);
@@ -32,30 +51,26 @@ namespace debtsTracker
             var adapter = new TransactionsAdapter(items);
             listView.SetAdapter(adapter);
 
-            //adapter.ItemSelected += ((sender, e) =>
-            //{
-            //    if (Vm is IItemClickCommand<TItemVm>) (Vm as IItemClickCommand<TItemVm>).ItemClick.Execute(Vm.Model[e]);
-            //});
 
-            // Get our button from the layout resource,
-            // and attach an event to it
-            //Button button = FindViewById<Button> (Resource.Id.fab);
+        }
 
-            //button.Click += delegate { button.Text = $"{count++} clicks!"; };
+        void ChangeText (object sender, DatePickerDialog.DateSetEventArgs e)
+        {
+            
         }
 
         List<Debt> GetItems ()
         {
             var result = new List<Debt> () {
 
-                new Debt { Name = "Anna", 
+                new Debt { Name = "Anna",
                     Transactions = new List<Transaction> {
                         new Transaction { Value = 1100, Date = DateTime.Now, Comment="Какой-то коммент"},
                         new Transaction { Value = -300, Date = DateTime.Now, Comment=""},
                         new Transaction { Value = 350, Date = DateTime.Now, Comment="Какой-то очень длинный супер пупер бубу сися пися коммент" }
                     }
                 },
-                new Debt { Name = "Michael", 
+                new Debt { Name = "Michael",
                     Transactions = new List<Transaction> {
                         new Transaction { Value = 2000, Date = DateTime.Now},
                         new Transaction { Value = 150, Date = DateTime.Now}
@@ -65,6 +80,6 @@ namespace debtsTracker
 
             return result;
         }
-   }
+    }
 }
 
