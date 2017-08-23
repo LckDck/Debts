@@ -13,8 +13,8 @@ namespace debtsTracker
             return value >= 0 ? "+" + value : value.ToString ();
         }
 
-        public static Color Green => GetColorFromResource (Resource.Color.green);
-        public static Color DarkGray => GetColorFromResource (Resource.Color.title_gray);
+        public static Color Green => GetColorFromResource (Resource.Color.accent);
+        public static Color DarkGray => GetColorFromResource (Resource.Color.primary_dark);
 
         static Color GetColorFromResource (int res)
         {

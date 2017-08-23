@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout
-        android:background="@color/material_grey_300"
+        android:background="@color/ripple"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/name_container">

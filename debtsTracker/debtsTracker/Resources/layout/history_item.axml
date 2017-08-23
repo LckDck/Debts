@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/comment"
-                android:textColor="@color/title_gray"
+                android:textColor="@color/primary_dark"
                 android:textAlignment="viewStart"
                 android:textSize="14sp"
                 android:layout_marginBottom="8dp"

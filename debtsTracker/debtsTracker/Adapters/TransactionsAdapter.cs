@@ -29,7 +29,7 @@ namespace debtsTracker.Adapters
             var mholder = (TransactionsViewHolder)holder;
             var comment = _items [position].Comment;
             mholder.CommentTextView.SetText (comment, Android.Widget.TextView.BufferType.Normal);
-            if (string.IsNullOrEmpty (comment)) mholder.CommentTextView.Visibility = ViewStates.Gone;
+            mholder.CommentTextView.Visibility = string.IsNullOrEmpty (comment) ? ViewStates.Gone : ViewStates.Visible;
             var count = _items [position].Value;
             var value = Utils.GetValueWithPrefix (count);
             var color = (count >= 0) ? Utils.Green : Utils.DarkGray;
