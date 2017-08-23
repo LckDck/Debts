@@ -11,7 +11,7 @@ using debtsTracker.Entities;
 
 namespace debtsTracker
 {
-    [Activity (Label = "debtsTracker", MainLauncher = true, Icon = "@mipmap/icon")]
+    [Activity (Label = "@string/app_name", MainLauncher = true, Icon = "@mipmap/icon")]
     public class MainActivity : Activity
     {
 
@@ -23,12 +23,13 @@ namespace debtsTracker
             SetContentView (Resource.Layout.Main);
             var listView = FindViewById<RecyclerView> (Resource.Id.list);
 
-            var arr = new string[] { "Masha", "Dasha"};
             var linearLayoutManager = new LinearLayoutManager (CrossCurrentActivity.Current.Activity);
             
             listView.SetLayoutManager(linearLayoutManager);
-            var items = GetItems ();
-            var adapter = new DebtsAdapter(items);
+            //var items = GetItems () ;
+            //var adapter = new DebtsAdapter(items);
+            var items = GetItems ()[0].Transactions ;
+            var adapter = new TransactionsAdapter(items);
             listView.SetAdapter(adapter);
 
             //adapter.ItemSelected += ((sender, e) =>
@@ -49,8 +50,9 @@ namespace debtsTracker
 
                 new Debt { Name = "Anna", 
                     Transactions = new List<Transaction> {
-                        new Transaction { Value = 1100, Date = DateTime.Now},
-                        new Transaction { Value = 350, Date = DateTime.Now}
+                        new Transaction { Value = 1100, Date = DateTime.Now, Comment="Какой-то коммент"},
+                        new Transaction { Value = -300, Date = DateTime.Now, Comment=""},
+                        new Transaction { Value = 350, Date = DateTime.Now, Comment="Какой-то очень длинный супер пупер бубу сися пися коммент" }
                     }
                 },
                 new Debt { Name = "Michael", 

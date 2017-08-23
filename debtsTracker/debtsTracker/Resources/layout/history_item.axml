@@ -13,36 +13,43 @@
         cardview:cardUseCompatPadding="true">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:text="пн 22 августа 2017"
-                android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/name"
-                android:textColor="@android:color/black"
-                android:textAlignment="viewStart"
-                android:textSize="14sp"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="16dp" />
+                android:orientation="horizontal"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+                <TextView
+                    android:text="+2000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/count"
+                    android:textColor="@android:color/black"
+                    android:textAlignment="viewStart"
+                    android:textSize="22sp" />
+                <TextView
+                    android:text="пн 22 августа 2017"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/date"
+                    android:textColor="@android:color/black"
+                    android:textAlignment="viewEnd"
+                    android:textSize="14sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
             <TextView
-                android:text="+2000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/count"
-                android:textColor="@android:color/black"
-                android:textAlignment="viewStart"
-                android:textSize="22sp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="16dp" />
-            <TextView
-                android:text="Многострочный комментарий к этой табличке, которая тут отображается весьма алло"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/comment"
                 android:textColor="@android:color/black"
                 android:textAlignment="viewStart"
                 android:textSize="14sp"
-                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:layout_marginLeft="16dp" />
         </LinearLayout>
     </android.support.v7.widget.CardView>

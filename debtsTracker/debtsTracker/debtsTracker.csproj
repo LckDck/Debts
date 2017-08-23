@@ -94,6 +94,9 @@
     <Compile Include="Adapters\ViewHolder.cs" />
     <Compile Include="Entities\Debt.cs" />
     <Compile Include="Entities\Transaction.cs" />
+    <Compile Include="Adapters\TransactionsAdapter.cs" />
+    <Compile Include="Adapters\TransactionsViewHolder.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
