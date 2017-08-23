@@ -22,8 +22,8 @@ namespace debtsTracker
             base.OnCreate (savedInstanceState);
 
             // Set our view from the "main" layout resource
-            //SetContentView (Resource.Layout.Main);
-            SetContentView (Resource.Layout.history);
+            SetContentView (Resource.Layout.Main);
+            //SetContentView (Resource.Layout.history);
             //var dateView = FindViewById<EditText> (Resource.Id.date);
             //dateView.Text = DateTime.Now.ToString (Utils.DatePattern);
             //dateView.Click += (sender, e) => {
@@ -42,21 +42,23 @@ namespace debtsTracker
 
             var listView = FindViewById<RecyclerView> (Resource.Id.list);
 
+
             var linearLayoutManager = new LinearLayoutManager (CrossCurrentActivity.Current.Activity);
-            
-            listView.SetLayoutManager(linearLayoutManager);
+
+            listView.SetLayoutManager (linearLayoutManager);
             //var items = GetItems () ;
             //var adapter = new DebtsAdapter(items);
-            var items = GetItems ()[0].Transactions ;
-            var adapter = new TransactionsAdapter(items);
-            listView.SetAdapter(adapter);
-
+            var items = GetItems () [0].Transactions;
+            var adapter = new TransactionsAdapter (items);
+            listView.SetAdapter (adapter);
+            var fab = FindViewById<FloatingActionButton> (Resource.Id.fab);
+            fab.AttachToRecyclerView (listView);
 
         }
 
         void ChangeText (object sender, DatePickerDialog.DateSetEventArgs e)
         {
-            
+
         }
 
         List<Debt> GetItems ()
