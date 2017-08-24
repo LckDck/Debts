@@ -10,35 +10,51 @@ using System.Collections.Generic;
 using debtsTracker.Entities;
 using Java.Util;
 using Android.Graphics;
+using debtsTracker.Fragments;
+using Microsoft.Practices.ServiceLocation;
+using debtsTracker.Utilities;
+using Android.Support.V7.App;
+using Android.Support.V4.Widget;
+using Android.Support.Design.Widget;
+using Android.Views;
+using Android.Support.V4.View;
 
 namespace debtsTracker
 {
     [Activity (Label = "@string/app_name", MainLauncher = true, Icon = "@mipmap/icon")]
-    public class MainActivity : Activity
+    public class MainActivity : AppCompatActivity
     {
+        IExtendedNavigationService _navigationService;
+        DrawerLayout drawerLayout;
+        NavigationView navigationView;
 
         protected override void OnCreate (Bundle savedInstanceState)
         {
             base.OnCreate (savedInstanceState);
-
+            Bootstrap.RegisterServices (this, Resource.Id.main_content);
             // Set our view from the "main" layout resource
             SetContentView (Resource.Layout.Main);
-            //SetContentView (Resource.Layout.history);
-            //var dateView = FindViewById<EditText> (Resource.Id.date);
-            //dateView.Text = DateTime.Now.ToString (Utils.DatePattern);
-            //dateView.Click += (sender, e) => {
-            //    Calendar calendar = Calendar.GetInstance (Java.Util.TimeZone.Default);
-            //    DatePickerDialog dialog = new DatePickerDialog (CrossCurrentActivity.Current.Activity, ChangeText,
-            //                                                    calendar.Get (CalendarField.Year), calendar.Get (CalendarField.Month),
-            //                                                    calendar.Get (CalendarField.DayOfMonth));
-            //    dialog.Show ();
-            //};
+            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar> (Resource.Id.toolbar);
+            SetSupportActionBar (toolbar);
 
-            //var amountView = FindViewById<EditText> (Resource.Id.amount);
-            //amountView.TextChanged += (sender, e) => {
-            //    var color = (e.Text.ToString ().StartsWith ("-")) ? Utils.DarkGray : Utils.Green;
-            //    amountView.SetTextColor (color);
-            //};
+
+            //Enable support action bar to display hamburger
+            SupportActionBar.SetHomeAsUpIndicator (Resource.Drawable.ic_menu_black_24dp);
+            SupportActionBar.SetDisplayHomeAsUpEnabled (true);
+
+            drawerLayout = FindViewById<DrawerLayout> (Resource.Id.drawer_layout);
+            navigationView = FindViewById<NavigationView> (Resource.Id.nav_view);
+
+            navigationView.NavigationItemSelected += (sender, e) => {
+                e.MenuItem.SetChecked (true);
+                //react to click here and swap fragments or navigate
+                drawerLayout.CloseDrawers ();
+            };
+
+
+
+            //SetContentView (Resource.Layout.history);
+
 
             var listView = FindViewById<RecyclerView> (Resource.Id.list);
 
@@ -51,15 +67,29 @@ namespace debtsTracker
             var items = GetItems () [0].Transactions;
             var adapter = new TransactionsAdapter (items);
             listView.SetAdapter (adapter);
-            var fab = FindViewById<FloatingActionButton> (Resource.Id.fab);
+            var fab = FindViewById<com.refractored.fab.FloatingActionButton> (Resource.Id.fab);
             fab.AttachToRecyclerView (listView);
 
+            _navigationService = ServiceLocator.Current.GetInstance<IExtendedNavigationService> ();
+            fab.Click += (sender, e) => {
+                _navigationService.NavigateTo (Page.AddPage);
+            };
+
         }
 
-        void ChangeText (object sender, DatePickerDialog.DateSetEventArgs e)
+
+        public override bool OnOptionsItemSelected (Android.Views.IMenuItem item)
         {
-
+            if (drawerLayout.IsDrawerOpen (GravityCompat.Start)) {
+                drawerLayout.CloseDrawers ();
+            } else {
+                drawerLayout.OpenDrawer (GravityCompat.Start);
+            }
+            return true;
+            
         }
+
+
 
         List<Debt> GetItems ()
         {
@@ -95,6 +125,9 @@ namespace debtsTracker
 
             return result;
         }
+
     }
 }
+
+
 

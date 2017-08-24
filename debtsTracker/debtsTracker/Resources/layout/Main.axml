@@ -1,21 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/list"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:id="@+id/drawer_layout">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    <com.refractored.fab.FloatingActionButton
-        android:id="@+id/fab"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:minHeight="?attr/actionBarSize"
+            android:background="?attr/colorAccent"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <FrameLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/main_content">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <com.refractored.fab.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_add_white_24dp"
+                app:fab_colorNormal="@color/accent"
+                app:fab_colorPressed="@color/light_gray"
+                app:fab_colorRipple="@color/ripple" />
+        </FrameLayout>
+    </LinearLayout>
+    <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_add_white_24dp"
-        fab:fab_colorNormal="@color/accent"
-        fab:fab_colorPressed="@color/light_gray"
-        fab:fab_colorRipple="@color/ripple" />
-</FrameLayout>
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:id="@+id/nav_view"
+        app:menu="@menu/nav_menu" />
+<!--    app:headerLayout="@layout/drawer_header"-->
+</android.support.v4.widget.DrawerLayout>
