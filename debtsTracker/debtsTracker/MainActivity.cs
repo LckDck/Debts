@@ -50,11 +50,14 @@ namespace debtsTracker
                 //react to click here and swap fragments or navigate
                 drawerLayout.CloseDrawers ();
             };
-
+            //drawerLayout.SetStatusBarBackgroundColor (Utils.GetColorFromResource(Resource.Color.primary_dark));
+            if (Build.VERSION.SdkInt >= Build.VERSION_CODES.Lollipop) {
+                Window window = this.Window;
+                window.AddFlags (WindowManagerFlags.TranslucentStatus);
+            }
 
 
             //SetContentView (Resource.Layout.history);
-
 
             var listView = FindViewById<RecyclerView> (Resource.Id.list);
 
@@ -62,10 +65,10 @@ namespace debtsTracker
             var linearLayoutManager = new LinearLayoutManager (CrossCurrentActivity.Current.Activity);
 
             listView.SetLayoutManager (linearLayoutManager);
-            //var items = GetItems () ;
-            //var adapter = new DebtsAdapter(items);
-            var items = GetItems () [0].Transactions;
-            var adapter = new TransactionsAdapter (items);
+            var items = GetItems ();
+            var adapter = new DebtsAdapter (items);
+            //var items = GetItems () [0].Transactions;
+            //var adapter = new TransactionsAdapter (items);
             listView.SetAdapter (adapter);
             var fab = FindViewById<com.refractored.fab.FloatingActionButton> (Resource.Id.fab);
             fab.AttachToRecyclerView (listView);
@@ -86,7 +89,7 @@ namespace debtsTracker
                 drawerLayout.OpenDrawer (GravityCompat.Start);
             }
             return true;
-            
+
         }
 
 

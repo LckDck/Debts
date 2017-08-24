@@ -182,6 +182,7 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_menu_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_menu_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_menu_black_24dp.png" />
+    <AndroidResource Include="Resources\layout\drawer_header.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

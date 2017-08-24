@@ -16,7 +16,7 @@ namespace debtsTracker
         public static Color Green => GetColorFromResource (Resource.Color.accent);
         public static Color DarkGray => GetColorFromResource (Resource.Color.primary_dark);
 
-        static Color GetColorFromResource (int res)
+        public static Color GetColorFromResource (int res)
         {
             return new Android.Graphics.Color (ContextCompat.GetColor (CrossCurrentActivity.Current.Activity, res));
         }
