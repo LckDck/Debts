@@ -3,6 +3,7 @@ namespace debtsTracker.Utilities
 {
     public enum Page
     {
+        MainPage,
         AddPage,
         HistoryPage
     }

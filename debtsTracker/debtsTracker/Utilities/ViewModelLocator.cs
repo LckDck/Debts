@@ -17,6 +17,7 @@ namespace debtsTracker.Utilities
 			
             builder.RegisterType<AddPageViewModel>();
             builder.RegisterType<HistoryViewModel>();
+            builder.RegisterType<MainViewModel>();
 
 			var container = builder.Build ();
 

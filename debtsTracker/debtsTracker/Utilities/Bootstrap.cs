@@ -21,6 +21,7 @@ namespace debtsTracker.Utilities
 			//charity
             nav.Configure (new PageConfigEntity () { Page = Page.AddPage, Type = typeof (AddPageFragment) });
             nav.Configure (new PageConfigEntity () { Page = Page.HistoryPage, Type = typeof (HistoryFragment) });
+            nav.Configure (new PageConfigEntity () { Page = Page.MainPage, Type = typeof (MainFragment), IsRoot = true });
 			
 			builder.RegisterInstance (nav).AsImplementedInterfaces ();
 

@@ -18,15 +18,22 @@ using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Support.V4.View;
+using debtsTracker.ViewModels;
+using Android.Views.InputMethods;
+using Android.Content;
 
 namespace debtsTracker
 {
     [Activity (Label = "@string/app_name", MainLauncher = true, Icon = "@mipmap/icon")]
-    public class MainActivity : AppCompatActivity
+    public class MainActivity : AppCompatActivity, Android.Support.V4.App.FragmentManager.IOnBackStackChangedListener, View.IOnClickListener
     {
         IExtendedNavigationService _navigationService;
         DrawerLayout drawerLayout;
         NavigationView navigationView;
+        private MainViewModel vm;
+        public MainViewModel Vm => vm ?? (vm = ServiceLocator.Current.GetInstance<MainViewModel> ());
+
+        ActionBarDrawerToggle drawerToggle;
 
         protected override void OnCreate (Bundle savedInstanceState)
         {
@@ -36,11 +43,11 @@ namespace debtsTracker
             SetContentView (Resource.Layout.Main);
             var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar> (Resource.Id.toolbar);
             SetSupportActionBar (toolbar);
-
+            toolbar.SetTitleTextColor (Utils.GetColorFromResource (Resource.Color.primary_dark));
 
             //Enable support action bar to display hamburger
-            SupportActionBar.SetHomeAsUpIndicator (Resource.Drawable.ic_menu_black_24dp);
             SupportActionBar.SetDisplayHomeAsUpEnabled (true);
+            SupportActionBar.SetDisplayShowHomeEnabled (true);
 
             drawerLayout = FindViewById<DrawerLayout> (Resource.Id.drawer_layout);
             navigationView = FindViewById<NavigationView> (Resource.Id.nav_view);
@@ -50,35 +57,87 @@ namespace debtsTracker
                 //react to click here and swap fragments or navigate
                 drawerLayout.CloseDrawers ();
             };
-            //drawerLayout.SetStatusBarBackgroundColor (Utils.GetColorFromResource(Resource.Color.primary_dark));
             if (Build.VERSION.SdkInt >= Build.VERSION_CODES.Lollipop) {
                 Window window = this.Window;
                 window.AddFlags (WindowManagerFlags.TranslucentStatus);
             }
 
+            drawerToggle = new ActionBarDrawerToggle (this, drawerLayout, toolbar, Resource.String.app_name, Resource.String.app_name);
+            drawerLayout.AddDrawerListener (drawerToggle);
+            drawerLayout.DrawerClosed += OnDrawerClosedTask;
+            drawerToggle.ToolbarNavigationClickListener = this;
+            drawerToggle.SyncState ();
+
+            SupportFragmentManager.AddOnBackStackChangedListener (this);
 
             //SetContentView (Resource.Layout.history);
-
-            var listView = FindViewById<RecyclerView> (Resource.Id.list);
-
-
-            var linearLayoutManager = new LinearLayoutManager (CrossCurrentActivity.Current.Activity);
-
-            listView.SetLayoutManager (linearLayoutManager);
-            var items = GetItems ();
-            var adapter = new DebtsAdapter (items);
-            //var items = GetItems () [0].Transactions;
-            //var adapter = new TransactionsAdapter (items);
-            listView.SetAdapter (adapter);
-            var fab = FindViewById<com.refractored.fab.FloatingActionButton> (Resource.Id.fab);
-            fab.AttachToRecyclerView (listView);
-
-            _navigationService = ServiceLocator.Current.GetInstance<IExtendedNavigationService> ();
-            fab.Click += (sender, e) => {
-                _navigationService.NavigateTo (Page.AddPage);
-            };
+            _navigationService = ServiceLocator.Current.GetInstance<IExtendedNavigationService>();
+            _navigationService.NavigateTo (Page.MainPage);
 
         }
+
+        void OnDrawerClosedTask (object sender, DrawerLayout.DrawerClosedEventArgs e)
+        {
+
+        }
+
+        //bool ViewIsAtHome;
+        //public void displayView (int viewId)
+        //{
+
+        //    BaseFragment fragment = null;
+
+        //    switch (viewId) {
+        //    case Resource.Layout.add_transaction:
+        //        fragment = new AddPageFragment ();
+        //        //title = "Add debt";
+        //        ViewIsAtHome = false;
+        //        break;
+        //    case Resource.Layout.history:
+        //        fragment = new HistoryFragment ();
+        //        //title = "History";
+        //        ViewIsAtHome = false;
+        //        break;
+
+        //    case Resource.Id.main_content:
+        //        fragment = new HistoryFragment ();
+        //        //title = "History";
+        //        ViewIsAtHome = true;
+        //        break;
+
+        //    }
+
+        //    if (fragment != null) {
+        //        var ft = SupportFragmentManager.BeginTransaction ();
+        //        ft.Replace (Resource.Id.main_content, fragment);
+        //        ft.Commit ();
+        //    }
+
+        //    // set the toolbar title
+        //    if (SupportActionBar != null) {
+        //        SupportActionBar.SetTitle (Resource.String.app_name);
+        //    }
+
+
+        //    drawerLayout.CloseDrawer (GravityCompat.Start);
+
+        //}
+
+        //public override void OnBackPressed ()
+        //{
+
+        //    if (drawerLayout.IsDrawerOpen (GravityCompat.Start)) {
+        //        drawerLayout.CloseDrawer (GravityCompat.Start);
+        //    }
+        //    if (!) {
+
+        //        displayView (Resource.Id.main_content);
+        //    } else {
+
+        //        MoveTaskToBack (true);
+        //    }
+        //    base.OnBackPressed ();
+        //}
 
 
         public override bool OnOptionsItemSelected (Android.Views.IMenuItem item)
@@ -92,41 +151,55 @@ namespace debtsTracker
 
         }
 
-
-
-        List<Debt> GetItems ()
+        public void OnBackStackChanged ()
         {
-            var result = new List<Debt> () {
+            if (SupportFragmentManager.BackStackEntryCount > 0)
+                SetDrawerState (false);
+            else
 
-                new Debt { Name = "Anna",
-                    Transactions = new List<Transaction> {
-                        new Transaction { Value = 1100, Date = DateTime.Now, Comment="Какой-то коммент"},
-                        new Transaction { Value = -300, Date = DateTime.Now, Comment=""},
-                        new Transaction { Value = 350, Date = DateTime.Now, Comment="Какой-то очень длинный супер пупер бубу сися пися коммент" },
-                        new Transaction { Value = 350, Date = DateTime.Now, Comment="Какой-то очень длинный супер пупер бубу сися пися коммент" },
-                        new Transaction { Value = 350, Date = DateTime.Now, Comment="Какой-то очень длинный супер пупер бубу сися пися коммент" },
-                        new Transaction { Value = 350, Date = DateTime.Now, Comment="Какой-то очень длинный супер пупер бубу сися пися коммент" },
-                        new Transaction { Value = 350, Date = DateTime.Now, Comment="Какой-то очень длинный супер пупер бубу сися пися коммент" },
-                        new Transaction { Value = 350, Date = DateTime.Now, Comment="Какой-то очень длинный супер пупер бубу сися пися коммент" },
-                        new Transaction { Value = 350, Date = DateTime.Now, Comment="Какой-то очень длинный супер пупер бубу сися пися коммент" },
-                        new Transaction { Value = 350, Date = DateTime.Now, Comment="Какой-то очень длинный супер пупер бубу сися пися коммент" },
-                        new Transaction { Value = 350, Date = DateTime.Now, Comment="Какой-то очень длинный супер пупер бубу сися пися коммент" },
-                        new Transaction { Value = 350, Date = DateTime.Now, Comment="Какой-то очень длинный супер пупер бубу сися пися коммент" },
-                        new Transaction { Value = 350, Date = DateTime.Now, Comment="Какой-то очень длинный супер пупер бубу сися пися коммент" },
-                        new Transaction { Value = 350, Date = DateTime.Now, Comment="Какой-то очень длинный супер пупер бубу сися пися коммент" },
-                        new Transaction { Value = 350, Date = DateTime.Now, Comment="Какой-то очень длинный супер пупер бубу сися пися коммент" },
-                        new Transaction { Value = 350, Date = DateTime.Now, Comment="Какой-то очень длинный супер пупер бубу сися пися коммент" }
-                    }
-                },
-                new Debt { Name = "Michael",
-                    Transactions = new List<Transaction> {
-                        new Transaction { Value = 2000, Date = DateTime.Now},
-                        new Transaction { Value = 150, Date = DateTime.Now}
-                    }
-                }
-            };
+                SetDrawerState (true);
+        }
 
-            return result;
+        public void SetDrawerState (bool isEnabled)
+        {
+            if (isEnabled) {
+                drawerLayout.SetDrawerLockMode (DrawerLayout.LockModeUnlocked);
+                drawerToggle.OnDrawerStateChanged (DrawerLayout.LockModeUnlocked);
+                drawerToggle.DrawerIndicatorEnabled = true;
+                drawerToggle.SyncState ();
+
+            } else {
+                drawerLayout.SetDrawerLockMode (DrawerLayout.LockModeLockedClosed);
+                drawerToggle.OnDrawerStateChanged (DrawerLayout.LockModeLockedClosed);
+                drawerToggle.DrawerIndicatorEnabled = false;
+                drawerToggle.SyncState ();
+            }
+        }
+
+        public void OnClick (View v)
+        {
+            OnBackPressed ();
+        }
+
+        public override void OnBackPressed ()
+        {
+            ToggleSoftInputCustom ();
+            if (_navigationService.BackStackCount > 0) {
+                _navigationService.GoBack ();
+            }
+            else
+                base.OnBackPressed ();
+        }
+
+        private void ToggleSoftInputCustom ()
+        {
+            Rect rect = new Rect ();
+            this.Window.DecorView.GetWindowVisibleDisplayFrame (rect);
+            var imm = (InputMethodManager)this.GetSystemService (Context.InputMethodService);
+            var currentHeight = rect.Height ();
+            var statusBarHeight = rect.Top;
+            var screenHeight = Resources.DisplayMetrics.HeightPixels - statusBarHeight;
+            if (currentHeight < screenHeight) imm.ToggleSoftInput (ShowFlags.Forced, 0);
         }
 
     }

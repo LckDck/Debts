@@ -84,13 +84,16 @@ namespace debtsTracker.Utilities
 						//.SetCustomAnimations (Resource.Animation.anim_slide_in_right, Resource.Animation.anim_slide_out_right)
 						.Replace (container, fragment, page.ToString ());
 
-					if (!pagesByKey [page].IsRoot) {
+					if (!pagesByKey[page].IsRoot)
+                    {
 
-						transaction.AddToBackStack (page.ToString ());
-					} else if (pageStack.Count > 0) {
-						pageStack.Clear ();
-						fragmentManager.PopBackStackImmediate (null, FragmentManager.PopBackStackInclusive);
-					}
+                        transaction.AddToBackStack(page.ToString());
+                    }
+                    else if (pageStack.Count > 0)
+                    {
+                        pageStack.Clear();
+                        fragmentManager.PopBackStackImmediate(null, FragmentManager.PopBackStackInclusive);
+                    }
 
 					transaction.CommitAllowingStateLoss ();
 					pageStack.Push (page);

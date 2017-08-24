@@ -2257,49 +2257,46 @@ namespace debtsTracker
 			public const int ic_add_white_24dp = 2130837599;
 			
 			// aapt resource value: 0x7f020060
-			public const int ic_menu_black_24dp = 2130837600;
+			public const int ic_remove_black_24dp = 2130837600;
 			
 			// aapt resource value: 0x7f020061
-			public const int ic_remove_black_24dp = 2130837601;
+			public const int navigation_empty_icon = 2130837601;
 			
 			// aapt resource value: 0x7f020062
-			public const int navigation_empty_icon = 2130837602;
+			public const int notification_action_background = 2130837602;
 			
 			// aapt resource value: 0x7f020063
-			public const int notification_action_background = 2130837603;
+			public const int notification_bg = 2130837603;
 			
 			// aapt resource value: 0x7f020064
-			public const int notification_bg = 2130837604;
+			public const int notification_bg_low = 2130837604;
 			
 			// aapt resource value: 0x7f020065
-			public const int notification_bg_low = 2130837605;
+			public const int notification_bg_low_normal = 2130837605;
 			
 			// aapt resource value: 0x7f020066
-			public const int notification_bg_low_normal = 2130837606;
+			public const int notification_bg_low_pressed = 2130837606;
 			
 			// aapt resource value: 0x7f020067
-			public const int notification_bg_low_pressed = 2130837607;
+			public const int notification_bg_normal = 2130837607;
 			
 			// aapt resource value: 0x7f020068
-			public const int notification_bg_normal = 2130837608;
+			public const int notification_bg_normal_pressed = 2130837608;
 			
 			// aapt resource value: 0x7f020069
-			public const int notification_bg_normal_pressed = 2130837609;
-			
-			// aapt resource value: 0x7f02006a
-			public const int notification_icon_background = 2130837610;
-			
-			// aapt resource value: 0x7f02006d
-			public const int notification_template_icon_bg = 2130837613;
-			
-			// aapt resource value: 0x7f02006e
-			public const int notification_template_icon_low_bg = 2130837614;
-			
-			// aapt resource value: 0x7f02006b
-			public const int notification_tile_bg = 2130837611;
+			public const int notification_icon_background = 2130837609;
 			
 			// aapt resource value: 0x7f02006c
-			public const int notify_panel_notification_icon_bg = 2130837612;
+			public const int notification_template_icon_bg = 2130837612;
+			
+			// aapt resource value: 0x7f02006d
+			public const int notification_template_icon_low_bg = 2130837613;
+			
+			// aapt resource value: 0x7f02006a
+			public const int notification_tile_bg = 2130837610;
+			
+			// aapt resource value: 0x7f02006b
+			public const int notify_panel_notification_icon_bg = 2130837611;
 			
 			static Drawable()
 			{
@@ -2388,6 +2385,9 @@ namespace debtsTracker
 			
 			// aapt resource value: 0x7f0b0076
 			public const int amount = 2131427446;
+			
+			// aapt resource value: 0x7f0b008d
+			public const int app_bar_layout = 2131427469;
 			
 			// aapt resource value: 0x7f0b0014
 			public const int auto = 2131427348;
@@ -2509,8 +2509,8 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b005a
 			public const int expanded_menu = 2131427418;
 			
-			// aapt resource value: 0x7f0b008f
-			public const int fab = 2131427471;
+			// aapt resource value: 0x7f0b00a8
+			public const int fab = 2131427496;
 			
 			// aapt resource value: 0x7f0b0024
 			public const int fill = 2131427364;
@@ -2569,11 +2569,11 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b0048
 			public const int list_item = 2131427400;
 			
-			// aapt resource value: 0x7f0b008e
-			public const int main_content = 2131427470;
+			// aapt resource value: 0x7f0b008f
+			public const int main_content = 2131427471;
 			
-			// aapt resource value: 0x7f0b00a9
-			public const int masked = 2131427497;
+			// aapt resource value: 0x7f0b00aa
+			public const int masked = 2131427498;
 			
 			// aapt resource value: 0x7f0b0097
 			public const int media_actions = 2131427479;
@@ -2596,17 +2596,17 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b0073
 			public const int name_container = 2131427443;
 			
+			// aapt resource value: 0x7f0b00ae
+			public const int nav_discussion = 2131427502;
+			
 			// aapt resource value: 0x7f0b00ad
-			public const int nav_discussion = 2131427501;
-			
-			// aapt resource value: 0x7f0b00ac
-			public const int nav_friends = 2131427500;
-			
-			// aapt resource value: 0x7f0b00aa
-			public const int nav_home = 2131427498;
+			public const int nav_friends = 2131427501;
 			
 			// aapt resource value: 0x7f0b00ab
-			public const int nav_messages = 2131427499;
+			public const int nav_home = 2131427499;
+			
+			// aapt resource value: 0x7f0b00ac
+			public const int nav_messages = 2131427500;
 			
 			// aapt resource value: 0x7f0b0090
 			public const int nav_view = 2131427472;
@@ -2800,8 +2800,8 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b0057
 			public const int title_template = 2131427415;
 			
-			// aapt resource value: 0x7f0b008d
-			public const int toolbar = 2131427469;
+			// aapt resource value: 0x7f0b008e
+			public const int toolbar = 2131427470;
 			
 			// aapt resource value: 0x7f0b001e
 			public const int top = 2131427358;
@@ -2827,8 +2827,8 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b0002
 			public const int view_offset_helper = 2131427330;
 			
-			// aapt resource value: 0x7f0b00a8
-			public const int visible = 2131427496;
+			// aapt resource value: 0x7f0b00a9
+			public const int visible = 2131427497;
 			
 			// aapt resource value: 0x7f0b0040
 			public const int withText = 2131427392;
@@ -3085,7 +3085,10 @@ namespace debtsTracker
 			public const int select_dialog_singlechoice_material = 2130968640;
 			
 			// aapt resource value: 0x7f040041
-			public const int support_simple_spinner_dropdown_item = 2130968641;
+			public const int start_layout = 2130968641;
+			
+			// aapt resource value: 0x7f040042
+			public const int support_simple_spinner_dropdown_item = 2130968642;
 			
 			static Layout()
 			{

@@ -135,6 +135,8 @@
     <Compile Include="ViewModels\BaseVM.cs" />
     <Compile Include="ViewModels\HistoryViewModel.cs" />
     <Compile Include="Fragments\HistoryFragment.cs" />
+    <Compile Include="Fragments\MainFragment.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -177,12 +179,8 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_account_plus_black_24dp.png" />
     <AndroidResource Include="Resources\layout\history.axml" />
     <AndroidResource Include="Resources\menu\nav_menu.axml" />
-    <AndroidResource Include="Resources\drawable-hdpi\ic_menu_black_24dp.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\ic_menu_black_24dp.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_menu_black_24dp.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_menu_black_24dp.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_menu_black_24dp.png" />
     <AndroidResource Include="Resources\layout\drawer_header.axml" />
+    <AndroidResource Include="Resources\layout\start_layout.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
