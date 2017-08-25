@@ -10,7 +10,7 @@ namespace debtsTracker
         public static string DatePattern = "ddd dd MMMM yy";
         public static string GetValueWithPrefix (int value)
         {
-            return value >= 0 ? "+" + value : value.ToString ();
+            return value.ToString ();
         }
 
         public static Color Green => GetColorFromResource (Resource.Color.accent);

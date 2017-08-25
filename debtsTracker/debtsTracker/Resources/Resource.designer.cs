@@ -3781,6 +3781,9 @@ namespace debtsTracker
 			// aapt resource value: 0x7f07001e
 			public const int CardView_Light = 2131165214;
 			
+			// aapt resource value: 0x7f070180
+			public const int DrawerArrowStyle = 2131165568;
+			
 			// aapt resource value: 0x7f07017e
 			public const int MyTheme = 2131165566;
 			

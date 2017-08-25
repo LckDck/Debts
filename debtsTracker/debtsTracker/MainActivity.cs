@@ -21,6 +21,7 @@ using Android.Support.V4.View;
 using debtsTracker.ViewModels;
 using Android.Views.InputMethods;
 using Android.Content;
+using Android.Animation;
 
 namespace debtsTracker
 {
@@ -81,63 +82,7 @@ namespace debtsTracker
 
         }
 
-        //bool ViewIsAtHome;
-        //public void displayView (int viewId)
-        //{
 
-        //    BaseFragment fragment = null;
-
-        //    switch (viewId) {
-        //    case Resource.Layout.add_transaction:
-        //        fragment = new AddPageFragment ();
-        //        //title = "Add debt";
-        //        ViewIsAtHome = false;
-        //        break;
-        //    case Resource.Layout.history:
-        //        fragment = new HistoryFragment ();
-        //        //title = "History";
-        //        ViewIsAtHome = false;
-        //        break;
-
-        //    case Resource.Id.main_content:
-        //        fragment = new HistoryFragment ();
-        //        //title = "History";
-        //        ViewIsAtHome = true;
-        //        break;
-
-        //    }
-
-        //    if (fragment != null) {
-        //        var ft = SupportFragmentManager.BeginTransaction ();
-        //        ft.Replace (Resource.Id.main_content, fragment);
-        //        ft.Commit ();
-        //    }
-
-        //    // set the toolbar title
-        //    if (SupportActionBar != null) {
-        //        SupportActionBar.SetTitle (Resource.String.app_name);
-        //    }
-
-
-        //    drawerLayout.CloseDrawer (GravityCompat.Start);
-
-        //}
-
-        //public override void OnBackPressed ()
-        //{
-
-        //    if (drawerLayout.IsDrawerOpen (GravityCompat.Start)) {
-        //        drawerLayout.CloseDrawer (GravityCompat.Start);
-        //    }
-        //    if (!) {
-
-        //        displayView (Resource.Id.main_content);
-        //    } else {
-
-        //        MoveTaskToBack (true);
-        //    }
-        //    base.OnBackPressed ();
-        //}
 
 
         public override bool OnOptionsItemSelected (Android.Views.IMenuItem item)
@@ -153,11 +98,16 @@ namespace debtsTracker
 
         public void OnBackStackChanged ()
         {
-            if (SupportFragmentManager.BackStackEntryCount > 0)
+            if (SupportFragmentManager.BackStackEntryCount > 0) {
                 SetDrawerState (false);
-            else
+                //to revert, comment
+                ObjectAnimator.OfFloat (drawerToggle.DrawerArrowDrawable, "progress", 1).Start ();
+            } else {
 
                 SetDrawerState (true);
+                //to revert, comment
+                ObjectAnimator.OfFloat (drawerToggle.DrawerArrowDrawable, "progress", 0).Start ();
+            }
         }
 
         public void SetDrawerState (bool isEnabled)
@@ -165,14 +115,16 @@ namespace debtsTracker
             if (isEnabled) {
                 drawerLayout.SetDrawerLockMode (DrawerLayout.LockModeUnlocked);
                 drawerToggle.OnDrawerStateChanged (DrawerLayout.LockModeUnlocked);
-                drawerToggle.DrawerIndicatorEnabled = true;
-                drawerToggle.SyncState ();
+                //to revert, uncomment
+                //drawerToggle.DrawerIndicatorEnabled = true;
+                //drawerToggle.SyncState ();
 
             } else {
                 drawerLayout.SetDrawerLockMode (DrawerLayout.LockModeLockedClosed);
                 drawerToggle.OnDrawerStateChanged (DrawerLayout.LockModeLockedClosed);
-                drawerToggle.DrawerIndicatorEnabled = false;
-                drawerToggle.SyncState ();
+                //to revert, uncomment
+                //drawerToggle.DrawerIndicatorEnabled = false;
+                //drawerToggle.SyncState ();
             }
         }
 

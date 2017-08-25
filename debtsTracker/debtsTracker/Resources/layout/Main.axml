@@ -20,7 +20,7 @@
                 android:background="?attr/colorAccent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+                android:theme="@style/MyTheme" />
         </android.support.design.widget.AppBarLayout>
     <!--<android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
