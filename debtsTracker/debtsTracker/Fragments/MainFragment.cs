@@ -13,6 +13,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using debtsTracker.Adapters;
+using debtsTracker.Entities;
 using debtsTracker.Utilities;
 using debtsTracker.ViewModels;
 using Microsoft.Practices.ServiceLocation;
@@ -32,6 +33,9 @@ namespace debtsTracker.Fragments
 
         IExtendedNavigationService _navigationService;
 
+
+        List<Debt> _items;
+
         public override Android.Views.View OnCreateView (Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container, Android.OS.Bundle savedInstanceState)
         {
             var view = inflater.Inflate (Resource.Layout.start_layout, container, false);
@@ -41,11 +45,13 @@ namespace debtsTracker.Fragments
             var linearLayoutManager = new LinearLayoutManager (CrossCurrentActivity.Current.Activity);
 
             listView.SetLayoutManager (linearLayoutManager);
-            var items = Vm.GetItems ();
-            var adapter = new DebtsAdapter (items);
+            _items = Vm.GetItems ();
+            var adapter = new DebtsAdapter (_items);
+            adapter.ItemClick += OnItemClick;
             //var items = GetItems () [0].Transactions;
             //var adapter = new TransactionsAdapter (items);
             listView.SetAdapter (adapter);
+           
             var fab = view.FindViewById<com.refractored.fab.FloatingActionButton> (Resource.Id.fab);
             fab.AttachToRecyclerView (listView);
 
@@ -56,6 +62,11 @@ namespace debtsTracker.Fragments
             };
 
             return view;
+        }
+
+        void OnItemClick (object sender, int e)
+        {
+            Vm.ShowDetails (_items[e]);
         }
 
         void ChangeText (object sender, DatePickerDialog.DateSetEventArgs e)

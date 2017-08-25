@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using debtsTracker.Entities;
+using debtsTracker.Utilities;
 
 namespace debtsTracker.ViewModels
 {
@@ -10,7 +11,11 @@ namespace debtsTracker.ViewModels
         {
         }
 
-        public List<Debt> GetItems ()
+        public void ShowDetails (Debt debt) {
+            NavigationService.NavigateTo (Page.HistoryPage, debt);
+        }
+
+		public List<Debt> GetItems ()
         {
             var result = new List<Debt> () {
 

@@ -1,19 +1,22 @@
 ﻿using System;
+using debtsTracker.Entities;
 using debtsTracker.ViewModels;
+using Microsoft.Practices.ServiceLocation;
 
 namespace debtsTracker.Fragments
 {
     public class HistoryFragment : BaseFragment
     {
-        public HistoryViewModel Vm { get; private set; }
+        HistoryViewModel vm;
+        public HistoryViewModel Vm => vm ?? (vm = ServiceLocator.Current.GetInstance<HistoryViewModel> ());
 
-        public HistoryFragment ()
-        {
-        }
+        private Debt _debt;
 
-        public HistoryFragment (HistoryViewModel vm)
+
+
+        public HistoryFragment (Debt debt)
         {
-            Vm = vm;
+            _debt = debt;
         }
 
         public override Android.Views.View OnCreateView (Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container, Android.OS.Bundle savedInstanceState)

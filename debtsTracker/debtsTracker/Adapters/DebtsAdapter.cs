@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Views;
 using debtsTracker.Entities;
@@ -9,6 +10,8 @@ namespace debtsTracker.Adapters
     public class DebtsAdapter : RecyclerView.Adapter
     {
         List<Debt> _items;
+        public event EventHandler<int> ItemClick;
+
         public DebtsAdapter (List<Debt> items) {
             _items = items;
         }
@@ -26,13 +29,20 @@ namespace debtsTracker.Adapters
             mholder.ValueTextView.SetText(_items[position].Value, Android.Widget.TextView.BufferType.Normal);
         }
 
+      
         public override RecyclerView.ViewHolder OnCreateViewHolder (ViewGroup parent, int viewType)
         {
             
             var itemView = LayoutInflater.From (parent.Context).Inflate (Resource.Layout.debt_item, parent, false);
-            var vh = new ViewHolder (itemView);
+            var vh = new ViewHolder (itemView, OnClick);
             return vh;
-          
+        }
+
+        public void OnClick (int position)
+        {
+            if (ItemClick != null) {
+                ItemClick (this, position);
+            }
         }
     }
 
