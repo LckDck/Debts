@@ -11,11 +11,12 @@ namespace debtsTracker.ViewModels
         {
         }
 
-        public void ShowDetails (Debt debt) {
+        public void ShowDetails (Debt debt)
+        {
             NavigationService.NavigateTo (Page.HistoryPage, debt);
         }
 
-		public List<Debt> GetItems ()
+        public List<Debt> GetItems ()
         {
             var result = new List<Debt> () {
 
@@ -48,6 +49,11 @@ namespace debtsTracker.ViewModels
             };
 
             return result;
+        }
+
+        internal void AddPage ()
+        {
+            NavigationService.NavigateTo (Page.AddPage);
         }
     }
 }

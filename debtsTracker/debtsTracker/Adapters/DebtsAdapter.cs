@@ -7,10 +7,10 @@ using debtsTracker.Entities;
 
 namespace debtsTracker.Adapters
 {
-    public class DebtsAdapter : RecyclerView.Adapter
+    public class DebtsAdapter : BaseAdapter
     {
         List<Debt> _items;
-        public event EventHandler<int> ItemClick;
+
 
         public DebtsAdapter (List<Debt> items) {
             _items = items;
@@ -38,12 +38,7 @@ namespace debtsTracker.Adapters
             return vh;
         }
 
-        public void OnClick (int position)
-        {
-            if (ItemClick != null) {
-                ItemClick (this, position);
-            }
-        }
+
     }
 
 }

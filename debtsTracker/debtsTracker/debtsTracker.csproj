@@ -137,6 +137,7 @@
     <Compile Include="Fragments\HistoryFragment.cs" />
     <Compile Include="Fragments\MainFragment.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Adapters\BaseAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

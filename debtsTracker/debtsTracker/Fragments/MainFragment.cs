@@ -31,9 +31,6 @@ namespace debtsTracker.Fragments
            
         }
 
-        IExtendedNavigationService _navigationService;
-
-
         List<Debt> _items;
 
         public override Android.Views.View OnCreateView (Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container, Android.OS.Bundle savedInstanceState)
@@ -55,10 +52,8 @@ namespace debtsTracker.Fragments
             var fab = view.FindViewById<com.refractored.fab.FloatingActionButton> (Resource.Id.fab);
             fab.AttachToRecyclerView (listView);
 
-            _navigationService = ServiceLocator.Current.GetInstance<IExtendedNavigationService> ();
             fab.Click += (sender, e) => {
-                _navigationService.NavigateTo (Page.AddPage);
-
+                Vm.AddPage ();
             };
 
             return view;

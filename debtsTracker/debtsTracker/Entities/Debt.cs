@@ -7,7 +7,7 @@ namespace debtsTracker.Entities
     public class Debt
     {
         public string Name { get; set;}
-        public List<Transaction> Transactions { get; set;}
+        public List<Transaction> Transactions { get; set; } = new List<Transaction> ();
 
         public string Value { 
             get {
