@@ -43,6 +43,15 @@ namespace debtsTracker
             // Set our view from the "main" layout resource
             SetContentView (Resource.Layout.Main);
             var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar> (Resource.Id.toolbar);
+
+            drawerLayout = FindViewById<DrawerLayout> (Resource.Id.drawer_layout);
+            drawerToggle = new ActionBarDrawerToggle (this, drawerLayout, toolbar, Resource.String.app_name, Resource.String.app_name);
+            drawerLayout.AddDrawerListener (drawerToggle);
+            drawerLayout.DrawerClosed += OnDrawerClosedTask;
+            drawerToggle.SyncState ();
+            drawerToggle.DrawerSlideAnimationEnabled = false;
+
+            drawerToggle.ToolbarNavigationClickListener = this;
             SetSupportActionBar (toolbar);
             toolbar.SetTitleTextColor (Utils.GetColorFromResource (Resource.Color.primary_dark));
 
@@ -50,7 +59,7 @@ namespace debtsTracker
             SupportActionBar.SetDisplayHomeAsUpEnabled (true);
             SupportActionBar.SetDisplayShowHomeEnabled (true);
 
-            drawerLayout = FindViewById<DrawerLayout> (Resource.Id.drawer_layout);
+
             navigationView = FindViewById<NavigationView> (Resource.Id.nav_view);
 
             navigationView.NavigationItemSelected += (sender, e) => {
@@ -63,19 +72,17 @@ namespace debtsTracker
                 window.AddFlags (WindowManagerFlags.TranslucentStatus);
             }
 
-            drawerToggle = new ActionBarDrawerToggle (this, drawerLayout, toolbar, Resource.String.app_name, Resource.String.app_name);
-            drawerLayout.AddDrawerListener (drawerToggle);
-            drawerLayout.DrawerClosed += OnDrawerClosedTask;
-            drawerToggle.ToolbarNavigationClickListener = this;
-            drawerToggle.SyncState ();
+
 
             SupportFragmentManager.AddOnBackStackChangedListener (this);
 
             //SetContentView (Resource.Layout.history);
-            _navigationService = ServiceLocator.Current.GetInstance<IExtendedNavigationService>();
+            _navigationService = ServiceLocator.Current.GetInstance<IExtendedNavigationService> ();
             _navigationService.NavigateTo (Page.MainPage);
 
         }
+
+
 
         void OnDrawerClosedTask (object sender, DrawerLayout.DrawerClosedEventArgs e)
         {
@@ -87,13 +94,16 @@ namespace debtsTracker
 
         public override bool OnOptionsItemSelected (Android.Views.IMenuItem item)
         {
-            if (drawerLayout.IsDrawerOpen (GravityCompat.Start)) {
-                drawerLayout.CloseDrawers ();
+            if (SupportFragmentManager.BackStackEntryCount > 0) {
+                OnBackPressed ();
             } else {
-                drawerLayout.OpenDrawer (GravityCompat.Start);
+                if (drawerLayout.IsDrawerOpen (GravityCompat.Start)) {
+                    drawerLayout.CloseDrawers ();
+                } else {
+                    drawerLayout.OpenDrawer (GravityCompat.Start);
+                }
             }
             return true;
-
         }
 
         public void OnBackStackChanged ()
@@ -114,17 +124,8 @@ namespace debtsTracker
         {
             if (isEnabled) {
                 drawerLayout.SetDrawerLockMode (DrawerLayout.LockModeUnlocked);
-                drawerToggle.OnDrawerStateChanged (DrawerLayout.LockModeUnlocked);
-                //to revert, uncomment
-                //drawerToggle.DrawerIndicatorEnabled = true;
-                //drawerToggle.SyncState ();
-
             } else {
                 drawerLayout.SetDrawerLockMode (DrawerLayout.LockModeLockedClosed);
-                drawerToggle.OnDrawerStateChanged (DrawerLayout.LockModeLockedClosed);
-                //to revert, uncomment
-                //drawerToggle.DrawerIndicatorEnabled = false;
-                //drawerToggle.SyncState ();
             }
         }
 
@@ -138,8 +139,7 @@ namespace debtsTracker
             ToggleSoftInputCustom ();
             if (_navigationService.BackStackCount > 0) {
                 _navigationService.GoBack ();
-            }
-            else
+            } else
                 base.OnBackPressed ();
         }
 
