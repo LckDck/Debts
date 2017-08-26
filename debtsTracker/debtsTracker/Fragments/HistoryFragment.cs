@@ -33,6 +33,13 @@ namespace debtsTracker.Fragments
 
             listView.SetAdapter (adapter);
 
+            var fab = view.FindViewById<com.refractored.fab.FloatingActionButton> (Resource.Id.fab);
+            fab.AttachToRecyclerView (listView);
+
+            fab.Click += (sender, e) => {
+                Vm.AddPage ();
+            };
+
 
             return view;
         }

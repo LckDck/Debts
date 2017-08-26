@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using debtsTracker.Entities;
+using debtsTracker.Utilities;
 
 namespace debtsTracker.ViewModels
 {
@@ -14,6 +15,11 @@ namespace debtsTracker.ViewModels
         internal List<Transaction> GetItems ()
         {
             return Debt.Transactions;
+        }
+
+        internal void AddPage ()
+        {
+            NavigationService.NavigateTo (Page.AddPage);
         }
     }
 }
