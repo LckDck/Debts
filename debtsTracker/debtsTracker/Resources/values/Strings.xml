@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, Click Me!</string>
     <string name="app_name">DebtsTracker</string>
     <string name="comment">Comment</string>
     <string name="name">Name</string>
     <string name="amount">Amount</string>
+    <string name="my_debts">My debts</string>
+    <string name="debts_to_me">Debts to me</string>
 </resources>

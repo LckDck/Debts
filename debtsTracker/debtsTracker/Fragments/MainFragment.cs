@@ -1,67 +1,74 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿using System;
 using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
+using Android.Support.Design.Widget;
+using Android.Support.V4.View;
 using Android.Support.V7.Widget;
-using Android.Util;
 using Android.Views;
-using Android.Widget;
 using debtsTracker.Adapters;
-using debtsTracker.Entities;
-using debtsTracker.Utilities;
 using debtsTracker.ViewModels;
 using Microsoft.Practices.ServiceLocation;
-using Plugin.CurrentActivity;
 
 namespace debtsTracker.Fragments
 {
     public class MainFragment : BaseFragment
     {
         MainViewModel vm;
-        public MainViewModel Vm => vm ?? (vm = ServiceLocator.Current.GetInstance<MainViewModel>());
+        public MainViewModel Vm => vm ?? (vm = ServiceLocator.Current.GetInstance<MainViewModel> ());
 
         public MainFragment ()
         {
-           
+
         }
 
-        List<Debt> _items;
+        com.refractored.fab.FloatingActionButton _fab;
+
+        ViewPager _pager;
 
         public override Android.Views.View OnCreateView (Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container, Android.OS.Bundle savedInstanceState)
         {
             var view = inflater.Inflate (Resource.Layout.start_layout, container, false);
-            var listView = view.FindViewById<RecyclerView> (Resource.Id.list);
+            var tabs = (TabLayout)view.FindViewById (Resource.Id.tabs);
+            _pager = (ViewPager)view.FindViewById (Resource.Id.pager);
+            Java.Lang.String [] tabNames =
+            {
+                new Java.Lang.String(Context.Resources.GetString(Resource.String.my_debts)),
+                new Java.Lang.String(Context.Resources.GetString(Resource.String.debts_to_me)),
+            };
 
 
-            var linearLayoutManager = new LinearLayoutManager (CrossCurrentActivity.Current.Activity);
+            _pager.Adapter = new OwnerAdapter (ChildFragmentManager, tabNames);
+            tabs.SetupWithViewPager (_pager);
+            _pager.PageSelected += OnPageSelected;
+            _pager.LayoutChange += OnLayoutChange;
 
-            listView.SetLayoutManager (linearLayoutManager);
-            _items = Vm.GetItems ();
-            var adapter = new DebtsAdapter (_items);
-            adapter.ItemClick += OnItemClick;
-            //var items = GetItems () [0].Transactions;
-            //var adapter = new TransactionsAdapter (items);
-            listView.SetAdapter (adapter);
-           
-            var fab = view.FindViewById<com.refractored.fab.FloatingActionButton> (Resource.Id.fab);
-            fab.AttachToRecyclerView (listView);
+            _fab = view.FindViewById<com.refractored.fab.FloatingActionButton> (Resource.Id.fab);
 
-            fab.Click += (sender, e) => {
+            _fab.Click += (sender, e) => {
                 Vm.AddPage ();
             };
 
             return view;
         }
 
-        void OnItemClick (object sender, int e)
+        void OnPageSelected (object sender, ViewPager.PageSelectedEventArgs e)
         {
-            Vm.ShowDetails (_items[e]);
+            AttachFab ();
+        }
+
+        void OnLayoutChange (object sender, View.LayoutChangeEventArgs e)
+        {
+            AttachFab ();
+        }
+
+
+        void AttachFab ()
+        {
+            ListTabFragment page = (ListTabFragment)_pager.Adapter.InstantiateItem (_pager, _pager.CurrentItem);
+            if (page != null && page.List != null) {
+                System.Diagnostics.Debug.WriteLine (_pager.CurrentItem);
+                _fab.Show ();
+                _fab.AttachToRecyclerView (page.List);
+            }
         }
 
         void ChangeText (object sender, DatePickerDialog.DateSetEventArgs e)

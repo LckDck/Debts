@@ -138,6 +138,8 @@
     <Compile Include="Fragments\MainFragment.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Adapters\BaseAdapter.cs" />
+    <Compile Include="Adapters\OwnerAdapter.cs" />
+    <Compile Include="Fragments\ListTabFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -184,6 +186,7 @@
     <AndroidResource Include="Resources\layout\start_layout.axml" />
     <AndroidResource Include="Resources\anim\anim_slide_in_right.axml" />
     <AndroidResource Include="Resources\anim\anim_slide_out_right.axml" />
+    <AndroidResource Include="Resources\layout\debts_list.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

@@ -31,8 +31,8 @@ namespace debtsTracker
         IExtendedNavigationService _navigationService;
         DrawerLayout drawerLayout;
         NavigationView navigationView;
-        private MainViewModel vm;
-        public MainViewModel Vm => vm ?? (vm = ServiceLocator.Current.GetInstance<MainViewModel> ());
+        private BaseVm vm;
+        public BaseVm Vm => vm ?? (vm = ServiceLocator.Current.GetInstance<BaseVm> ());
 
         ActionBarDrawerToggle drawerToggle;
 
@@ -53,8 +53,6 @@ namespace debtsTracker
 
             drawerToggle.ToolbarNavigationClickListener = this;
             SetSupportActionBar (toolbar);
-            toolbar.SetTitleTextColor (Utils.GetColorFromResource (Resource.Color.primary_dark));
-
             //Enable support action bar to display hamburger
             SupportActionBar.SetDisplayHomeAsUpEnabled (true);
             SupportActionBar.SetDisplayShowHomeEnabled (true);
