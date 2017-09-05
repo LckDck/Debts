@@ -1,42 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
-    <RelativeLayout
-        android:background="@color/ripple"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/name_container">
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:id="@+id/contacts_button"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/ic_account_plus_black_24dp"
-            android:background="@null"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp" />
-        <EditText
-            android:hint="@string/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/name"
-            android:textSize="22sp"
-            android:background="@null"
-            android:gravity="left"
-            android:layout_toLeftOf="@id/contacts_button"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:singleLine="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="5dp" />
-    </RelativeLayout>
+        android:background="@color/ripple"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:tabIndicatorHeight="4dp"
+        app:tabTextColor="@color/light_gray"
+        app:tabSelectedTextColor="@color/accent"
+        app:tabIndicatorColor="@color/accent"
+        app:tabMode="fixed"
+        app:tabGravity="fill" />
+    <android.support.v4.view.ViewPager xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+    <EditText
+        android:hint="@string/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/name"
+        android:textSize="22sp"
+        android:background="@null"
+        android:singleLine="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="5dp" />
     <EditText
         android:hint="0"
         android:layout_width="match_parent"
@@ -47,7 +43,6 @@
         android:textSize="36sp"
         android:background="@null"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/name_container"
         android:gravity="center_horizontal"
         android:singleLine="true"
         android:inputType="numberSigned"
@@ -64,7 +59,6 @@
         android:textSize="16sp"
         android:background="@null"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/amount"
         android:gravity="center_horizontal"
         android:singleLine="true"
         android:textColor="@color/primary_dark"
@@ -80,7 +74,6 @@
         android:textSize="16sp"
         android:background="@null"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/comment"
         android:gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="16dp"
@@ -88,4 +81,4 @@
         android:layout_marginBottom="16dp"
         android:textColor="@color/primary_dark"
         android:focusable="false" />
-</RelativeLayout>
+</LinearLayout>

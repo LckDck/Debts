@@ -81,7 +81,7 @@ namespace debtsTracker.Utilities
 
 					var transaction = fragmentManager
 						.BeginTransaction ()
-						//.SetCustomAnimations (Resource.Animation.anim_slide_in_right, Resource.Animation.anim_slide_out_right)
+						.SetCustomAnimations (Resource.Animation.anim_slide_in_right, Resource.Animation.anim_slide_out_right)
 						.Replace (container, fragment, page.ToString ());
 
 					if (!pagesByKey[page].IsRoot)

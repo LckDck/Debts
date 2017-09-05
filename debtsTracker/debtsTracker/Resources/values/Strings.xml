@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DebtsTracker</string>
+    <string name="app_name">EasyDebts</string>
     <string name="comment">Comment</string>
     <string name="name">Name</string>
     <string name="amount">Amount</string>
     <string name="my_debts">My debts</string>
     <string name="debts_to_me">Debts to me</string>
+    <string name="add_debt">Add debt</string>
 </resources>

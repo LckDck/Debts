@@ -65,7 +65,6 @@ namespace debtsTracker.Fragments
         {
             ListTabFragment page = (ListTabFragment)_pager.Adapter.InstantiateItem (_pager, _pager.CurrentItem);
             if (page != null && page.List != null) {
-                System.Diagnostics.Debug.WriteLine (_pager.CurrentItem);
                 _fab.Show ();
                 _fab.AttachToRecyclerView (page.List);
             }

@@ -6,31 +6,37 @@ using JavaString = Java.Lang.String;
 
 namespace debtsTracker.Adapters
 {
-	public class OwnerAdapter : FragmentPagerAdapter
-	{
-		private readonly JavaString [] tabsNames;
+    public class OwnerAdapter : FragmentPagerAdapter
+    {
+        private readonly JavaString [] tabsNames;
+        readonly bool empty;
 
-        public OwnerAdapter (FragmentManager fm, JavaString [] tabNames) : base (fm)
-		{
-			tabsNames = tabNames;
-		}
+        public OwnerAdapter (FragmentManager fm, JavaString [] tabNames, bool empty = false) : base (fm)
+        {
+            this.empty = empty;
+            tabsNames = tabNames;
+        }
 
-		public override int Count => tabsNames.Length;
+        Fragment EmptyFragment => new Fragment ();
 
-		public override Fragment GetItem (int position)
-		{
+        public override int Count => tabsNames.Length;
+
+        public override Fragment GetItem (int position)
+        {
+            if (empty) return EmptyFragment;
+
             if (position == 0) {
-				return new ListTabFragment (true);
-			} else {
-				return new ListTabFragment (false);
-			}
-		}
+                return new ListTabFragment (true);
+            } else {
+                return new ListTabFragment (false);
+            }
+        }
 
 
-		public override Java.Lang.ICharSequence GetPageTitleFormatted (int position)
-		{
-			return tabsNames [position % tabsNames.Length];
-		}
-	}
+        public override Java.Lang.ICharSequence GetPageTitleFormatted (int position)
+        {
+            return tabsNames [position % tabsNames.Length];
+        }
+    }
 }
 

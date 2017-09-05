@@ -22,11 +22,14 @@ using debtsTracker.ViewModels;
 using Android.Views.InputMethods;
 using Android.Content;
 using Android.Animation;
+using Android.Gms.Common.Apis;
+using Android.Gms.Drive;
+using Android.Gms.Common;
 
 namespace debtsTracker
 {
     [Activity (Label = "@string/app_name", MainLauncher = true, Icon = "@mipmap/icon")]
-    public class MainActivity : AppCompatActivity, Android.Support.V4.App.FragmentManager.IOnBackStackChangedListener, View.IOnClickListener
+    public class MainActivity : AppCompatActivity, Android.Support.V4.App.FragmentManager.IOnBackStackChangedListener, View.IOnClickListener, GoogleApiClient.IConnectionCallbacks, GoogleApiClient.IOnConnectionFailedListener
     {
         IExtendedNavigationService _navigationService;
         DrawerLayout drawerLayout;
@@ -35,6 +38,7 @@ namespace debtsTracker
         public BaseVm Vm => vm ?? (vm = ServiceLocator.Current.GetInstance<BaseVm> ());
 
         ActionBarDrawerToggle drawerToggle;
+        private GoogleApiClient _googleApiClient;
 
         protected override void OnCreate (Bundle savedInstanceState)
         {
@@ -43,6 +47,7 @@ namespace debtsTracker
             // Set our view from the "main" layout resource
             SetContentView (Resource.Layout.Main);
             var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar> (Resource.Id.toolbar);
+
 
             drawerLayout = FindViewById<DrawerLayout> (Resource.Id.drawer_layout);
             drawerToggle = new ActionBarDrawerToggle (this, drawerLayout, toolbar, Resource.String.app_name, Resource.String.app_name);
@@ -77,6 +82,15 @@ namespace debtsTracker
             //SetContentView (Resource.Layout.history);
             _navigationService = ServiceLocator.Current.GetInstance<IExtendedNavigationService> ();
             _navigationService.NavigateTo (Page.MainPage);
+
+
+      //      _googleApiClient = new GoogleApiClient.Builder(this)
+			   //.AddApi(DriveClass.API)
+			   //.AddScope(DriveClass.ScopeFile)
+			   //.AddScope(DriveClass.ScopeAppfolder)
+			   //.AddConnectionCallbacks(this)
+			   //.AddOnConnectionFailedListener(this)
+			   //.Build();
 
         }
 
@@ -152,6 +166,53 @@ namespace debtsTracker
             if (currentHeight < screenHeight) imm.ToggleSoftInput (ShowFlags.Forced, 0);
         }
 
+        public void OnConnectionFailed(ConnectionResult result)
+        {
+            if (result.HasResolution)
+			{
+				try
+				{
+                    result.StartResolutionForResult(this, 2);
+				}
+				catch (IntentSender.SendIntentException e)
+				{
+					// Unable to resolve, message user appropriately
+				}
+			}
+			else
+			{
+                GooglePlayServicesUtil.ShowErrorDialogFragment(result.ErrorCode, this, 0);
+			}
+        }
+
+        public void OnConnected(Bundle connectionHint)
+        {
+            System.Diagnostics.Debug.WriteLine("Google API connected!");
+        }
+
+        public void OnConnectionSuspended(int cause)
+        {
+			System.Diagnostics.Debug.WriteLine("Google API connection suspended");
+        }
+
+		protected override void OnStart()
+		{
+			base.OnStart();
+			//_googleApiClient.Connect();
+		}
+
+		protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+		{
+			base.OnActivityResult(requestCode, resultCode, data);
+
+			switch (requestCode)
+			{
+				case 101: // Something may have been resolved, try connecting again
+					if (resultCode == Result.Ok)
+						_googleApiClient.Connect();
+					break;
+			}
+		}
     }
 }
 
