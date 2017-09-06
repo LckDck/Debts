@@ -2749,17 +2749,14 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b0093
 			public const int name_container = 2131427475;
 			
-			// aapt resource value: 0x7f0b00b7
-			public const int nav_discussion = 2131427511;
-			
 			// aapt resource value: 0x7f0b00b6
-			public const int nav_friends = 2131427510;
+			public const int nav_backup = 2131427510;
 			
 			// aapt resource value: 0x7f0b00b4
-			public const int nav_home = 2131427508;
+			public const int nav_export = 2131427508;
 			
 			// aapt resource value: 0x7f0b00b5
-			public const int nav_messages = 2131427509;
+			public const int nav_import = 2131427509;
 			
 			// aapt resource value: 0x7f0b009a
 			public const int nav_view = 2131427482;
@@ -3411,6 +3408,9 @@ namespace debtsTracker
 			// aapt resource value: 0x7f080032
 			public const int appbar_scrolling_view_behavior = 2131230770;
 			
+			// aapt resource value: 0x7f080043
+			public const int backup = 2131230787;
+			
 			// aapt resource value: 0x7f080033
 			public const int bottom_sheet_behavior = 2131230771;
 			
@@ -3474,11 +3474,23 @@ namespace debtsTracker
 			// aapt resource value: 0x7f08003f
 			public const int debts_to_me = 2131230783;
 			
+			// aapt resource value: 0x7f080041
+			public const int export = 2131230785;
+			
+			// aapt resource value: 0x7f080042
+			public const int import_str = 2131230786;
+			
 			// aapt resource value: 0x7f08003e
 			public const int my_debts = 2131230782;
 			
 			// aapt resource value: 0x7f08003c
 			public const int name = 2131230780;
+			
+			// aapt resource value: 0x7f080044
+			public const int no_ads = 2131230788;
+			
+			// aapt resource value: 0x7f080045
+			public const int other = 2131230789;
 			
 			// aapt resource value: 0x7f080035
 			public const int password_toggle_content_description = 2131230773;
