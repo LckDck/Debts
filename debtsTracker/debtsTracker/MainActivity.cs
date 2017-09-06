@@ -66,7 +66,7 @@ namespace debtsTracker
             navigationView = FindViewById<NavigationView> (Resource.Id.nav_view);
 
             navigationView.NavigationItemSelected += (sender, e) => {
-                e.MenuItem.SetChecked (true);
+               // e.MenuItem.SetChecked (false);
                 //react to click here and swap fragments or navigate
                 drawerLayout.CloseDrawers ();
             };

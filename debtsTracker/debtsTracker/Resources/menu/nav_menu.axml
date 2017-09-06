@@ -1,24 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-  <group android:checkableBehavior="single">
-    <item
-      android:id="@+id/nav_export"
-      android:icon="@drawable/ic_add_black_24dp"
-      android:title="@string/export" />
-    <item
-      android:id="@+id/nav_import"
-      android:icon="@drawable/ic_add_black_24dp"
-      android:title="@string/import_str" />
-    <item
-      android:id="@+id/nav_backup"
-      android:icon="@drawable/ic_add_black_24dp"
-      android:title="@string/backup" />
-  </group>
-  <item android:title="@string/other">
-    <menu>
-      <item
-        android:icon="@drawable/ic_add_black_24dp"
-        android:title="@string/no_ads" />
-     </menu>
-  </item>
+	<group android:checkableBehavior="none">
+		<item 
+			android:id="@+id/nav_export" 
+		    android:icon="@drawable/ic_export_black_24dp" 
+		    android:title="@string/export"
+		    />
+		<item 
+		    android:id="@+id/nav_import" 
+            android:icon="@drawable/ic_import_black_24dp" 
+		    android:title="@string/import_str"
+		    />
+		<item 
+		    android:id="@+id/nav_backup" 
+		    android:icon="@drawable/ic_settings_black_24dp" 
+		    android:title="@string/backup" 
+		    />
+	</group>
+	<item android:title="@string/other">
+		<menu>
+			<group android:checkableBehavior="none">
+				<item 
+				    android:icon="@drawable/ic_thumb_up_black_24dp" 
+				    android:title="@string/no_ads" 
+				    />
+			</group>
+		</menu>
+	</item>
 </menu>
