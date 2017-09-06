@@ -66,7 +66,23 @@ namespace debtsTracker
             navigationView = FindViewById<NavigationView> (Resource.Id.nav_view);
 
             navigationView.NavigationItemSelected += (sender, e) => {
-               // e.MenuItem.SetChecked (false);
+                switch (e.MenuItem.ItemId)
+				{
+                    case Resource.Id.nav_import:
+                        InitGoogleDrive();
+                        break;	
+                    case Resource.Id.nav_export:
+                        InitGoogleDrive();
+                        break;
+                    case Resource.Id.nav_backup:
+						break;
+
+                    case Resource.Id.nav_upgrade:
+						break;
+					default:
+                        break;
+						
+				}
                 //react to click here and swap fragments or navigate
                 drawerLayout.CloseDrawers ();
             };
@@ -82,17 +98,24 @@ namespace debtsTracker
             //SetContentView (Resource.Layout.history);
             _navigationService = ServiceLocator.Current.GetInstance<IExtendedNavigationService> ();
             _navigationService.NavigateTo (Page.MainPage);
-
-
-      //      _googleApiClient = new GoogleApiClient.Builder(this)
-			   //.AddApi(DriveClass.API)
-			   //.AddScope(DriveClass.ScopeFile)
-			   //.AddScope(DriveClass.ScopeAppfolder)
-			   //.AddConnectionCallbacks(this)
-			   //.AddOnConnectionFailedListener(this)
-			   //.Build();
+			
+            _googleApiClient = new GoogleApiClient.Builder(this)
+			.AddApi(DriveClass.API)
+			.AddScope(DriveClass.ScopeFile)
+			.AddScope(DriveClass.ScopeAppfolder)
+			.AddConnectionCallbacks(this)
+			.AddOnConnectionFailedListener(this)
+			.Build();
 
         }
+
+
+        void InitGoogleDrive (){
+            if (!_googleApiClient.IsConnected)
+            {
+                _googleApiClient.Connect();
+            }
+		}
 
 
 
@@ -195,11 +218,6 @@ namespace debtsTracker
 			System.Diagnostics.Debug.WriteLine("Google API connection suspended");
         }
 
-		protected override void OnStart()
-		{
-			base.OnStart();
-			//_googleApiClient.Connect();
-		}
 
 		protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
 		{

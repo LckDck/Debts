@@ -21,6 +21,7 @@
 		<menu>
 			<group android:checkableBehavior="none">
 				<item 
+					android:id="@+id/nav_upgrade" 
 				    android:icon="@drawable/ic_thumb_up_black_24dp" 
 				    android:title="@string/no_ads" 
 				    />

@@ -2770,6 +2770,9 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b00b5
 			public const int nav_import = 2131427509;
 			
+			// aapt resource value: 0x7f0b00b7
+			public const int nav_upgrade = 2131427511;
+			
 			// aapt resource value: 0x7f0b009a
 			public const int nav_view = 2131427482;
 			
