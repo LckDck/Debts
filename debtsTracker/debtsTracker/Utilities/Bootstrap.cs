@@ -2,6 +2,7 @@
 using Android.Support.V7.App;
 using Autofac;
 using debtsTracker.Fragments;
+using debtsTracker.Managers;
 
 namespace debtsTracker.Utilities
 {
@@ -23,7 +24,8 @@ namespace debtsTracker.Utilities
             nav.Configure (new PageConfigEntity () { Page = Page.HistoryPage, Type = typeof (HistoryFragment) });
             nav.Configure (new PageConfigEntity () { Page = Page.MainPage, Type = typeof (MainFragment), IsRoot = true });
 			
-			builder.RegisterInstance (nav).AsImplementedInterfaces ();
+            builder.RegisterInstance (nav).AsImplementedInterfaces ();
+            builder.RegisterInstance (new GoogleDriveInteractor()).AsSelf ();
 
 			// Platform modules registration
 			//builder.RegisterModule<PlatformModule> ();

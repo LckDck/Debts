@@ -1,4 +1,5 @@
 ﻿using System;
+using Android.Content.Res;
 using Android.Graphics;
 using Android.Support.V4.Content;
 using Plugin.CurrentActivity;
@@ -20,5 +21,10 @@ namespace debtsTracker
         {
             return new Android.Graphics.Color (ContextCompat.GetColor (CrossCurrentActivity.Current.Activity, res));
         }
+
+		public static string GetStringFromResource(int res)
+		{
+            return MainActivity.Current.GetString(res);
+		}
     }
 }
