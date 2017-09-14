@@ -12,4 +12,5 @@
     <string name="backup">Backup settings</string>
     <string name="no_ads">No Ads</string>
     <string name="other">Advanced</string>
+    <string name="upload">Uploading a backup to Google Drive. Check {0} folder.</string>
 </resources>

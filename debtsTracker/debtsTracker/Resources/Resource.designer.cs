@@ -3528,6 +3528,9 @@ namespace debtsTracker
 			// aapt resource value: 0x7f080025
 			public const int status_bar_notification_info_overflow = 2131230757;
 			
+			// aapt resource value: 0x7f080046
+			public const int upload = 2131230790;
+			
 			static String()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();

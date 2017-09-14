@@ -170,6 +170,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="DriveExample.cs" />
     <Compile Include="Managers\GoogleDriveInteractor.cs" />
+    <Compile Include="Managers\DriveAction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

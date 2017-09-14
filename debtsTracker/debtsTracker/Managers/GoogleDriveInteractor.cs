@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Android.Content;
 using Android.Gms.Common;
 using Android.Gms.Common.Apis;
@@ -9,6 +10,7 @@ using Android.Runtime;
 using Android.Widget;
 using Java.IO;
 using Plugin.CurrentActivity;
+using static System.Net.WebRequestMethods;
 
 namespace debtsTracker.Managers
 {
@@ -17,6 +19,8 @@ namespace debtsTracker.Managers
         DriveId _driveId;
         private GoogleApiClient _googleApiClient;
         private String FolderName;
+
+        public const int RESULT_CODE = 2113;
 
         public void Init(string folderName)
         {
@@ -38,15 +42,55 @@ namespace debtsTracker.Managers
             }
         }
 
-        public void SaveFile()
-        {
-            UploadToDrive();
+        private DriveAction _driveAction;
+        public void GoogleDriveAction() {
+           switch (_driveAction)
+           {
+               case DriveAction.Read:
+                   _driveAction = DriveAction.None;
+                   ReadFileFromDrive();
+                   break;
+
+               case DriveAction.Write:
+                   _driveAction = DriveAction.None;
+                   UploadToDrive();
+                   break;
+           }
         }
 
 
+        public void SaveFile()
+        {
+            _driveAction = DriveAction.Write;
+            if (_googleApiClient.IsConnected) { 
+                GoogleDriveAction();
+                return;
+            }
+            Connect();
+            
+        }
+
+        public void ReadFile() {
+			_driveAction = DriveAction.Read;
+			if (_googleApiClient.IsConnected)
+			{
+				GoogleDriveAction();
+				return;
+			}
+            Connect();
+        }
+
+        private void ReadFileFromDrive()
+        {
+			var query = new QueryClass.Builder()
+                                      .AddFilter(Filters.Contains(SearchableField.Title, Constants.BackupFileName)).Build();
+            DriveClass.DriveApi.Query(_googleApiClient, query)
+					.SetResultCallback(this);
+        }
+
         public void OnResult(Java.Lang.Object result)
         {
-            System.Diagnostics.Debug.WriteLine("asdf");
+            System.Diagnostics.Debug.WriteLine("OnResult!");
             try
             {
                 var res = result.JavaCast<IDriveApiMetadataBufferResult>();
@@ -59,7 +103,8 @@ namespace debtsTracker.Managers
                     else
                     {
                         bool isFound = false;
-                        foreach (Metadata m in res.MetadataBuffer)
+
+                        foreach (var m in res.MetadataBuffer)
                         {
                             if (m.Title.Equals(FolderName))
                             {
@@ -69,6 +114,13 @@ namespace debtsTracker.Managers
                                 CreateFileInFolder(driveId);
                                 break;
                             }
+
+                            if (m.Title.Equals(Constants.BackupFileName))
+							{
+								System.Diagnostics.Debug.WriteLine("file exists");
+								var driveId = m.DriveId;
+								return;
+							}
                         }
 
                         if (!isFound)
@@ -125,22 +177,31 @@ namespace debtsTracker.Managers
 
                     var outputStream = res2.DriveContents.OutputStream;
 
-                    //------ THIS IS AN EXAMPLE FOR PICTURE ------
-                    //ByteArrayOutputStream bitmapStream = new ByteArrayOutputStream();
-                    //image.compress(Bitmap.CompressFormat.PNG, 100, bitmapStream);
-                    //try {
-                    //  outputStream.write(bitmapStream.toByteArray());
-                    //} catch (IOException e1) {
-                    //  Log.i(TAG, "Unable to write file contents.");
-                    //}
-                    //// Create the initial metadata - MIME type and title.
-                    //// Note that the user will be able to change the title later.
-                    //MetadataChangeSet metadataChangeSet = new MetadataChangeSet.Builder()
-                    //    .setMimeType("image/jpeg").setTitle("Android Photo.png").build();
+					//------ THIS IS AN EXAMPLE FOR PICTURE ------
+					//ByteArrayOutputStream bitmapStream = new ByteArrayOutputStream();
+					//image.compress(Bitmap.CompressFormat.PNG, 100, bitmapStream);
+					//try {
+					//  outputStream.write(bitmapStream.toByteArray());
+					//} catch (IOException e1) {
+					//  Log.i(TAG, "Unable to write file contents.");
+					//}
+					//// Create the initial metadata - MIME type and title.
+					//// Note that the user will be able to change the title later.
+					//MetadataChangeSet metadataChangeSet = new MetadataChangeSet.Builder()
+					//    .setMimeType("image/jpeg").setTitle("Android Photo.png").build();
 
-                    //------ THIS IS AN EXAMPLE FOR FILE --------
-                    Toast.MakeText(MainActivity.Current, "Uploading to drive. If you didn't fucked up something like usual you should see it there", ToastLength.Long).Show();
-                    var theFile = new Java.IO.File(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath + "/xtests/tehfile.txt"); //>>>>>> WHAT FILE ?
+					//------ THIS IS AN EXAMPLE FOR FILE --------
+                    string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                    string filename = Path.Combine(path, Constants.BackupFileName);
+
+					using (var streamWriter = new StreamWriter(filename, true))
+					{
+						streamWriter.WriteLine(DateTime.UtcNow);
+					}
+
+                    var message = String.Format(Utils.GetStringFromResource(Resource.String.upload), Utils.GetStringFromResource(Resource.String.app_name));
+                    Toast.MakeText(MainActivity.Current, message, ToastLength.Long).Show();
+                    var theFile = new Java.IO.File(filename); //>>>>>> WHAT FILE ?
                     try
                     {
                         var fileInputStream = new FileInputStream(theFile);
@@ -155,12 +216,13 @@ namespace debtsTracker.Managers
                     {
                         System.Diagnostics.Debug.WriteLine("U AR A MORON! Unable to write file contents.");
                     }
-
+                    
                     MetadataChangeSet changeSet = new MetadataChangeSet.Builder().SetTitle(theFile.Name).SetMimeType("text/plain").SetStarred(false).Build();
                     var folder = _driveId.AsDriveFolder();
                     folder.CreateFile(_googleApiClient, changeSet, res2.DriveContents)
                           .SetResultCallback(this);
 
+                    ClearDirectory(path);
                     return;
                 }
             }
@@ -189,8 +251,13 @@ namespace debtsTracker.Managers
             }
         }
 
-
-
+        private void ClearDirectory(string path)
+        {
+			foreach (var file in Directory.GetFiles(path))
+			{
+				System.IO.File.Delete(file);
+			}
+        }
 
         private void UploadToDrive()
         {
@@ -224,7 +291,7 @@ namespace debtsTracker.Managers
                 try
                 {
                     System.Diagnostics.Debug.WriteLine("Google API start asking");
-                    result.StartResolutionForResult(MainActivity.Current, 2);
+                    result.StartResolutionForResult(MainActivity.Current, RESULT_CODE);
 
                 }
                 catch (IntentSender.SendIntentException e)
@@ -241,7 +308,7 @@ namespace debtsTracker.Managers
         public void OnConnected(Bundle connectionHint)
         {
             System.Diagnostics.Debug.WriteLine("Google API connected!");
-            SaveFile();
+            GoogleDriveAction();
 
         }
 

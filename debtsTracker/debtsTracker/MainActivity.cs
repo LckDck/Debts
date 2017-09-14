@@ -79,10 +79,10 @@ namespace debtsTracker
                 switch (e.MenuItem.ItemId)
                 {
                     case Resource.Id.nav_import:
-                        _driveManager.Connect();
+                        _driveManager.ReadFile();
                         break;
                     case Resource.Id.nav_export:
-                        _driveManager.Connect();
+                        _driveManager.SaveFile();
                         break;
                     case Resource.Id.nav_backup:
                         break;
@@ -203,13 +203,13 @@ namespace debtsTracker
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
-
+            System.Diagnostics.Debug.WriteLine("ActivityResult");
             switch (requestCode)
             {
-                case 101: // Something may have been resolved, try connecting again
+                case GoogleDriveInteractor.RESULT_CODE: // Something may have been resolved, try connecting again
                     if (resultCode == Result.Ok)
                     {
-                        _driveManager.SaveFile();
+                        _driveManager.GoogleDriveAction();
                     }
                     break;
             }
