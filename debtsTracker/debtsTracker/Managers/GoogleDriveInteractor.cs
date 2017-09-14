@@ -44,6 +44,7 @@ namespace debtsTracker.Managers
 
         private DriveAction _driveAction;
         public void GoogleDriveAction() {
+            _googleApiClient.Connect();
            switch (_driveAction)
            {
                case DriveAction.Read:
