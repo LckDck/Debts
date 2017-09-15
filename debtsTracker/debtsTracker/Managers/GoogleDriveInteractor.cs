@@ -122,6 +122,11 @@ namespace debtsTracker.Managers
                                 }
 								break;
 							}
+
+                            if (m.Title.Equals(Constants.BackupFileName) && !m.IsTrashed) {
+                                Debug.WriteLine("file exists");
+                                return;
+                            }
 						}
 
 						if (!isFound)
