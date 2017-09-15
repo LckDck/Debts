@@ -9,8 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Widget;
 using Java.IO;
-using Plugin.CurrentActivity;
-using static System.Net.WebRequestMethods;
+using Debug = System.Diagnostics.Debug;
 
 namespace debtsTracker.Managers
 {
@@ -89,94 +88,100 @@ namespace debtsTracker.Managers
 					.SetResultCallback(this);
         }
 
-        public void OnResult(Java.Lang.Object result)
-        {
-            System.Diagnostics.Debug.WriteLine("OnResult!");
-            try
-            {
-                var res = result.JavaCast<IDriveApiMetadataBufferResult>();
-                if (res != null)
-                {
-                    if (!res.Status.IsSuccess)
-                    {
-                        System.Diagnostics.Debug.WriteLine("Cannot create folder in the root.");
-                    }
-                    else
-                    {
-                        bool isFound = false;
+        void CheckIDriveApiMetadataBufferResult(Java.Lang.Object result) {
+			try
+			{
+				var res = result.JavaCast<IDriveApiMetadataBufferResult>();
+				if (res != null)
+				{
+					if (!res.Status.IsSuccess)
+					{
+						Debug.WriteLine("Cannot create folder in the root.");
+					}
+					else
+					{
+						bool isFound = false;
 
-                        foreach (var m in res.MetadataBuffer)
-                        {
-                            if (m.Title.Equals(FolderName))
-                            {
-                                System.Diagnostics.Debug.WriteLine("Folder exists");
-                                isFound = true;
-                                var driveId = m.DriveId;
-                                CreateFileInFolder(driveId);
-                                break;
-                            }
-
-                            if (m.Title.Equals(Constants.BackupFileName))
+						foreach (var m in res.MetadataBuffer)
+						{
+							if (m.Title.Equals(FolderName))
 							{
-								System.Diagnostics.Debug.WriteLine("file exists");
+								Debug.WriteLine("Folder exists");
+								
 								var driveId = m.DriveId;
-								return;
+
+                                if (res.MetadataBuffer.Count > 0)
+                                {
+                                    var folder = driveId.AsDriveFolder();
+                                    folder.Trash(_googleApiClient);
+                                }
+                                else
+                                {
+                                    isFound = true;
+                                    CreateFileInFolder(driveId);
+                                }
+								break;
 							}
-                        }
+						}
 
-                        if (!isFound)
-                        {
-                            System.Diagnostics.Debug.WriteLine("Folder not found; creating it.");
-                            MetadataChangeSet changeSet = new MetadataChangeSet.Builder().SetTitle(FolderName).Build();
-                            DriveClass.DriveApi.GetRootFolder(_googleApiClient)
-                                      .CreateFolder(_googleApiClient, changeSet)
-                                      .SetResultCallback(this);
-                        }
-                    }
-                    return;
-                }
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("miscast");
-            }
+						if (!isFound)
+						{
+							Debug.WriteLine("Folder not found; creating it.");
+							MetadataChangeSet changeSet = new MetadataChangeSet.Builder().SetTitle(FolderName).Build();
+							DriveClass.DriveApi.GetRootFolder(_googleApiClient)
+									  .CreateFolder(_googleApiClient, changeSet)
+									  .SetResultCallback(this);
+						}
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				Debug.WriteLine("miscast", e);
+			}
+        }
 
-            try
-            {
-                var res1 = result.JavaCast<IDriveFolderDriveFolderResult>();
-                if (res1 != null)
-                {
-                    if (!res1.Status.IsSuccess)
-                    {
-                        System.Diagnostics.Debug.WriteLine("U AR A MORON! Error while trying to create the folder");
-                    }
-                    else
-                    {
-                        System.Diagnostics.Debug.WriteLine("Created a folder");
-                        DriveId driveId = res1.DriveFolder.DriveId;
-                        CreateFileInFolder(driveId);
-                    }
-                    return;
-                }
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("miscast");
-            }
 
-            try
-            {
-                var res2 = result.JavaCast<IDriveApiDriveContentsResult>();
-                if (res2 != null)
-                {
+        void CheckIDriveFolderDriveFolderResult(Java.Lang.Object result) {
+			try
+			{
+				var res = result.JavaCast<IDriveFolderDriveFolderResult>();
+				if (res != null)
+				{
+					if (!res.Status.IsSuccess)
+					{
+						Debug.WriteLine("U AR A MORON! Error while trying to create the folder");
+					}
+					else
+					{
+						Debug.WriteLine("Created a folder");
+						DriveId driveId = res.DriveFolder.DriveId;
+						CreateFileInFolder(driveId);
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				Debug.WriteLine("miscast", e);
+			}
 
-                    if (!res2.Status.IsSuccess)
-                    {
-                        System.Diagnostics.Debug.WriteLine("U AR A MORON! Error while trying to create new file contents");
-                        return;
-                    }
+		}
 
-                    var outputStream = res2.DriveContents.OutputStream;
+
+        void CheckIDriveApiDriveContentsResult(Java.Lang.Object result) {
+			try
+			{
+				var res = result.JavaCast<IDriveApiDriveContentsResult>();
+				if (res != null)
+				{
+
+					if (!res.Status.IsSuccess)
+					{
+						Debug.WriteLine("U AR A MORON! Error while trying to create new file contents");
+						return;
+					}
+
+					var outputStream = res.DriveContents.OutputStream;
 
 					//------ THIS IS AN EXAMPLE FOR PICTURE ------
 					//ByteArrayOutputStream bitmapStream = new ByteArrayOutputStream();
@@ -192,65 +197,77 @@ namespace debtsTracker.Managers
 					//    .setMimeType("image/jpeg").setTitle("Android Photo.png").build();
 
 					//------ THIS IS AN EXAMPLE FOR FILE --------
-                    string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-                    string filename = Path.Combine(path, Constants.BackupFileName);
+					string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+					string filename = Path.Combine(path, Constants.BackupFileName);
 
 					using (var streamWriter = new StreamWriter(filename, true))
 					{
 						streamWriter.WriteLine(DateTime.UtcNow);
 					}
 
-                    var message = String.Format(Utils.GetStringFromResource(Resource.String.upload), Utils.GetStringFromResource(Resource.String.app_name));
-                    Toast.MakeText(MainActivity.Current, message, ToastLength.Long).Show();
-                    var theFile = new Java.IO.File(filename); //>>>>>> WHAT FILE ?
-                    try
-                    {
-                        var fileInputStream = new FileInputStream(theFile);
-                        byte[] buffer = new byte[1024];
-                        int bytesRead;
-                        while ((bytesRead = fileInputStream.Read(buffer)) != -1)
-                        {
-                            outputStream.Write(buffer, 0, bytesRead);
-                        }
-                    }
-                    catch (Java.IO.IOException e1)
-                    {
-                        System.Diagnostics.Debug.WriteLine("U AR A MORON! Unable to write file contents.");
-                    }
-                    
-                    MetadataChangeSet changeSet = new MetadataChangeSet.Builder().SetTitle(theFile.Name).SetMimeType("text/plain").SetStarred(false).Build();
-                    var folder = _driveId.AsDriveFolder();
-                    folder.CreateFile(_googleApiClient, changeSet, res2.DriveContents)
-                          .SetResultCallback(this);
+					var message = String.Format(Utils.GetStringFromResource(Resource.String.upload), Utils.GetStringFromResource(Resource.String.app_name));
+					Toast.MakeText(MainActivity.Current, message, ToastLength.Long).Show();
+					var theFile = new Java.IO.File(filename); //>>>>>> WHAT FILE ?
+					try
+					{
+						var fileInputStream = new FileInputStream(theFile);
+						byte[] buffer = new byte[1024];
+						int bytesRead;
+						while ((bytesRead = fileInputStream.Read(buffer)) != -1)
+						{
+							outputStream.Write(buffer, 0, bytesRead);
+						}
+					}
+					catch (Java.IO.IOException e1)
+					{
+						Debug.WriteLine("U AR A MORON! Unable to write file contents.");
+					}
 
-                    ClearDirectory(path);
-                    return;
-                }
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("miscast");
-            }
+					MetadataChangeSet changeSet = new MetadataChangeSet.Builder().SetTitle(theFile.Name).SetMimeType("text/plain").SetStarred(false).Build();
+					var folder = _driveId.AsDriveFolder();
+					folder.CreateFile(_googleApiClient, changeSet, res.DriveContents)
+						  .SetResultCallback(this);
 
-            try
-            {
-                var res3 = result.JavaCast<IDriveFolderDriveFileResult>();
-                if (res3 != null)
-                {
-                    if (!res3.Status.IsSuccess)
-                    {
-                        System.Diagnostics.Debug.WriteLine("U AR A MORON!  Error while trying to create the file");
-                        return;
-                    }
-                    System.Diagnostics.Debug.WriteLine("Created a file: " + res3.DriveFile.DriveId);
-                    return;
-                }
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("miscast");
-            }
+					ClearDirectory(path);
+				}
+			}
+			catch (Exception e)
+			{
+				Debug.WriteLine("miscast", e);
+			}
         }
+
+
+        void CheckIDriveFolderDriveFileResult(Java.Lang.Object result) {
+			try
+			{
+                var res = result.JavaCast<IDriveFolderDriveFileResult>();
+				if (res != null)
+				{
+					if (!res.Status.IsSuccess)
+					{
+						Debug.WriteLine("U AR A MORON!  Error while trying to create the file");
+						return;
+					}
+					Debug.WriteLine("Created a file: " + res.DriveFile.DriveId);
+				}
+			}
+			catch (Exception e)
+			{
+				Debug.WriteLine("miscast", e);
+			}
+        }
+
+        public void OnResult(Java.Lang.Object result)
+        {
+            Debug.WriteLine("OnResult!");
+            CheckIDriveApiMetadataBufferResult(result);
+            CheckIDriveFolderDriveFolderResult(result);
+            CheckIDriveApiDriveContentsResult(result);
+            CheckIDriveFolderDriveFileResult(result);
+
+        }
+
 
         private void ClearDirectory(string path)
         {
@@ -262,7 +279,6 @@ namespace debtsTracker.Managers
 
         private void UploadToDrive()
         {
-            //async check if folder exists... if not, create it. continue after with create_file_in_folder(driveId);
             CheckFolderExists();
         }
 
@@ -286,12 +302,12 @@ namespace debtsTracker.Managers
 
         public void OnConnectionFailed(ConnectionResult result)
         {
-            System.Diagnostics.Debug.WriteLine("Google API connection failed!");
+            Debug.WriteLine("Google API connection failed!");
             if (result.HasResolution)
             {
                 try
                 {
-                    System.Diagnostics.Debug.WriteLine("Google API start asking");
+                    Debug.WriteLine("Google API start asking");
                     result.StartResolutionForResult(MainActivity.Current, RESULT_CODE);
 
                 }
@@ -308,14 +324,14 @@ namespace debtsTracker.Managers
 
         public void OnConnected(Bundle connectionHint)
         {
-            System.Diagnostics.Debug.WriteLine("Google API connected!");
+            Debug.WriteLine("Google API connected!");
             GoogleDriveAction();
 
         }
 
         public void OnConnectionSuspended(int cause)
         {
-            System.Diagnostics.Debug.WriteLine("Google API connection suspended");
+            Debug.WriteLine("Google API connection suspended");
         }
 
 
