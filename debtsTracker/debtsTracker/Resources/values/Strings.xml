@@ -13,4 +13,7 @@
     <string name="no_ads">No Ads</string>
     <string name="other">Advanced</string>
     <string name="upload">Uploading a backup to Google Drive. Check {0} folder.</string>
+    <string name="read">Successful read backup file from Google Drive.</string>
+    <string name="from_drive">From Google Drive backup</string>
+    <string name="from_device">From disk</string>
 </resources>

@@ -3492,6 +3492,12 @@ namespace debtsTracker
 			// aapt resource value: 0x7f080041
 			public const int export = 2131230785;
 			
+			// aapt resource value: 0x7f080049
+			public const int from_device = 2131230793;
+			
+			// aapt resource value: 0x7f080048
+			public const int from_drive = 2131230792;
+			
 			// aapt resource value: 0x7f080042
 			public const int import_str = 2131230786;
 			
@@ -3521,6 +3527,9 @@ namespace debtsTracker
 			
 			// aapt resource value: 0x7f080039
 			public const int path_password_strike_through = 2131230777;
+			
+			// aapt resource value: 0x7f080047
+			public const int read = 2131230791;
 			
 			// aapt resource value: 0x7f080024
 			public const int search_menu_title = 2131230756;

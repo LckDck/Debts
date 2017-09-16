@@ -47,6 +47,7 @@ namespace debtsTracker
         ActionBarDrawerToggle drawerToggle;
         private GoogleDriveInteractor _driveManager;
         public static Activity Current;
+        const int REQUESTCODE_PICK_TEXT = 23424;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -79,7 +80,7 @@ namespace debtsTracker
                 switch (e.MenuItem.ItemId)
                 {
                     case Resource.Id.nav_import:
-                        _driveManager.ReadFile();
+                        AskImportSource();
                         break;
                     case Resource.Id.nav_export:
                         _driveManager.SaveFile();
@@ -114,8 +115,31 @@ namespace debtsTracker
             _driveManager.Init (Utils.GetStringFromResource(Resource.String.app_name));
         }
 
+        private void AskImportSource()
+        {
+			var alert = new Android.Support.V7.App.AlertDialog.Builder(this);
+            var items = new string[] { 
+                Utils.GetStringFromResource(Resource.String.from_drive), 
+                Utils.GetStringFromResource(Resource.String.from_device)
+            };
+            alert.SetItems(items, OnImportSourceSelected);
+			alert.Create().Show();
+		}
 
+        private void OnImportSourceSelected(object sender, DialogClickEventArgs e)
+        {
+            switch (e.Which) { 
+                case 0:
+                    _driveManager.ReadFile();
+                    break;
+                case 1:
+    		         Intent mediaIntent = new Intent(Intent.ActionGetContent);
+    		         mediaIntent.SetType("text/plain"); //set mime type as per requirement
+					StartActivityForResult(mediaIntent, REQUESTCODE_PICK_TEXT);
+					break;
+            }
 
+        }
 
         void OnDrawerClosedTask(object sender, DrawerLayout.DrawerClosedEventArgs e)
         {
@@ -211,6 +235,13 @@ namespace debtsTracker
                     {
                         _driveManager.GoogleDriveAction();
                     }
+                    break;
+
+                case REQUESTCODE_PICK_TEXT:
+					if (resultCode == Result.Ok)
+					{
+                        System.Diagnostics.Debug.WriteLine("ssss");
+					}
                     break;
             }
         }

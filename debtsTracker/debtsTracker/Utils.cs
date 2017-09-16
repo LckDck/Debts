@@ -2,6 +2,7 @@
 using Android.Content.Res;
 using Android.Graphics;
 using Android.Support.V4.Content;
+using Android.Widget;
 using Plugin.CurrentActivity;
 
 namespace debtsTracker
@@ -25,6 +26,12 @@ namespace debtsTracker
 		public static string GetStringFromResource(int res)
 		{
             return MainActivity.Current.GetString(res);
+		}
+
+        public static void ShowToast(string message)
+        {
+			Toast.MakeText(MainActivity.Current, message, ToastLength.Long).Show();
+
 		}
     }
 }

@@ -125,7 +125,9 @@ namespace debtsTracker.Managers
 
                             if (m.Title.Equals(Constants.BackupFileName) && !m.IsTrashed) {
                                 Debug.WriteLine("file exists");
-                                return;
+                                var file = m.DriveId.AsDriveFile();
+                                file.Open(_googleApiClient, DriveFile.ModeReadOnly, null).SetResultCallback(this); 
+								return;
                             }
 						}
 
@@ -179,61 +181,23 @@ namespace debtsTracker.Managers
 				var res = result.JavaCast<IDriveApiDriveContentsResult>();
 				if (res != null)
 				{
-
+                    Stream stream = null;
 					if (!res.Status.IsSuccess)
 					{
 						Debug.WriteLine("U AR A MORON! Error while trying to create new file contents");
 						return;
 					}
 
-					var outputStream = res.DriveContents.OutputStream;
-
-					//------ THIS IS AN EXAMPLE FOR PICTURE ------
-					//ByteArrayOutputStream bitmapStream = new ByteArrayOutputStream();
-					//image.compress(Bitmap.CompressFormat.PNG, 100, bitmapStream);
-					//try {
-					//  outputStream.write(bitmapStream.toByteArray());
-					//} catch (IOException e1) {
-					//  Log.i(TAG, "Unable to write file contents.");
-					//}
-					//// Create the initial metadata - MIME type and title.
-					//// Note that the user will be able to change the title later.
-					//MetadataChangeSet metadataChangeSet = new MetadataChangeSet.Builder()
-					//    .setMimeType("image/jpeg").setTitle("Android Photo.png").build();
-
-					//------ THIS IS AN EXAMPLE FOR FILE --------
-					string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-					string filename = Path.Combine(path, Constants.BackupFileName);
-
-					using (var streamWriter = new StreamWriter(filename, true))
-					{
-						streamWriter.WriteLine(DateTime.UtcNow);
-					}
-
-					var message = String.Format(Utils.GetStringFromResource(Resource.String.upload), Utils.GetStringFromResource(Resource.String.app_name));
-					Toast.MakeText(MainActivity.Current, message, ToastLength.Long).Show();
-					var theFile = new Java.IO.File(filename); //>>>>>> WHAT FILE ?
-					try
-					{
-						var fileInputStream = new FileInputStream(theFile);
-						byte[] buffer = new byte[1024];
-						int bytesRead;
-						while ((bytesRead = fileInputStream.Read(buffer)) != -1)
-						{
-							outputStream.Write(buffer, 0, bytesRead);
-						}
-					}
-					catch (Java.IO.IOException e1)
-					{
-						Debug.WriteLine("U AR A MORON! Unable to write file contents.");
-					}
-
-					MetadataChangeSet changeSet = new MetadataChangeSet.Builder().SetTitle(theFile.Name).SetMimeType("text/plain").SetStarred(false).Build();
-					var folder = _driveId.AsDriveFolder();
-					folder.CreateFile(_googleApiClient, changeSet, res.DriveContents)
-						  .SetResultCallback(this);
-
-					ClearDirectory(path);
+                    try
+                    {
+                        stream = res.DriveContents.OutputStream;
+                        WriteDriveFile(stream, res);
+                    }
+                    catch (Exception e)
+                    {
+                        stream = res.DriveContents.InputStream;
+                        ReadDriveFile(stream);
+                    }
 				}
 			}
 			catch (Exception e)
@@ -242,6 +206,68 @@ namespace debtsTracker.Managers
 			}
         }
 
+        private void ReadDriveFile(Stream stream)
+        {
+            using (StreamReader streamReader = new StreamReader(stream))
+            {
+                var json = streamReader.ReadToEnd();
+                Debug.WriteLine(json);
+                var message = Utils.GetStringFromResource(Resource.String.read);
+				Utils.ShowToast(message);
+            }
+        }
+
+        private void WriteDriveFile(Stream stream, IDriveApiDriveContentsResult result)
+        {
+			//------ THIS IS AN EXAMPLE FOR PICTURE ------
+			//ByteArrayOutputStream bitmapStream = new ByteArrayOutputStream();
+			//image.compress(Bitmap.CompressFormat.PNG, 100, bitmapStream);
+			//try {
+			//  outputStream.write(bitmapStream.toByteArray());
+			//} catch (IOException e1) {
+			//  Log.i(TAG, "Unable to write file contents.");
+			//}
+			//// Create the initial metadata - MIME type and title.
+			//// Note that the user will be able to change the title later.
+			//MetadataChangeSet metadataChangeSet = new MetadataChangeSet.Builder()
+			//    .setMimeType("image/jpeg").setTitle("Android Photo.png").build();
+
+			//------ THIS IS AN EXAMPLE FOR FILE --------
+			var path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+			var filename = Path.Combine(path, Constants.BackupFileName);
+
+			using (var streamWriter = new StreamWriter(filename, true))
+			{
+				streamWriter.WriteLine(DateTime.UtcNow);
+			}
+
+			var message = String.Format(Utils.GetStringFromResource(Resource.String.upload), Utils.GetStringFromResource(Resource.String.app_name));
+            Utils.ShowToast(message);
+			var theFile = new Java.IO.File(filename); //>>>>>> WHAT FILE ?
+			try
+			{
+				var fileInputStream = new FileInputStream(theFile);
+				byte[] buffer = new byte[1024];
+				int bytesRead;
+				while ((bytesRead = fileInputStream.Read(buffer)) != -1)
+				{
+					stream.Write(buffer, 0, bytesRead);
+				}
+			}
+			catch (Java.IO.IOException e1)
+			{
+				Debug.WriteLine("U AR A MORON! Unable to write file contents.", e1);
+			}
+
+			MetadataChangeSet changeSet = new MetadataChangeSet.Builder().SetTitle(theFile.Name).SetMimeType("text/plain").SetStarred(false).Build();
+			var folder = _driveId.AsDriveFolder();
+			folder.CreateFile(_googleApiClient, changeSet, result.DriveContents)
+				  .SetResultCallback(this);
+
+			ClearDirectory(path);
+
+
+		}
 
         void CheckIDriveFolderDriveFileResult(Java.Lang.Object result) {
 			try
@@ -263,14 +289,14 @@ namespace debtsTracker.Managers
 			}
         }
 
-        public void OnResult(Java.Lang.Object result)
+
+		public void OnResult(Java.Lang.Object result)
         {
             Debug.WriteLine("OnResult!");
             CheckIDriveApiMetadataBufferResult(result);
             CheckIDriveFolderDriveFolderResult(result);
             CheckIDriveApiDriveContentsResult(result);
             CheckIDriveFolderDriveFileResult(result);
-
         }
 
 
