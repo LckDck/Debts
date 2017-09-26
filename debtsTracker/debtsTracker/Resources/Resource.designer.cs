@@ -3429,6 +3429,9 @@ namespace debtsTracker
 			// aapt resource value: 0x7f080033
 			public const int bottom_sheet_behavior = 2131230771;
 			
+			// aapt resource value: 0x7f08004c
+			public const int cancel = 2131230796;
+			
 			// aapt resource value: 0x7f080034
 			public const int character_counter_pattern = 2131230772;
 			
@@ -3537,8 +3540,14 @@ namespace debtsTracker
 			// aapt resource value: 0x7f080025
 			public const int status_bar_notification_info_overflow = 2131230757;
 			
+			// aapt resource value: 0x7f08004a
+			public const int sure_delete = 2131230794;
+			
 			// aapt resource value: 0x7f080046
 			public const int upload = 2131230790;
+			
+			// aapt resource value: 0x7f08004b
+			public const int yes = 2131230795;
 			
 			static String()
 			{

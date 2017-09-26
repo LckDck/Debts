@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Android.OS;
+using Android.Support.V4.Content;
 using Android.Support.V7.Widget;
 using Android.Views;
 using debtsTracker.Entities;
+using Java.Lang;
 
 namespace debtsTracker.Adapters
 {
@@ -40,9 +42,28 @@ namespace debtsTracker.Adapters
         {
 
             var itemView = LayoutInflater.From (parent.Context).Inflate (Resource.Layout.debt_item, parent, false);
-            var vh = new ViewHolder (itemView, OnClick);
+            var vh = new ViewHolder (itemView, OnClick, AskDelete);
             return vh;
         }
+
+        private void AskDelete(int position)
+        {
+            var alert = new Android.Support.V7.App.AlertDialog.Builder(MainActivity.Current);
+            alert
+                 .SetMessage(Resource.String.sure_delete)
+                 .SetPositiveButton(Resource.String.yes, (sender, e) => Delete(position))
+                 .SetNegativeButton(Resource.String.cancel, (sender, e) => { });
+
+           alert.Create().Show();
+        }
+
+
+
+        public void Delete(int position)
+		{
+			_items.RemoveAt(position);
+            NotifyItemRemoved(position);
+		}
 
 
     }
