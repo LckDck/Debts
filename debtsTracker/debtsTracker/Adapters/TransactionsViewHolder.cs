@@ -13,11 +13,12 @@ namespace debtsTracker.Adapters
 
        
 
-		public TransactionsViewHolder (View itemView) : base (itemView)
+		public TransactionsViewHolder (View itemView, Action<int> delete) : base (itemView)
         {
             DateTextView = itemView.FindViewById<TextView> (Resource.Id.date);
             CommentTextView = itemView.FindViewById<TextView> (Resource.Id.comment);
             ValueTextView = itemView.FindViewById<TextView> (Resource.Id.count);
+            itemView.LongClick += (sender, e) => delete(AdapterPosition);
         }
     }
 }

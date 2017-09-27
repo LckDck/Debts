@@ -9,27 +9,24 @@ using Java.Lang;
 
 namespace debtsTracker.Adapters
 {
-    public class DebtsAdapter : BaseAdapter
+    public class DebtsAdapter : BaseAdapter<Debt>
     {
-        List<Debt> _items;
-
-
         public DebtsAdapter (List<Debt> items)
         {
-            _items = items;
+            Items = items;
         }
 
         public override int ItemCount {
             get {
-                return _items.Count;
+                return Items.Count;
             }
         }
 
         public override void OnBindViewHolder (RecyclerView.ViewHolder holder, int position)
         {
             var mholder = (ViewHolder)holder;
-            mholder.NameTextView.SetText (_items [position].Name, Android.Widget.TextView.BufferType.Normal);
-            var count = _items [position].Value;
+            mholder.NameTextView.SetText (Items [position].Name, Android.Widget.TextView.BufferType.Normal);
+            var count = Items [position].Value;
             var value = Utils.GetValueWithPrefix (count);
             var color = (count >= 0) ? Utils.Green : Utils.DarkGray;
             mholder.ValueTextView.SetTextColor (color);
@@ -45,27 +42,6 @@ namespace debtsTracker.Adapters
             var vh = new ViewHolder (itemView, OnClick, AskDelete);
             return vh;
         }
-
-        private void AskDelete(int position)
-        {
-            var alert = new Android.Support.V7.App.AlertDialog.Builder(MainActivity.Current);
-            alert
-                 .SetMessage(Resource.String.sure_delete)
-                 .SetPositiveButton(Resource.String.yes, (sender, e) => Delete(position))
-                 .SetNegativeButton(Resource.String.cancel, (sender, e) => { });
-
-           alert.Create().Show();
-        }
-
-
-
-        public void Delete(int position)
-		{
-			_items.RemoveAt(position);
-            NotifyItemRemoved(position);
-		}
-
-
     }
 
 }

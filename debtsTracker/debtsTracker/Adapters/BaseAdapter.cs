@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using Android.Support.V7.Widget;
 using Android.Views;
+using debtsTracker.Entities;
 
 namespace debtsTracker.Adapters
 {
-    public class BaseAdapter : RecyclerView.Adapter
+    public class BaseAdapter<TModel> : RecyclerView.Adapter where TModel : class
     {
+        protected List<TModel> Items;
+
         public override int ItemCount {
             get {
                 throw new Exception ("ItemCount method should be overridden");
@@ -30,5 +34,25 @@ namespace debtsTracker.Adapters
         {
             throw new Exception ("OnCreateViewHolder method should be overridden");
         }
+
+
+		protected void AskDelete(int position)
+		{
+			var alert = new Android.Support.V7.App.AlertDialog.Builder(MainActivity.Current);
+			alert
+				 .SetMessage(Resource.String.sure_delete)
+				 .SetPositiveButton(Resource.String.yes, (sender, e) => Delete(position))
+				 .SetNegativeButton(Resource.String.cancel, (sender, e) => { });
+
+			alert.Create().Show();
+		}
+
+
+
+		protected void Delete(int position)
+		{
+			Items.RemoveAt(position);
+			NotifyItemRemoved(position);
+		}
     }
 }

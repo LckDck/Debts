@@ -19,4 +19,7 @@
     <string name="sure_delete">Are you sure you want to delete this debt?</string>
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
+    <string name="rename">Rename</string>
+    <string name="merge">Merge</string>
+    <string name="merge_rename_descr">You already have a debt with this name.</string>
 </resources>
