@@ -21,5 +21,6 @@
     <string name="cancel">Cancel</string>
     <string name="rename">Rename</string>
     <string name="merge">Merge</string>
+    <string name="done">Done</string>
     <string name="merge_rename_descr">You already have a debt with this name.</string>
 </resources>

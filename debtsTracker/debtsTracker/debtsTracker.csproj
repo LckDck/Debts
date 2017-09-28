@@ -231,6 +231,8 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_thumb_up_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_thumb_up_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_thumb_up_black_24dp.png" />
+    <AndroidResource Include="Resources\anim\anim_shake.axml" />
+    <AndroidResource Include="Resources\anim\cycle_7.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

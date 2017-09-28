@@ -10,7 +10,7 @@ namespace debtsTracker
     public static class Utils
     {
         public static string DatePattern = "ddd dd MMMM yy";
-        public static string GetValueWithPrefix (int value)
+        public static string GetValueWithPrefix (double value)
         {
             return value.ToString ();
         }

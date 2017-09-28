@@ -27,10 +27,10 @@ namespace debtsTracker.Adapters
             var mholder = (ViewHolder)holder;
             mholder.NameTextView.SetText (Items [position].Name, Android.Widget.TextView.BufferType.Normal);
             var count = Items [position].Value;
-            var value = Utils.GetValueWithPrefix (count);
+            var val = Utils.GetValueWithPrefix (count);
             var color = (count >= 0) ? Utils.Green : Utils.DarkGray;
             mholder.ValueTextView.SetTextColor (color);
-            mholder.ValueTextView.SetText (value, Android.Widget.TextView.BufferType.Normal);
+            mholder.ValueTextView.SetText (val, Android.Widget.TextView.BufferType.Normal);
             
         }
 
