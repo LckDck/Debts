@@ -3,6 +3,7 @@ using Android.Support.V7.App;
 using Autofac;
 using debtsTracker.Fragments;
 using debtsTracker.Managers;
+using Newtonsoft.Json;
 
 namespace debtsTracker.Utilities
 {
@@ -25,7 +26,11 @@ namespace debtsTracker.Utilities
             nav.Configure (new PageConfigEntity () { Page = Page.MainPage, Type = typeof (MainFragment), IsRoot = true });
 			
             builder.RegisterInstance (nav).AsImplementedInterfaces ();
+
+            builder.RegisterInstance (new DroidLocalStorage()).AsSelf ();
             builder.RegisterInstance (new GoogleDriveInteractor()).AsSelf ();
+            builder.RegisterInstance (new StorageManager()).AsSelf ();
+            builder.RegisterInstance (new DebtsManager()).AsSelf ();
 
 			// Platform modules registration
 			//builder.RegisterModule<PlatformModule> ();

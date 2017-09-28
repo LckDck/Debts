@@ -171,6 +171,9 @@
     <Compile Include="DriveExample.cs" />
     <Compile Include="Managers\GoogleDriveInteractor.cs" />
     <Compile Include="Managers\DriveAction.cs" />
+    <Compile Include="Managers\DebtsManager.cs" />
+    <Compile Include="Managers\StorageManager.cs" />
+    <Compile Include="Managers\DroidLocalStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

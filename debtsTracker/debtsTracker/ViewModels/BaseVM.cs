@@ -11,11 +11,16 @@ namespace debtsTracker.ViewModels
 {
     public class BaseVm : ViewModelBase
     {
-        protected IExtendedNavigationService NavigationService;
-        public BaseVm ()
-        {
-            NavigationService = ServiceLocator.Current.GetInstance<IExtendedNavigationService> ();
+        
+        IExtendedNavigationService _navigationService;
+        protected IExtendedNavigationService NavigationService { 
+            get {
+                return _navigationService ?? (_navigationService = ServiceLocator.Current.GetInstance<IExtendedNavigationService>());
+            }
         }
+
+
+
 
         public bool IsErrorProcessed { get; set; }
         private string errorMessage;
