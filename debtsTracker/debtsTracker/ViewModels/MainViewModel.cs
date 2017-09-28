@@ -31,6 +31,8 @@ namespace debtsTracker.ViewModels
             NavigationService.NavigateTo (Page.HistoryPage, debt);
         }
 
+        List<Debt> _debts;
+
         public List<Debt> GetItems (bool myDebts)
         {
 
@@ -124,8 +126,8 @@ namespace debtsTracker.ViewModels
             //        }
             //    }
             //};
-            var result = StorageManager.ReadDebts().Select(item => item.Value).ToList();
-            return result;
+            var result = _debts ?? (_debts = StorageManager.ReadDebts().Select(item => item.Value).ToList());
+            return result.Where(item => item.ToMe == !myDebts).ToList();
         }
 
         internal void AddPage ()

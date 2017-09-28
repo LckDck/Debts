@@ -24,6 +24,12 @@ namespace debtsTracker.Fragments
 
         ViewPager _pager;
 
+        public override void OnStart()
+        {
+            base.OnStart();
+            SetTitle(Resource.String.app_name);
+        }
+
         public override Android.Views.View OnCreateView (Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container, Android.OS.Bundle savedInstanceState)
         {
             var view = inflater.Inflate (Resource.Layout.start_layout, container, false);

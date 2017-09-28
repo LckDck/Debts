@@ -34,6 +34,7 @@ namespace debtsTracker.Fragments
 
         public override Android.Views.View OnCreateView (Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container, Android.OS.Bundle savedInstanceState)
         {
+			SetTitle(Resource.String.add_debt);
             var view = inflater.Inflate (Resource.Layout.add_transaction, container, false);
             var dateView = view.FindViewById<EditText> (Resource.Id.date);
 
@@ -120,7 +121,7 @@ namespace debtsTracker.Fragments
 
         void OnTabSelected (object sender, TabLayout.TabSelectedEventArgs e)
         {
-
+            Vm.ToMe = (e.Tab.Text == Utils.GetStringFromResource(Resource.String.my_debts));
         }
 
 

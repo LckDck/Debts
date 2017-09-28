@@ -9,6 +9,7 @@ namespace debtsTracker.Entities
         public string Name { get; set;}
         public List<Transaction> Transactions { get; set; } = new List<Transaction> ();
 
+        public bool ToMe = false;
         public double Value { 
             get {
                 return Transactions.Sum (item => item.Value);

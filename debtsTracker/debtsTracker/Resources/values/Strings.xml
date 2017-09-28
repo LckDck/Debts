@@ -4,8 +4,8 @@
     <string name="comment">Comment</string>
     <string name="name">Name</string>
     <string name="amount">Amount</string>
-    <string name="my_debts">My debts</string>
-    <string name="debts_to_me">Debts to me</string>
+    <string name="my_debts">My own</string>
+    <string name="debts_to_me">To me</string>
     <string name="add_debt">Add debt</string>
     <string name="export">Export data</string>
 	<string name="import_str">Import data</string>

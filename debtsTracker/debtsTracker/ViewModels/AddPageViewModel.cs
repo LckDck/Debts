@@ -22,6 +22,7 @@ namespace debtsTracker.ViewModels
 
         public string Name { get; set; }
         public string Comment { get; set; }
+        public bool ToMe { get; set; }
         public double Amount { get; set; }
         public DateTime DateTime { get; set; }
 
@@ -44,7 +45,12 @@ namespace debtsTracker.ViewModels
                 Date = DateTime,
                 Value = Amount
             };
-            var success = DebtsManager.AddDebt(new Debt{ Name = Name, Transactions = new List<Transaction> { transaction} } );
+            var success = DebtsManager.AddDebt(new Debt{ 
+                Name = Name,
+                ToMe = ToMe,
+                Transactions = new List<Transaction> { 
+                    transaction} 
+                });
             if (!success) {
                 ShowAlert();
                 return;
