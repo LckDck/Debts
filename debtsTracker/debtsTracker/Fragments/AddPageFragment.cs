@@ -21,8 +21,9 @@ namespace debtsTracker.Fragments
         public AddPageViewModel Vm => vm ?? (vm = ServiceLocator.Current.GetInstance<AddPageViewModel>());
 
 
-		public AddPageFragment ()
+		public AddPageFragment (bool toMe)
         {
+            Vm.ToMe = toMe;
         }
 
 
@@ -61,7 +62,7 @@ namespace debtsTracker.Fragments
             commentView.TextChanged += (sender, e) => Vm.Comment = commentView.Text;
 
 
-			_tabs = (TabLayout)view.FindViewById (Resource.Id.tabs);
+			
 
             _pager = (ViewPager)view.FindViewById (Resource.Id.pager);
             Java.Lang.String [] tabNames =
@@ -70,10 +71,15 @@ namespace debtsTracker.Fragments
                 new Java.Lang.String(Context.Resources.GetString(Resource.String.debts_to_me)),
             };
             _pager.Adapter = new OwnerAdapter (ChildFragmentManager, tabNames, true);
-           
 
+
+			_tabs = (TabLayout)view.FindViewById(Resource.Id.tabs);
+			
+			_tabs.SetupWithViewPager(_pager);
+
+            var tab = _tabs.GetTabAt(Vm.ToMe ? 1 : 0);
+            tab.Select();
             _tabs.AddOnTabSelectedListener(this);
-            _tabs.SetupWithViewPager(_pager);
 
             doneButton = MainActivity.Current.FindViewById<Button>(Resource.Id.done_button);
             doneButton.Visibility = Android.Views.ViewStates.Visible;

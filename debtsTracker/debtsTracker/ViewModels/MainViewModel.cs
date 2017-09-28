@@ -11,6 +11,8 @@ namespace debtsTracker.ViewModels
     public class MainViewModel : BaseVm
     {
 
+        public bool ToMe;
+
         DebtsManager _debtsManager;
         DebtsManager DebtsManager { 
             get {
@@ -39,7 +41,7 @@ namespace debtsTracker.ViewModels
 
         internal void AddPage ()
         {
-            NavigationService.NavigateTo (Page.AddPage);
+            NavigationService.NavigateTo (Page.AddPage, ToMe);
         }
     }
 }

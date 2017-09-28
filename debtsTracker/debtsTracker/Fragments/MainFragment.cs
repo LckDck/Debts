@@ -7,10 +7,11 @@ using Android.Views;
 using debtsTracker.Adapters;
 using debtsTracker.ViewModels;
 using Microsoft.Practices.ServiceLocation;
+using static Android.Support.Design.Widget.TabLayout;
 
 namespace debtsTracker.Fragments
 {
-    public class MainFragment : BaseFragment
+    public class MainFragment : BaseFragment, IOnTabSelectedListener
     {
         MainViewModel vm;
         public MainViewModel Vm => vm ?? (vm = ServiceLocator.Current.GetInstance<MainViewModel> ());
@@ -43,10 +44,12 @@ namespace debtsTracker.Fragments
 
 
             _pager.Adapter = new OwnerAdapter (ChildFragmentManager, tabNames);
+            tabs.AddOnTabSelectedListener(this);
             tabs.SetupWithViewPager (_pager);
             _pager.PageSelected += OnPageSelected;
             _pager.LayoutChange += OnLayoutChange;
 
+		    
             _fab = view.FindViewById<com.refractored.fab.FloatingActionButton> (Resource.Id.fab);
 
             _fab.Click += (sender, e) => {
@@ -79,6 +82,21 @@ namespace debtsTracker.Fragments
         void ChangeText (object sender, DatePickerDialog.DateSetEventArgs e)
         {
 
+        }
+
+        public void OnTabReselected(Tab tab)
+        {
+            
+        }
+
+        public void OnTabSelected(Tab tab)
+        {
+            Vm.ToMe = (tab.Text == Utils.GetStringFromResource(Resource.String.debts_to_me));
+        }
+
+        public void OnTabUnselected(Tab tab)
+        {
+            
         }
     }
 }
