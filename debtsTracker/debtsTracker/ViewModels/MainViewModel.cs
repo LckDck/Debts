@@ -18,13 +18,9 @@ namespace debtsTracker.ViewModels
             }
         }
 
-        StorageManager _storageManager;
-        StorageManager StorageManager { 
-            get {
-                return _storageManager ?? (_storageManager = ServiceLocator.Current.GetInstance<StorageManager>());
-            }
+        public void ClearDebts() { 
+            _debts.Clear();
         }
-
 
         public void ShowDetails (Debt debt)
         {
@@ -126,7 +122,7 @@ namespace debtsTracker.ViewModels
             //        }
             //    }
             //};
-            var result = _debts ?? (_debts = StorageManager.ReadDebts().Select(item => item.Value).ToList());
+            var result = _debts ?? (_debts = DebtsManager.ReadDebts().Select(item => item.Value).ToList());
             return result.Where(item => item.ToMe == !myDebts).ToList();
         }
 

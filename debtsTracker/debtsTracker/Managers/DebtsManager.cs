@@ -15,6 +15,11 @@ namespace debtsTracker.Managers
             }
         }
 
+        public Dictionary<string, Debt> ReadDebts () {
+            Debts = Storage.ReadDebts();
+            return Debts;
+        }
+
         public bool AddDebt (Debt debt) {
             if (Debts.ContainsKey(debt.Name)) return false;
 

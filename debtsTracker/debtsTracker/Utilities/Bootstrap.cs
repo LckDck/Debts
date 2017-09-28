@@ -31,6 +31,7 @@ namespace debtsTracker.Utilities
             builder.RegisterInstance (new GoogleDriveInteractor()).AsSelf ();
             builder.RegisterInstance (new StorageManager()).AsSelf ();
             builder.RegisterInstance (new DebtsManager()).AsSelf ();
+            builder.RegisterInstance (new InterfaceUpdateManager()).AsSelf ();
 
 			// Platform modules registration
 			//builder.RegisterModule<PlatformModule> ();

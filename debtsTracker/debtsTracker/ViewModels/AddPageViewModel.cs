@@ -35,7 +35,16 @@ namespace debtsTracker.ViewModels
 			}
 		}
 
-		
+		InterfaceUpdateManager _interfaceUpdateManager;
+        InterfaceUpdateManager InterfaceUpdateManager
+        {
+            get
+            {
+                return _interfaceUpdateManager ?? (_interfaceUpdateManager = ServiceLocator.Current.GetInstance<InterfaceUpdateManager>());
+            }
+        }
+
+        
 
         public void Save() {
             
@@ -61,7 +70,7 @@ namespace debtsTracker.ViewModels
 
         private void UpdateMainScreen()
         {
-            throw new NotImplementedException();
+            InterfaceUpdateManager.InvokeUpdateMainScreen();
         }
 
         private void ShowAlert()

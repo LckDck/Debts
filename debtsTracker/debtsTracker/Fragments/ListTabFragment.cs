@@ -5,6 +5,7 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using debtsTracker.Adapters;
 using debtsTracker.Entities;
+using debtsTracker.Managers;
 using debtsTracker.ViewModels;
 using Microsoft.Practices.ServiceLocation;
 using Plugin.CurrentActivity;
@@ -19,11 +20,26 @@ namespace debtsTracker.Fragments
         bool _myDebts;
         RecyclerView _listView;
 
-
+		InterfaceUpdateManager _interfaceUpdateManager;
+		InterfaceUpdateManager InterfaceUpdateManager
+		{
+			get
+			{
+				return _interfaceUpdateManager ?? (_interfaceUpdateManager = ServiceLocator.Current.GetInstance<InterfaceUpdateManager>());
+			}
+		}
 
         public ListTabFragment (bool myDebts)
         {
             _myDebts = myDebts;
+            InterfaceUpdateManager.UpdateMainScreen += UpdateScreen;
+        }
+
+        private void UpdateScreen(object sender, EventArgs e)
+        {
+            Vm.ClearDebts();
+            _items.Clear();
+            _listView.GetAdapter().NotifyDataSetChanged();
         }
 
         public RecyclerView List {
