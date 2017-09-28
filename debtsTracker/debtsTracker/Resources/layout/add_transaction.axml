@@ -26,6 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/name"
+        android:capitalize="words"
         android:textSize="22sp"
         android:background="@null"
         android:singleLine="true"
@@ -52,6 +53,7 @@
         android:layout_marginBottom="5dp" />
     <EditText
         android:hint="@string/comment"
+        android:capitalize="sentences"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/comment"
