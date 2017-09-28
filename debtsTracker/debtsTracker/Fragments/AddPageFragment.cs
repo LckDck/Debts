@@ -4,6 +4,7 @@ using Android.Support.Design.Widget;
 using Android.Support.V4.App;
 using Android.Support.V4.View;
 using Android.Views.Animations;
+using Android.Views.InputMethods;
 using Android.Widget;
 using debtsTracker.Adapters;
 using debtsTracker.ViewModels;
@@ -99,6 +100,12 @@ namespace debtsTracker.Fragments
 
             if (!hasError)
             {
+				InputMethodManager inputManager = (InputMethodManager)Activity.GetSystemService(Android.Content.Context.InputMethodService);
+				var currentFocus = Activity.CurrentFocus;
+				if (currentFocus != null)
+				{
+                    inputManager.HideSoftInputFromWindow(currentFocus.WindowToken, HideSoftInputFlags.None);
+				}
                 Vm.SaveCommand.Execute(null);
             }
         }
