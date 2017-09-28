@@ -11,10 +11,11 @@ using debtsTracker.ViewModels;
 using Java.Util;
 using Microsoft.Practices.ServiceLocation;
 using Plugin.CurrentActivity;
+using static Android.Support.Design.Widget.TabLayout;
 
 namespace debtsTracker.Fragments
 {
-    public class AddPageFragment : BaseFragment
+    public class AddPageFragment : BaseFragment, IOnTabSelectedListener
     {
         AddPageViewModel vm;
         public AddPageViewModel Vm => vm ?? (vm = ServiceLocator.Current.GetInstance<AddPageViewModel>());
@@ -70,13 +71,9 @@ namespace debtsTracker.Fragments
             };
             _pager.Adapter = new OwnerAdapter (ChildFragmentManager, tabNames, true);
            
-            _tabs.SetupWithViewPager (_pager);
 
-            HasOptionsMenu = true;
-
-
-            _tabs.TabSelected += OnTabSelected;
-
+            _tabs.AddOnTabSelectedListener(this);
+            _tabs.SetupWithViewPager(_pager);
 
             doneButton = MainActivity.Current.FindViewById<Button>(Resource.Id.done_button);
             doneButton.Visibility = Android.Views.ViewStates.Visible;
@@ -100,7 +97,7 @@ namespace debtsTracker.Fragments
 
             if (!hasError)
             {
-				InputMethodManager inputManager = (InputMethodManager)Activity.GetSystemService(Android.Content.Context.InputMethodService);
+                InputMethodManager inputManager = (InputMethodManager)MainActivity.Current.GetSystemService(Android.Content.Context.InputMethodService);
 				var currentFocus = Activity.CurrentFocus;
 				if (currentFocus != null)
 				{
@@ -121,14 +118,8 @@ namespace debtsTracker.Fragments
             base.OnDestroyView ();
             doneButton.Visibility = Android.Views.ViewStates.Gone;
             doneButton = null;
-            _tabs.TabSelected -= OnTabSelected;
             _tabs = null;
             _pager = null;
-        }
-
-        void OnTabSelected (object sender, TabLayout.TabSelectedEventArgs e)
-        {
-            Vm.ToMe = (e.Tab.Text == Utils.GetStringFromResource(Resource.String.my_debts));
         }
 
 
@@ -136,6 +127,21 @@ namespace debtsTracker.Fragments
         void ChangeText (object sender, DatePickerDialog.DateSetEventArgs e)
         {
             Vm.DateTime = e.Date;
+        }
+
+        public void OnTabReselected(Tab tab)
+        {
+           
+        }
+
+        public void OnTabSelected(Tab tab)
+        {
+            Vm.ToMe = (tab.Text == Utils.GetStringFromResource(Resource.String.debts_to_me));
+        }
+
+        public void OnTabUnselected(Tab tab)
+        {
+            
         }
     }
 }
