@@ -5,9 +5,21 @@ namespace debtsTracker.Managers
     {
         public event EventHandler UpdateMainScreen;
 
-        public void InvokeUpdateMainScreen() {
-            if (UpdateMainScreen != null) { 
+        public void InvokeUpdateMainScreen()
+        {
+            if (UpdateMainScreen != null)
+            {
                 UpdateMainScreen.Invoke(null, new EventArgs());
+            }
+        }
+
+        public int CurrrentTab { get; set; }
+
+        public bool IsTabToMe
+        {
+            get
+            {
+                return CurrrentTab == 1;
             }
         }
     }

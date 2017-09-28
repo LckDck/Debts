@@ -5,6 +5,7 @@ using Android.Support.V4.View;
 using Android.Support.V7.Widget;
 using Android.Views;
 using debtsTracker.Adapters;
+using debtsTracker.Managers;
 using debtsTracker.ViewModels;
 using Microsoft.Practices.ServiceLocation;
 using static Android.Support.Design.Widget.TabLayout;
@@ -16,26 +17,32 @@ namespace debtsTracker.Fragments
         MainViewModel vm;
         public MainViewModel Vm => vm ?? (vm = ServiceLocator.Current.GetInstance<MainViewModel> ());
 
-        public MainFragment ()
-        {
-
-        }
 
         com.refractored.fab.FloatingActionButton _fab;
 
         ViewPager _pager;
+        private TabLayout _tabs;
 
         public override void OnStart()
         {
             base.OnStart();
             SetTitle(Resource.String.app_name);
+            var tab = _tabs.GetTabAt(oldValue);
+			tab.Select();
         }
+
+        View _view;
+        int oldValue;
 
         public override Android.Views.View OnCreateView (Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container, Android.OS.Bundle savedInstanceState)
         {
-            var view = inflater.Inflate (Resource.Layout.start_layout, container, false);
-            var tabs = (TabLayout)view.FindViewById (Resource.Id.tabs);
-            _pager = (ViewPager)view.FindViewById (Resource.Id.pager);
+            oldValue = Vm.Tab;
+            if (_view != null) {
+                return _view;
+            }
+            _view = inflater.Inflate (Resource.Layout.start_layout, container, false);
+            _tabs = (TabLayout)_view.FindViewById (Resource.Id.tabs);
+            _pager = (ViewPager)_view.FindViewById (Resource.Id.pager);
             Java.Lang.String [] tabNames =
             {
                 new Java.Lang.String(Context.Resources.GetString(Resource.String.my_debts)),
@@ -44,19 +51,20 @@ namespace debtsTracker.Fragments
 
 
             _pager.Adapter = new OwnerAdapter (ChildFragmentManager, tabNames);
-            tabs.AddOnTabSelectedListener(this);
-            tabs.SetupWithViewPager (_pager);
+
+            _tabs.SetupWithViewPager (_pager);
             _pager.PageSelected += OnPageSelected;
             _pager.LayoutChange += OnLayoutChange;
 
-		    
-            _fab = view.FindViewById<com.refractored.fab.FloatingActionButton> (Resource.Id.fab);
+            _tabs.AddOnTabSelectedListener(this);
+
+			_fab = _view.FindViewById<com.refractored.fab.FloatingActionButton> (Resource.Id.fab);
 
             _fab.Click += (sender, e) => {
                 Vm.AddPage ();
             };
 
-            return view;
+            return _view;
         }
 
         void OnPageSelected (object sender, ViewPager.PageSelectedEventArgs e)
@@ -91,7 +99,7 @@ namespace debtsTracker.Fragments
 
         public void OnTabSelected(Tab tab)
         {
-            Vm.ToMe = (tab.Text == Utils.GetStringFromResource(Resource.String.debts_to_me));
+            Vm.Tab = tab.Position;
         }
 
         public void OnTabUnselected(Tab tab)

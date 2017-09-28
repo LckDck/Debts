@@ -20,9 +20,20 @@ namespace debtsTracker.ViewModels
             }
         }
 
+        public int Tab { 
+            get {
+                return InterfaceUpdateManager.CurrrentTab;
+            }
+
+            set { 
+                InterfaceUpdateManager.CurrrentTab = value;
+            }
+        }
+
+       
+
         public string Name { get; set; }
         public string Comment { get; set; }
-        public bool ToMe { get; set; }
         public double Amount { get; set; }
         public DateTime DateTime { get; set; }
 
@@ -56,7 +67,7 @@ namespace debtsTracker.ViewModels
             };
             var success = DebtsManager.AddDebt(new Debt{ 
                 Name = Name,
-                ToMe = ToMe,
+                ToMe = InterfaceUpdateManager.IsTabToMe,
                 Transactions = new List<Transaction> { 
                     transaction} 
                 });

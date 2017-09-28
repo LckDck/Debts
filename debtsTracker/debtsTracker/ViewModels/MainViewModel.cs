@@ -10,8 +10,9 @@ namespace debtsTracker.ViewModels
 {
     public class MainViewModel : BaseVm
     {
-
-        public bool ToMe;
+        public MainViewModel() {
+            
+        }
 
         DebtsManager _debtsManager;
         DebtsManager DebtsManager { 
@@ -31,7 +32,14 @@ namespace debtsTracker.ViewModels
             NavigationService.NavigateTo (Page.HistoryPage, debt);
         }
 
-
+		InterfaceUpdateManager _interfaceUpdateManager;
+		InterfaceUpdateManager InterfaceUpdateManager
+		{
+			get
+			{
+				return _interfaceUpdateManager ?? (_interfaceUpdateManager = ServiceLocator.Current.GetInstance<InterfaceUpdateManager>());
+			}
+		}
 
         public List<Debt> GetItems (bool myDebts)
         {
@@ -39,9 +47,22 @@ namespace debtsTracker.ViewModels
             return result.Where(item => item.ToMe == !myDebts).ToList();
         }
 
-        internal void AddPage ()
+		public int Tab
+		{
+			get
+			{
+				return InterfaceUpdateManager.CurrrentTab;
+			}
+			set
+			{
+				InterfaceUpdateManager.CurrrentTab = value;
+			}
+		}
+
+
+		internal void AddPage ()
         {
-            NavigationService.NavigateTo (Page.AddPage, ToMe);
+            NavigationService.NavigateTo (Page.AddPage);
         }
     }
 }

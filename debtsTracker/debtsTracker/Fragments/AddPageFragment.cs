@@ -3,6 +3,7 @@ using Android.App;
 using Android.Support.Design.Widget;
 using Android.Support.V4.App;
 using Android.Support.V4.View;
+using Android.Views;
 using Android.Views.Animations;
 using Android.Views.InputMethods;
 using Android.Widget;
@@ -21,9 +22,9 @@ namespace debtsTracker.Fragments
         public AddPageViewModel Vm => vm ?? (vm = ServiceLocator.Current.GetInstance<AddPageViewModel>());
 
 
-		public AddPageFragment (bool toMe)
+		public AddPageFragment ()
         {
-            Vm.ToMe = toMe;
+            
         }
 
 
@@ -77,8 +78,9 @@ namespace debtsTracker.Fragments
 			
 			_tabs.SetupWithViewPager(_pager);
 
-            var tab = _tabs.GetTabAt(Vm.ToMe ? 1 : 0);
+            var tab = _tabs.GetTabAt(Vm.Tab);
             tab.Select();
+
             _tabs.AddOnTabSelectedListener(this);
 
             doneButton = MainActivity.Current.FindViewById<Button>(Resource.Id.done_button);
@@ -87,6 +89,7 @@ namespace debtsTracker.Fragments
 
 			return view;
         }
+
 
         private void CheckValid()
         {
@@ -122,6 +125,7 @@ namespace debtsTracker.Fragments
         public override void OnDestroyView ()
         {
             base.OnDestroyView ();
+            _tabs.RemoveOnTabSelectedListener(this);
             doneButton.Visibility = Android.Views.ViewStates.Gone;
             doneButton = null;
             _tabs = null;
@@ -142,7 +146,7 @@ namespace debtsTracker.Fragments
 
         public void OnTabSelected(Tab tab)
         {
-            Vm.ToMe = (tab.Text == Utils.GetStringFromResource(Resource.String.debts_to_me));
+            Vm.Tab = tab.Position;
         }
 
         public void OnTabUnselected(Tab tab)
