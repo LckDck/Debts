@@ -60,13 +60,15 @@ namespace debtsTracker.Fragments
 
             _listView.SetLayoutManager (linearLayoutManager);
             _items = Vm.GetItems (_myDebts);
-            var adapter = new DebtsAdapter (_items);
+            var adapter = new DebtsAdapter (_items, AddTransactionAction);
             adapter.ItemClick += OnItemClick;
             _listView.SetAdapter (adapter);
 
 
             return view;
         }
+
+        Action<int> AddTransactionAction => (pos) => { Vm.AddTransaction(pos); };
 
         void OnItemClick (object sender, int e)
         {

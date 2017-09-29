@@ -64,5 +64,10 @@ namespace debtsTracker.ViewModels
         {
             NavigationService.NavigateTo (Page.AddPage);
         }
+
+        public void AddTransaction(int position) {
+            //NavigationService.NavigateTo(Page.AddPage, _debts[position]);
+            NavigationService.NavigateTo(Page.AddPage);
+        }
     }
 }

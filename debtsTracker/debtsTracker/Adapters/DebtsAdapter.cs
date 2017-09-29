@@ -11,8 +11,11 @@ namespace debtsTracker.Adapters
 {
     public class DebtsAdapter : BaseAdapter<Debt>
     {
-        public DebtsAdapter (List<Debt> items)
+        public Action<int> AddTransaction { get; }
+
+        public DebtsAdapter (List<Debt> items, Action<int> addTransaction)
         {
+            AddTransaction = addTransaction;
             Items = items;
         }
 
@@ -39,7 +42,7 @@ namespace debtsTracker.Adapters
         {
 
             var itemView = LayoutInflater.From (parent.Context).Inflate (Resource.Layout.debt_item, parent, false);
-            var vh = new ViewHolder (itemView, OnClick, AskDelete);
+            var vh = new ViewHolder (itemView, OnClick, AskDelete, AddTransaction);
             return vh;
         }
     }
