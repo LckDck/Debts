@@ -28,6 +28,16 @@ namespace debtsTracker.Managers
             return true;
         }
 
+		public bool MergeDebt(Debt debt)
+		{
+            if (!Debts.ContainsKey(debt.Name)) return false;
+
+            var foundDebt = Debts[debt.Name];
+            foundDebt.Transactions.AddRange(debt.Transactions);
+			Storage.SaveDebts(Debts);
+			return true;
+		}
+
         public void RemoveDebt(string name) {
             if (!Debts.ContainsKey(name)) return;
 

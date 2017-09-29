@@ -8,6 +8,7 @@ using Android.Views.Animations;
 using Android.Views.InputMethods;
 using Android.Widget;
 using debtsTracker.Adapters;
+using debtsTracker.Managers;
 using debtsTracker.ViewModels;
 using Java.Util;
 using Microsoft.Practices.ServiceLocation;
@@ -24,10 +25,28 @@ namespace debtsTracker.Fragments
 
 		public AddPageFragment ()
         {
-            
+            InterfaceUpdateManager.NameFocus += OnNameFocus;
         }
 
+        private void OnNameFocus(object sender, EventArgs e)
+        {
+            nameView.RequestFocus();
+			InputMethodManager inputManager = (InputMethodManager)MainActivity.Current.GetSystemService(Android.Content.Context.InputMethodService);
+			var currentFocus = MainActivity.Current.CurrentFocus;
+			if (currentFocus != null)
+			{
+                inputManager.ShowSoftInput(currentFocus, ShowFlags.Forced);
+			}
+        }
 
+        InterfaceUpdateManager _interfaceUpdateManager;
+		InterfaceUpdateManager InterfaceUpdateManager
+		{
+			get
+			{
+				return _interfaceUpdateManager ?? (_interfaceUpdateManager = ServiceLocator.Current.GetInstance<InterfaceUpdateManager>());
+			}
+		}
 
         TabLayout _tabs;
 
@@ -35,12 +54,17 @@ namespace debtsTracker.Fragments
         Button doneButton;
         private EditText amountView;
         private EditText nameView;
+        private View _view;
 
         public override Android.Views.View OnCreateView (Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container, Android.OS.Bundle savedInstanceState)
         {
 			SetTitle(Resource.String.add_debt);
-            var view = inflater.Inflate (Resource.Layout.add_transaction, container, false);
-            var dateView = view.FindViewById<EditText> (Resource.Id.date);
+            if (_view != null) {
+                return _view;
+            }
+
+            _view = inflater.Inflate (Resource.Layout.add_transaction, container, false);
+            var dateView = _view.FindViewById<EditText> (Resource.Id.date);
 
             dateView.Text = DateTime.Now.ToString (Utils.DatePattern);
             dateView.Click += (sender, e) => {
@@ -51,21 +75,21 @@ namespace debtsTracker.Fragments
                 dialog.Show ();
             };
 
-            amountView = view.FindViewById<EditText> (Resource.Id.amount);
+            amountView = _view.FindViewById<EditText> (Resource.Id.amount);
             amountView.TextChanged += (sender, e) => {
                 Vm.Amount = string.IsNullOrEmpty(amountView.Text) ? 0 : Convert.ToDouble(amountView.Text);
             };
 
-			nameView = view.FindViewById<EditText>(Resource.Id.name);
+			nameView = _view.FindViewById<EditText>(Resource.Id.name);
             nameView.TextChanged += (sender, e) => Vm.Name = nameView.Text;
 
-			var commentView = view.FindViewById<EditText>(Resource.Id.comment);
+			var commentView = _view.FindViewById<EditText>(Resource.Id.comment);
             commentView.TextChanged += (sender, e) => Vm.Comment = commentView.Text;
 
 
 			
 
-            _pager = (ViewPager)view.FindViewById (Resource.Id.pager);
+            _pager = (ViewPager)_view.FindViewById (Resource.Id.pager);
             Java.Lang.String [] tabNames =
             {
                 new Java.Lang.String(Context.Resources.GetString(Resource.String.my_debts)),
@@ -74,7 +98,7 @@ namespace debtsTracker.Fragments
             _pager.Adapter = new OwnerAdapter (ChildFragmentManager, tabNames, true);
 
 
-			_tabs = (TabLayout)view.FindViewById(Resource.Id.tabs);
+			_tabs = (TabLayout)_view.FindViewById(Resource.Id.tabs);
 			
 			_tabs.SetupWithViewPager(_pager);
 
@@ -85,13 +109,13 @@ namespace debtsTracker.Fragments
 
             doneButton = MainActivity.Current.FindViewById<Button>(Resource.Id.done_button);
             doneButton.Visibility = Android.Views.ViewStates.Visible;
-            doneButton.Click += (sender, e) => CheckValid();
+            doneButton.Click += CheckValid;
 
-			return view;
+			return _view;
         }
 
 
-        private void CheckValid()
+        private void CheckValid(object sender, EventArgs e)
         {
             var hasError = false;
             if (string.IsNullOrEmpty(nameView.Text)) {
@@ -107,7 +131,7 @@ namespace debtsTracker.Fragments
             if (!hasError)
             {
                 InputMethodManager inputManager = (InputMethodManager)MainActivity.Current.GetSystemService(Android.Content.Context.InputMethodService);
-				var currentFocus = Activity.CurrentFocus;
+				var currentFocus = MainActivity.Current.CurrentFocus;
 				if (currentFocus != null)
 				{
                     inputManager.HideSoftInputFromWindow(currentFocus.WindowToken, HideSoftInputFlags.None);
@@ -127,6 +151,7 @@ namespace debtsTracker.Fragments
             base.OnDestroyView ();
             _tabs.RemoveOnTabSelectedListener(this);
             doneButton.Visibility = Android.Views.ViewStates.Gone;
+			doneButton.Click -= CheckValid;
             doneButton = null;
             _tabs = null;
             _pager = null;

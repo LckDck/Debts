@@ -89,18 +89,47 @@ namespace debtsTracker.ViewModels
 			var alert = new Android.Support.V7.App.AlertDialog.Builder(MainActivity.Current);
 			alert
 				 .SetMessage(Resource.String.merge_rename_descr)
-                .SetPositiveButton(Resource.String.rename, (sender, e) => Rename())
-                .SetNegativeButton(Resource.String.merge, (sender, e) => Merge());
+                .SetNegativeButton(Resource.String.rename, (sender, e) => Rename())
+                .SetPositiveButton(Resource.String.merge, (sender, e) => Merge());
 
 			alert.Create().Show();
         }
 
-        void Rename() { 
-            
+        void Rename() {
+            InterfaceUpdateManager.InvokeNameFocus();
         }
 
-        void Merge() { 
-            
+        void Merge() {
+			var transaction = new Transaction
+			{
+				Comment = Comment,
+				Date = DateTime,
+				Value = Amount
+			};
+            var success = DebtsManager.MergeDebt(new Debt
+			{
+				Name = Name,
+				ToMe = InterfaceUpdateManager.IsTabToMe,
+				Transactions = new List<Transaction> {
+					transaction}
+			});
+			if (!success)
+			{
+				ShowMergeFailedAlert();
+				return;
+			}
+			UpdateMainScreen();
+			NavigationService.GoBack();
+        }
+
+        private void ShowMergeFailedAlert()
+        {
+			var alert = new Android.Support.V7.App.AlertDialog.Builder(MainActivity.Current);
+			alert
+				 .SetMessage(Resource.String.merge_failed)
+                .SetPositiveButton(Resource.String.rename, (sender, e) => { });
+
+			alert.Create().Show();
         }
     }
        

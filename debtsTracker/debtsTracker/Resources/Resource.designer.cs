@@ -3501,6 +3501,9 @@ namespace debtsTracker
 			// aapt resource value: 0x7f08004e
 			public const int merge = 2131230798;
 			
+			// aapt resource value: 0x7f080051
+			public const int merge_failed = 2131230801;
+			
 			// aapt resource value: 0x7f080050
 			public const int merge_rename_descr = 2131230800;
 			

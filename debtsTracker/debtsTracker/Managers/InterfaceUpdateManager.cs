@@ -13,6 +13,17 @@ namespace debtsTracker.Managers
             }
         }
 
+
+        public event EventHandler NameFocus;
+
+        public void InvokeNameFocus()
+        {
+            if (NameFocus != null)
+            {
+                NameFocus.Invoke(null, new EventArgs());
+            }
+        }
+
         public int CurrrentTab { get; set; }
 
         public bool IsTabToMe
