@@ -11,9 +11,12 @@ namespace debtsTracker.Adapters
 {
     public class DebtsAdapter : BaseAdapter<Debt>
     {
-        public Action<int> AddTransaction { get; }
+		private static int TYPE_ITEM = 1;
+		private static int TYPE_FOOTER = 2;
 
-        public DebtsAdapter (List<Debt> items, Action<int> addTransaction)
+        public Action<int, bool> AddTransaction { get; }
+
+        public DebtsAdapter (List<Debt> items, Action<int, bool> addTransaction)
         {
             AddTransaction = addTransaction;
             Items = items;
@@ -21,12 +24,15 @@ namespace debtsTracker.Adapters
 
         public override int ItemCount {
             get {
-                return Items.Count;
+                return Items.Count + 1;
             }
         }
 
         public override void OnBindViewHolder (RecyclerView.ViewHolder holder, int position)
         {
+            if (position == ItemCount - 1) {
+                return;
+            }
             var mholder = (ViewHolder)holder;
             mholder.NameTextView.SetText (Items [position].Name, Android.Widget.TextView.BufferType.Normal);
             var count = Items [position].Value;
@@ -34,12 +40,25 @@ namespace debtsTracker.Adapters
             var color = (count >= 0) ? Utils.Green : Utils.DarkGray;
             mholder.ValueTextView.SetTextColor (color);
             mholder.ValueTextView.SetText (val, Android.Widget.TextView.BufferType.Normal);
-            
+        }
+
+        public override int GetItemViewType(int position)
+        {
+            if (position == ItemCount - 1)
+            {
+                return TYPE_FOOTER;
+            }
+            return TYPE_ITEM;
         }
 
 
         public override RecyclerView.ViewHolder OnCreateViewHolder (ViewGroup parent, int viewType)
         {
+            if (viewType == TYPE_FOOTER) {
+                var view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.footer, parent, false);
+                var holder = new FooterViewHolder(view);
+                return holder;
+            }
 
             var itemView = LayoutInflater.From (parent.Context).Inflate (Resource.Layout.debt_item, parent, false);
             var vh = new ViewHolder (itemView, OnClick, AskDelete, AddTransaction);

@@ -64,11 +64,10 @@ namespace debtsTracker.Fragments
             adapter.ItemClick += OnItemClick;
             _listView.SetAdapter (adapter);
 
-
             return view;
         }
 
-        Action<int> AddTransactionAction => (pos) => { Vm.AddTransaction(pos); };
+        Action<int, bool> AddTransactionAction => (pos, positive) => { Vm.AddTransaction(pos, positive); };
 
         void OnItemClick (object sender, int e)
         {

@@ -175,6 +175,7 @@
     <Compile Include="Managers\StorageManager.cs" />
     <Compile Include="Managers\DroidLocalStorage.cs" />
     <Compile Include="Managers\InterfaceUpdateManager.cs" />
+    <Compile Include="Adapters\FooterViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -239,6 +240,12 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_add_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_add_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_add_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_remove_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_remove_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_remove_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_remove_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_remove_black_24dp.png" />
+    <AndroidResource Include="Resources\layout\footer.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
