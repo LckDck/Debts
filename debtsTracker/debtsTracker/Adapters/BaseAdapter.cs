@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using Android.Support.V7.Widget;
 using Android.Views;
 using debtsTracker.Entities;
+using debtsTracker.Managers;
+using Microsoft.Practices.ServiceLocation;
 
 namespace debtsTracker.Adapters
 {
-    public class BaseAdapter<TModel> : RecyclerView.Adapter where TModel : class
+    public class BaseAdapter<TModel> : RecyclerView.Adapter where TModel : IDisposable
     {
         protected List<TModel> Items;
+
 
         public override int ItemCount {
             get {
@@ -49,10 +52,13 @@ namespace debtsTracker.Adapters
 
 
 
+
 		protected void Delete(int position)
 		{
-			Items.RemoveAt(position);
-			NotifyItemRemoved(position);
-		}
+            var item = Items[position];
+            Items.RemoveAt(position);
+            NotifyItemRemoved(position);
+            item.Dispose();
+        }
     }
 }

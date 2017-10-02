@@ -176,6 +176,7 @@
     <Compile Include="Managers\DroidLocalStorage.cs" />
     <Compile Include="Managers\InterfaceUpdateManager.cs" />
     <Compile Include="Adapters\FooterViewHolder.cs" />
+    <Compile Include="Managers\DebtEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

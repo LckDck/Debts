@@ -1,4 +1,6 @@
 ﻿using System;
+using debtsTracker.Entities;
+
 namespace debtsTracker.Managers
 {
     public class InterfaceUpdateManager
@@ -10,6 +12,16 @@ namespace debtsTracker.Managers
             if (UpdateMainScreen != null)
             {
                 UpdateMainScreen.Invoke(null, new EventArgs());
+            }
+        }
+
+        public event EventHandler<Debt> ItemRemoved;
+
+        public void InvokeItemRemoved(Debt debt)
+        {
+            if (ItemRemoved != null)
+            {
+                ItemRemoved.Invoke(null, debt);
             }
         }
 

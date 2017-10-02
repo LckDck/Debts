@@ -21,11 +21,6 @@ namespace debtsTracker.ViewModels
             }
         }
 
-        List<Debt> _debts;
-        public List<Debt> ResetDebts() {
-            _debts = null;
-            return _debts = DebtsManager.ReadDebts().Select(item => item.Value).ToList();
-        }
 
         public void ShowDetails (Debt debt)
         {
@@ -43,7 +38,7 @@ namespace debtsTracker.ViewModels
 
         public List<Debt> GetItems (bool myDebts)
         {
-            var result = _debts ?? ResetDebts();
+            var result = DebtsManager.ReadDebts().Select(item => item.Value).ToList();
             return result.Where(item => item.ToMe == !myDebts).ToList();
         }
 

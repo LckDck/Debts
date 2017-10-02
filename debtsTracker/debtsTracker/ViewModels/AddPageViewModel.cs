@@ -75,14 +75,10 @@ namespace debtsTracker.ViewModels
                 ShowAlert();
                 return;
             }
-            UpdateMainScreen();
             NavigationService.GoBack();
         }
 
-        private void UpdateMainScreen()
-        {
-            InterfaceUpdateManager.InvokeUpdateMainScreen();
-        }
+       
 
         private void ShowAlert()
         {
@@ -118,7 +114,6 @@ namespace debtsTracker.ViewModels
 				ShowMergeFailedAlert();
 				return;
 			}
-			UpdateMainScreen();
 			NavigationService.GoBack();
         }
 

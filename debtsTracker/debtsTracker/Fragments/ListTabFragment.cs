@@ -38,7 +38,6 @@ namespace debtsTracker.Fragments
         private void UpdateScreen(object sender, EventArgs e)
         {
             _items.Clear();
-            Vm.ResetDebts();
             _items.AddRange(Vm.GetItems(_myDebts));
             _listView.GetAdapter().NotifyDataSetChanged();
         }
