@@ -2286,26 +2286,26 @@ namespace debtsTracker
 			// aapt resource value: 0x7f020054
 			public const int avd_hide_password = 2130837588;
 			
-			// aapt resource value: 0x7f020089
-			public const int avd_hide_password_1 = 2130837641;
-			
 			// aapt resource value: 0x7f02008a
-			public const int avd_hide_password_2 = 2130837642;
+			public const int avd_hide_password_1 = 2130837642;
 			
 			// aapt resource value: 0x7f02008b
-			public const int avd_hide_password_3 = 2130837643;
+			public const int avd_hide_password_2 = 2130837643;
+			
+			// aapt resource value: 0x7f02008c
+			public const int avd_hide_password_3 = 2130837644;
 			
 			// aapt resource value: 0x7f020055
 			public const int avd_show_password = 2130837589;
 			
-			// aapt resource value: 0x7f02008c
-			public const int avd_show_password_1 = 2130837644;
-			
 			// aapt resource value: 0x7f02008d
-			public const int avd_show_password_2 = 2130837645;
+			public const int avd_show_password_1 = 2130837645;
 			
 			// aapt resource value: 0x7f02008e
-			public const int avd_show_password_3 = 2130837646;
+			public const int avd_show_password_2 = 2130837646;
+			
+			// aapt resource value: 0x7f02008f
+			public const int avd_show_password_3 = 2130837647;
 			
 			// aapt resource value: 0x7f020056
 			public const int common_full_open_on_phone = 2130837590;
@@ -2445,11 +2445,11 @@ namespace debtsTracker
 			// aapt resource value: 0x7f020083
 			public const int notification_icon_background = 2130837635;
 			
-			// aapt resource value: 0x7f020087
-			public const int notification_template_icon_bg = 2130837639;
-			
 			// aapt resource value: 0x7f020088
-			public const int notification_template_icon_low_bg = 2130837640;
+			public const int notification_template_icon_bg = 2130837640;
+			
+			// aapt resource value: 0x7f020089
+			public const int notification_template_icon_low_bg = 2130837641;
 			
 			// aapt resource value: 0x7f020084
 			public const int notification_tile_bg = 2130837636;
@@ -2459,6 +2459,9 @@ namespace debtsTracker
 			
 			// aapt resource value: 0x7f020086
 			public const int shape = 2130837638;
+			
+			// aapt resource value: 0x7f020087
+			public const int splash = 2130837639;
 			
 			static Drawable()
 			{
@@ -4191,6 +4194,9 @@ namespace debtsTracker
 			
 			// aapt resource value: 0x7f0c0042
 			public const int RtlUnderlay_Widget_AppCompat_ActionButton_Overflow = 2131492930;
+			
+			// aapt resource value: 0x7f0c0182
+			public const int SplashTheme = 2131493250;
 			
 			// aapt resource value: 0x7f0c00d2
 			public const int TextAppearance_AppCompat = 2131493074;

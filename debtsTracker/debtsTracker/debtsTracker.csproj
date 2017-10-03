@@ -177,6 +177,7 @@
     <Compile Include="Managers\InterfaceUpdateManager.cs" />
     <Compile Include="Adapters\FooterViewHolder.cs" />
     <Compile Include="Managers\DebtEventArgs.cs" />
+    <Compile Include="SplashActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -249,6 +250,7 @@
     <AndroidResource Include="Resources\layout\footer.axml" />
     <AndroidResource Include="Resources\drawable\shape.xml" />
     <AndroidResource Include="Resources\drawable\aaa.axml" />
+    <AndroidResource Include="Resources\drawable\splash.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

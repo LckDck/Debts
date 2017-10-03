@@ -35,7 +35,7 @@ using debtsTracker.Managers;
 
 namespace debtsTracker
 {
-    [Activity(Label = "@string/app_name", MainLauncher = true, Icon = "@mipmap/icon")]
+    [Activity(Label = "@string/app_name", MainLauncher = false, Icon = "@mipmap/icon")]
     public class MainActivity : AppCompatActivity, Android.Support.V4.App.FragmentManager.IOnBackStackChangedListener, View.IOnClickListener
     {
         IExtendedNavigationService _navigationService;
