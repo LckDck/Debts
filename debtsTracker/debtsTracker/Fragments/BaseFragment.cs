@@ -16,6 +16,12 @@ namespace debtsTracker.Fragments
             toolbar.Title = Utils.GetStringFromResource(res);
         }
 
+		protected void SetTitle(string title)
+		{
+			var toolbar = MainActivity.Current.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+			toolbar.Title = title;
+		}
+
 		public void InsertFragmentIntoContainer (BaseFragment fragment, int container)
 		{
 			var exFragment = ChildFragmentManager.FindFragmentById (container);

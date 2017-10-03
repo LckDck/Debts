@@ -17,6 +17,7 @@ namespace debtsTracker.Fragments
         public HistoryFragment (Debt debt)
         {
             Vm.Debt = debt;
+            SetTitle (debt.Name);
         }
 
         public override Android.Views.View OnCreateView (Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container, Android.OS.Bundle savedInstanceState)
