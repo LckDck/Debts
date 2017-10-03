@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Android.Support.V4.App;
+using GalaSoft.MvvmLight.Helpers;
 
 namespace debtsTracker.Fragments
 {
 	public class BaseFragment : Fragment
 	{
-		
+		protected readonly List<Binding> Bindings = new List<Binding>();
 		public BaseFragment ()
 		{
 		}
@@ -34,10 +35,14 @@ namespace debtsTracker.Fragments
 			childFragTrans.CommitAllowingStateLoss ();
 		}
 
-		public override void OnDestroyView ()
+		public override void OnDestroyView()
 		{
-			
-			base.OnDestroyView ();
+			foreach (var binding in Bindings)
+			{
+				binding.Detach();
+			}
+			Bindings.Clear();
+			base.OnDestroyView();
 		}
 	}
 }

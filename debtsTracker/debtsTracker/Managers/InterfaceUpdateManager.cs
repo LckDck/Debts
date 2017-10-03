@@ -15,13 +15,13 @@ namespace debtsTracker.Managers
             }
         }
 
-        public event EventHandler<Debt> ItemRemoved;
+        public event EventHandler ItemRemoved;
 
-        public void InvokeItemRemoved(Debt debt)
+        public void InvokeItemRemoved()
         {
             if (ItemRemoved != null)
             {
-                ItemRemoved.Invoke(null, debt);
+                ItemRemoved.Invoke(null, new EventArgs());
             }
         }
 

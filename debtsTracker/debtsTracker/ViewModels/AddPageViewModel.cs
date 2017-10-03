@@ -63,6 +63,7 @@ namespace debtsTracker.ViewModels
             {
                 Comment = Comment,
                 Date = DateTime,
+                Name = Name,
                 Value = Amount
             };
             var success = DebtsManager.AddDebt(new Debt{ 
@@ -100,7 +101,8 @@ namespace debtsTracker.ViewModels
 			{
 				Comment = Comment,
 				Date = DateTime,
-				Value = Amount
+				Value = Amount,
+                Name = Name
 			};
             var success = DebtsManager.MergeDebt(new Debt
 			{

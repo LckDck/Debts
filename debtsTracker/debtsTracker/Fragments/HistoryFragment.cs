@@ -4,6 +4,7 @@ using Android.Widget;
 using debtsTracker.Adapters;
 using debtsTracker.Entities;
 using debtsTracker.ViewModels;
+using GalaSoft.MvvmLight.Helpers;
 using Microsoft.Practices.ServiceLocation;
 using Plugin.CurrentActivity;
 
@@ -26,8 +27,6 @@ namespace debtsTracker.Fragments
             var view = inflater.Inflate (Resource.Layout.history, container, false);
             var listView = view.FindViewById<RecyclerView> (Resource.Id.list);
             var total = view.FindViewById<TextView> (Resource.Id.total);
-            var str = Utils.GetStringFromResource(Resource.String.total);
-            total.Text = string.Format(str, Vm.Debt.Value.ToString());
 
             var linearLayoutManager = new LinearLayoutManager (CrossCurrentActivity.Current.Activity);
 
@@ -37,8 +36,18 @@ namespace debtsTracker.Fragments
 
             listView.SetAdapter (adapter);
 
-
+            Bindings.Add(this.SetBinding(() => Vm.TotalText)
+              .WhenSourceChanges(() =>
+              {
+                  total.Text = vm.TotalText;
+              }));
             return view;
+        }
+
+        public override void OnDestroyView()
+        {
+            Vm.Unsubscribe();
+            base.OnDestroyView();
         }
     }
 }
