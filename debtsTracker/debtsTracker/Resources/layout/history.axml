@@ -15,7 +15,7 @@
         android:layout_above="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/primary_dark"
+        android:textColor="@color/light_gray"
         android:textSize="25dp"
         android:paddingEnd="16dp"
         android:paddingStart="16dp"

@@ -46,7 +46,7 @@
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
         android:singleLine="true"
-        android:inputType="numberSigned"
+        android:inputType="numberDecimal"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
