@@ -25,4 +25,6 @@
     <string name="merge_rename_descr">You already have a debt with this name.</string>
     <string name="merge_failed">Merge failed, please try again.</string>
     <string name="add">Add</string>
+    <string name="return_transaction">New refund(-)</string>
+    <string name="add_transaction">New debt(+)</string>
 </resources>

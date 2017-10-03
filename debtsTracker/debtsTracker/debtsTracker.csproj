@@ -247,6 +247,8 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_remove_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_remove_black_24dp.png" />
     <AndroidResource Include="Resources\layout\footer.axml" />
+    <AndroidResource Include="Resources\drawable\shape.xml" />
+    <AndroidResource Include="Resources\drawable\aaa.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
