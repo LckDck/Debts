@@ -8,9 +8,18 @@
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/lin_result" />
+        android:layout_above="@+id/total" />
+    <TextView
+        android:id="@+id/total"
+        android:text="123"
+        android:layout_above="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primary_dark"
+        android:textSize="25dp"
+        android:padding="10dp" />
     <LinearLayout
-        android:id="@+id/lin_result"
+        android:id="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

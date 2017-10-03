@@ -27,4 +27,5 @@
     <string name="add">Add</string>
     <string name="return_transaction">New refund(-)</string>
     <string name="add_transaction">New debt(+)</string>
+    <string name="total">Total: {0}</string>
 </resources>

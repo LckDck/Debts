@@ -1,5 +1,6 @@
 ﻿using System;
 using Android.Support.V7.Widget;
+using Android.Widget;
 using debtsTracker.Adapters;
 using debtsTracker.Entities;
 using debtsTracker.ViewModels;
@@ -24,7 +25,9 @@ namespace debtsTracker.Fragments
         {
             var view = inflater.Inflate (Resource.Layout.history, container, false);
             var listView = view.FindViewById<RecyclerView> (Resource.Id.list);
-
+            var total = view.FindViewById<TextView> (Resource.Id.total);
+            var str = Utils.GetStringFromResource(Resource.String.total);
+            total.Text = string.Format(str, Vm.Debt.Value.ToString());
 
             var linearLayoutManager = new LinearLayoutManager (CrossCurrentActivity.Current.Activity);
 
