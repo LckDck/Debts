@@ -14,6 +14,7 @@ using debtsTracker.ViewModels;
 using Java.Util;
 using Microsoft.Practices.ServiceLocation;
 using Plugin.CurrentActivity;
+using static Android.App.DatePickerDialog;
 using static Android.Support.Design.Widget.TabLayout;
 
 namespace debtsTracker.Fragments
@@ -52,6 +53,8 @@ namespace debtsTracker.Fragments
         private EditText nameView;
         private View _view;
         LinearLayout _form;
+        EditText dateView;
+        private DatePickerDialog dialog;
 
         public override Android.Views.View OnCreateView (Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container, Android.OS.Bundle savedInstanceState)
         {
@@ -77,18 +80,10 @@ namespace debtsTracker.Fragments
 
             _form = _view.FindViewById<LinearLayout>(Resource.Id.form);
 
-			var dateView = _view.FindViewById<EditText>(Resource.Id.date);
+		    dateView = _view.FindViewById<EditText>(Resource.Id.date);
 
 			dateView.Text = DateTime.Now.ToString(Utils.DatePattern);
-            dateView.Click += (sender, e) => {
-                
-                _form.RequestFocus();
-                Calendar calendar = Calendar.GetInstance(Java.Util.TimeZone.Default);
-				DatePickerDialog dialog = new DatePickerDialog(CrossCurrentActivity.Current.Activity, ChangeText,
-																calendar.Get(CalendarField.Year), calendar.Get(CalendarField.Month),
-																calendar.Get(CalendarField.DayOfMonth));
-				dialog.Show();
-			};
+            dateView.Click += OnDateClick;
 
             _pager = (ViewPager)_view.FindViewById (Resource.Id.pager);
             Java.Lang.String [] tabNames =
@@ -113,6 +108,16 @@ namespace debtsTracker.Fragments
             doneButton.Click += CheckValid;
 
 			return _view;
+        }
+
+        private void OnDateClick(object sender, EventArgs e)
+        {
+			_form.RequestFocus();
+			Calendar calendar = Calendar.GetInstance(Java.Util.TimeZone.Default);
+			dialog = new DatePickerDialog(CrossCurrentActivity.Current.Activity, ChangeText,
+															calendar.Get(CalendarField.Year), calendar.Get(CalendarField.Month),
+															calendar.Get(CalendarField.DayOfMonth));
+			dialog.Show();
         }
 
 
@@ -157,6 +162,7 @@ namespace debtsTracker.Fragments
 
         void ChangeText (object sender, DatePickerDialog.DateSetEventArgs e)
         {
+            dateView.Text = e.Date.ToString(Utils.DatePattern);
             Vm.DateTime = e.Date;
         }
 
@@ -174,5 +180,7 @@ namespace debtsTracker.Fragments
         {
             
         }
+
+
     }
 }
