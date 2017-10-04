@@ -251,6 +251,11 @@
     <AndroidResource Include="Resources\drawable\shape.xml" />
     <AndroidResource Include="Resources\drawable\aaa.axml" />
     <AndroidResource Include="Resources\drawable\splash.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_done_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_done_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_done_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_done_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_done_white_24dp.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

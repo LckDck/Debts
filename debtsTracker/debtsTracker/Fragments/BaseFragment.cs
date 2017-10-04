@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Android.Support.V4.App;
+using Android.Views.InputMethods;
 using GalaSoft.MvvmLight.Helpers;
 
 namespace debtsTracker.Fragments
@@ -21,6 +22,25 @@ namespace debtsTracker.Fragments
 		{
 			var toolbar = MainActivity.Current.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
 			toolbar.Title = title;
+		}
+
+        protected void HideKeyboard() {
+			InputMethodManager inputManager = (InputMethodManager)MainActivity.Current.GetSystemService(Android.Content.Context.InputMethodService);
+			var currentFocus = MainActivity.Current.CurrentFocus;
+			if (currentFocus != null)
+			{
+                inputManager.HideSoftInputFromWindow(currentFocus.WindowToken, HideSoftInputFlags.None);
+			}
+        }
+
+		protected void ShowKeyboard()
+		{
+			InputMethodManager inputManager = (InputMethodManager)MainActivity.Current.GetSystemService(Android.Content.Context.InputMethodService);
+			var currentFocus = MainActivity.Current.CurrentFocus;
+			if (currentFocus != null)
+			{
+                inputManager.ShowSoftInput(currentFocus, ShowFlags.Forced);
+			}
 		}
 
 		public void InsertFragmentIntoContainer (BaseFragment fragment, int container)

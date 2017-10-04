@@ -1,5 +1,6 @@
 ﻿using System;
 using Android.App;
+using Android.Graphics;
 using Android.Support.Design.Widget;
 using Android.Support.V4.App;
 using Android.Support.V4.View;
@@ -31,12 +32,7 @@ namespace debtsTracker.Fragments
         private void OnNameFocus(object sender, EventArgs e)
         {
             nameView.RequestFocus();
-			InputMethodManager inputManager = (InputMethodManager)MainActivity.Current.GetSystemService(Android.Content.Context.InputMethodService);
-			var currentFocus = MainActivity.Current.CurrentFocus;
-			if (currentFocus != null)
-			{
-                inputManager.ShowSoftInput(currentFocus, ShowFlags.Forced);
-			}
+            ShowKeyboard();
         }
 
         InterfaceUpdateManager _interfaceUpdateManager;
@@ -51,10 +47,11 @@ namespace debtsTracker.Fragments
         TabLayout _tabs;
 
         ViewPager _pager;
-        Button doneButton;
+        ImageButton doneButton;
         private EditText amountView;
         private EditText nameView;
         private View _view;
+        LinearLayout _form;
 
         public override Android.Views.View OnCreateView (Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container, Android.OS.Bundle savedInstanceState)
         {
@@ -64,16 +61,7 @@ namespace debtsTracker.Fragments
             }
 
             _view = inflater.Inflate (Resource.Layout.add_transaction, container, false);
-            var dateView = _view.FindViewById<EditText> (Resource.Id.date);
 
-            dateView.Text = DateTime.Now.ToString (Utils.DatePattern);
-            dateView.Click += (sender, e) => {
-                Calendar calendar = Calendar.GetInstance (Java.Util.TimeZone.Default);
-                DatePickerDialog dialog = new DatePickerDialog (CrossCurrentActivity.Current.Activity, ChangeText,
-                                                                calendar.Get (CalendarField.Year), calendar.Get (CalendarField.Month),
-                                                                calendar.Get (CalendarField.DayOfMonth));
-                dialog.Show ();
-            };
 
             amountView = _view.FindViewById<EditText> (Resource.Id.amount);
             amountView.TextChanged += (sender, e) => {
@@ -83,11 +71,24 @@ namespace debtsTracker.Fragments
 			nameView = _view.FindViewById<EditText>(Resource.Id.name);
             nameView.TextChanged += (sender, e) => Vm.Name = nameView.Text;
 
+
 			var commentView = _view.FindViewById<EditText>(Resource.Id.comment);
             commentView.TextChanged += (sender, e) => Vm.Comment = commentView.Text;
 
+            _form = _view.FindViewById<LinearLayout>(Resource.Id.form);
 
-			
+			var dateView = _view.FindViewById<EditText>(Resource.Id.date);
+
+			dateView.Text = DateTime.Now.ToString(Utils.DatePattern);
+            dateView.Click += (sender, e) => {
+                
+                _form.RequestFocus();
+                Calendar calendar = Calendar.GetInstance(Java.Util.TimeZone.Default);
+				DatePickerDialog dialog = new DatePickerDialog(CrossCurrentActivity.Current.Activity, ChangeText,
+																calendar.Get(CalendarField.Year), calendar.Get(CalendarField.Month),
+																calendar.Get(CalendarField.DayOfMonth));
+				dialog.Show();
+			};
 
             _pager = (ViewPager)_view.FindViewById (Resource.Id.pager);
             Java.Lang.String [] tabNames =
@@ -107,7 +108,7 @@ namespace debtsTracker.Fragments
 
             _tabs.AddOnTabSelectedListener(this);
 
-            doneButton = MainActivity.Current.FindViewById<Button>(Resource.Id.done_button);
+            doneButton = MainActivity.Current.FindViewById<ImageButton>(Resource.Id.done_button);
             doneButton.Visibility = Android.Views.ViewStates.Visible;
             doneButton.Click += CheckValid;
 
@@ -130,12 +131,7 @@ namespace debtsTracker.Fragments
 
             if (!hasError)
             {
-                InputMethodManager inputManager = (InputMethodManager)MainActivity.Current.GetSystemService(Android.Content.Context.InputMethodService);
-				var currentFocus = MainActivity.Current.CurrentFocus;
-				if (currentFocus != null)
-				{
-                    inputManager.HideSoftInputFromWindow(currentFocus.WindowToken, HideSoftInputFlags.None);
-				}
+                HideKeyboard();
                 Vm.SaveCommand.Execute(null);
             }
         }
