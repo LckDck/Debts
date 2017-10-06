@@ -28,7 +28,9 @@ namespace debtsTracker.ViewModels
         }
 
 		InterfaceUpdateManager _interfaceUpdateManager;
-		InterfaceUpdateManager InterfaceUpdateManager
+        private List<Debt> _debts;
+
+        InterfaceUpdateManager InterfaceUpdateManager
 		{
 			get
 			{
@@ -38,8 +40,8 @@ namespace debtsTracker.ViewModels
 
         public List<Debt> GetItems (bool myDebts)
         {
-            var result = DebtsManager.ReadDebts().Select(item => item.Value).ToList();
-            return result.Where(item => item.ToMe == !myDebts).ToList();
+            _debts = DebtsManager.ReadDebts().Select(item => item.Value).ToList();
+            return _debts.Where(item => item.ToMe == !myDebts).ToList();
         }
 
 		public int Tab
@@ -61,8 +63,7 @@ namespace debtsTracker.ViewModels
         }
 
         public void AddTransaction(int position, bool positive) {
-            //NavigationService.NavigateTo(Page.AddPage, _debts[position]);
-            NavigationService.NavigateTo(Page.AddPage);
+            NavigationService.NavigateTo(Page.AddTransactionPage, _debts[position].Name, positive);
         }
     }
 }

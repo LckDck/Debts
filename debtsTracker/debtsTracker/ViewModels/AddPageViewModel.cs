@@ -38,7 +38,7 @@ namespace debtsTracker.ViewModels
         public DateTime DateTime { get; set; }
 
 		DebtsManager _debtsManager;
-		DebtsManager DebtsManager
+		protected DebtsManager DebtsManager
 		{
 			get
 			{
@@ -47,7 +47,7 @@ namespace debtsTracker.ViewModels
 		}
 
 		InterfaceUpdateManager _interfaceUpdateManager;
-        InterfaceUpdateManager InterfaceUpdateManager
+        protected InterfaceUpdateManager InterfaceUpdateManager
         {
             get
             {
@@ -57,7 +57,7 @@ namespace debtsTracker.ViewModels
 
         
 
-        public void Save() {
+        protected virtual void Save() {
             
             var transaction = new Transaction
             {
@@ -124,7 +124,7 @@ namespace debtsTracker.ViewModels
 			var alert = new Android.Support.V7.App.AlertDialog.Builder(MainActivity.Current);
 			alert
 				 .SetMessage(Resource.String.merge_failed)
-                .SetPositiveButton(Resource.String.rename, (sender, e) => { });
+                .SetPositiveButton(Resource.String.close, (sender, e) => { });
 
 			alert.Create().Show();
         }

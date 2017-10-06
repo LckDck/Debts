@@ -178,6 +178,8 @@
     <Compile Include="Adapters\FooterViewHolder.cs" />
     <Compile Include="Managers\DebtEventArgs.cs" />
     <Compile Include="SplashActivity.cs" />
+    <Compile Include="Fragments\AddTransactionFragment.cs" />
+    <Compile Include="ViewModels\AddTransactionPageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -202,7 +204,7 @@
     <AndroidResource Include="Resources\values\styles.xml" />
     <AndroidResource Include="Resources\layout\debt_item.axml" />
     <AndroidResource Include="Resources\layout\history_item.axml" />
-    <AndroidResource Include="Resources\layout\add_transaction.axml" />
+    <AndroidResource Include="Resources\layout\add_debt.axml" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_account_plus_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_account_plus_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_account_plus_black_24dp.png" />
@@ -256,6 +258,7 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_done_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_done_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_done_white_24dp.png" />
+    <AndroidResource Include="Resources\layout\add_transaction.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

@@ -19,13 +19,15 @@ using static Android.Support.Design.Widget.TabLayout;
 
 namespace debtsTracker.Fragments
 {
-    public class AddPageFragment : BaseFragment, IOnTabSelectedListener
+    public class AddPageFragment : AddTransactionFragment, IOnTabSelectedListener
     {
-        AddPageViewModel vm;
-        public AddPageViewModel Vm => vm ?? (vm = ServiceLocator.Current.GetInstance<AddPageViewModel>());
+        public override AddPageViewModel Vm => vm ?? (vm = ServiceLocator.Current.GetInstance<AddTransactionPageViewModel>());
 
+		TabLayout _tabs;
 
-		public AddPageFragment ()
+		ViewPager _pager;
+
+        public AddPageFragment () : base (string.Empty, true)
         {
             InterfaceUpdateManager.NameFocus += OnNameFocus;
         }
@@ -36,151 +38,96 @@ namespace debtsTracker.Fragments
             ShowKeyboard();
         }
 
-        InterfaceUpdateManager _interfaceUpdateManager;
-		InterfaceUpdateManager InterfaceUpdateManager
-		{
-			get
-			{
-				return _interfaceUpdateManager ?? (_interfaceUpdateManager = ServiceLocator.Current.GetInstance<InterfaceUpdateManager>());
-			}
-		}
 
-        TabLayout _tabs;
-
-        ViewPager _pager;
-        ImageButton doneButton;
-        private EditText amountView;
         private EditText nameView;
-        private View _view;
-        LinearLayout _form;
-        EditText dateView;
-        private DatePickerDialog dialog;
+
+        protected override void InitView(LayoutInflater inflater, ViewGroup container)
+        {
+            _view = inflater.Inflate(Resource.Layout.add_debt, container, false);
+        }
 
         public override Android.Views.View OnCreateView (Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container, Android.OS.Bundle savedInstanceState)
         {
+            base.OnCreateView(inflater, container, savedInstanceState);
 			SetTitle(Resource.String.add_debt);
             if (_view != null) {
                 return _view;
             }
 
-            _view = inflater.Inflate (Resource.Layout.add_transaction, container, false);
+			_pager = (ViewPager)_view.FindViewById(Resource.Id.pager);
+			Java.Lang.String[] tabNames =
+			{
+				new Java.Lang.String(Context.Resources.GetString(Resource.String.my_debts)),
+				new Java.Lang.String(Context.Resources.GetString(Resource.String.debts_to_me)),
+			};
+			_pager.Adapter = new OwnerAdapter(ChildFragmentManager, tabNames, true);
 
 
-            amountView = _view.FindViewById<EditText> (Resource.Id.amount);
-            amountView.TextChanged += (sender, e) => {
-                Vm.Amount = string.IsNullOrEmpty(amountView.Text) ? 0 : Convert.ToDouble(amountView.Text);
-            };
-
-			nameView = _view.FindViewById<EditText>(Resource.Id.name);
-            nameView.TextChanged += (sender, e) => Vm.Name = nameView.Text;
-
-
-			var commentView = _view.FindViewById<EditText>(Resource.Id.comment);
-            commentView.TextChanged += (sender, e) => Vm.Comment = commentView.Text;
-
-            _form = _view.FindViewById<LinearLayout>(Resource.Id.form);
-
-		    dateView = _view.FindViewById<EditText>(Resource.Id.date);
-
-			dateView.Text = DateTime.Now.ToString(Utils.DatePattern);
-            dateView.Click += OnDateClick;
-
-            _pager = (ViewPager)_view.FindViewById (Resource.Id.pager);
-            Java.Lang.String [] tabNames =
-            {
-                new Java.Lang.String(Context.Resources.GetString(Resource.String.my_debts)),
-                new Java.Lang.String(Context.Resources.GetString(Resource.String.debts_to_me)),
-            };
-            _pager.Adapter = new OwnerAdapter (ChildFragmentManager, tabNames, true);
 
 
 			_tabs = (TabLayout)_view.FindViewById(Resource.Id.tabs);
-			
+
 			_tabs.SetupWithViewPager(_pager);
 
-            var tab = _tabs.GetTabAt(Vm.Tab);
-            tab.Select();
+			var tab = _tabs.GetTabAt(Vm.Tab);
+			tab.Select();
 
-            _tabs.AddOnTabSelectedListener(this);
+			_tabs.AddOnTabSelectedListener(this);
 
-            doneButton = MainActivity.Current.FindViewById<ImageButton>(Resource.Id.done_button);
-            doneButton.Visibility = Android.Views.ViewStates.Visible;
-            doneButton.Click += CheckValid;
+			nameView = _view.FindViewById<EditText>(Resource.Id.name);
+			nameView.TextChanged += (sender, e) => Vm.Name = nameView.Text;
+
 
 			return _view;
         }
 
-        private void OnDateClick(object sender, EventArgs e)
-        {
-			_form.RequestFocus();
-			Calendar calendar = Calendar.GetInstance(Java.Util.TimeZone.Default);
-			dialog = new DatePickerDialog(CrossCurrentActivity.Current.Activity, ChangeText,
-															calendar.Get(CalendarField.Year), calendar.Get(CalendarField.Month),
-															calendar.Get(CalendarField.DayOfMonth));
-			dialog.Show();
-        }
 
 
-        private void CheckValid(object sender, EventArgs e)
+        protected override void CheckValid(object sender, EventArgs e)
         {
-            var hasError = false;
+            bool hasError = false;
             if (string.IsNullOrEmpty(nameView.Text)) {
                 Shake(nameView);
                 hasError = true;
             }
-            if (string.IsNullOrEmpty(amountView.Text))
+
+			if (string.IsNullOrEmpty(amountView.Text))
 			{
-                Shake(amountView);
-                hasError = true;
+				Shake(amountView);
+				hasError = true;
 			}
 
-            if (!hasError)
+
+			if (!hasError)
             {
                 HideKeyboard();
                 Vm.SaveCommand.Execute(null);
             }
         }
 
-        private void Shake(EditText view)
-        {
-			Animation shake = AnimationUtils.LoadAnimation(CrossCurrentActivity.Current.Activity, Resource.Animation.anim_shake);
-			view?.StartAnimation(shake);
-        }
 
-        public override void OnDestroyView ()
+        public override void OnDestroyView()
         {
-            base.OnDestroyView ();
+            base.OnDestroyView();
             _tabs.RemoveOnTabSelectedListener(this);
-            doneButton.Visibility = Android.Views.ViewStates.Gone;
-			doneButton.Click -= CheckValid;
-            doneButton = null;
-            _tabs = null;
-            _pager = null;
+			_tabs = null;
+			_pager = null;
         }
 
+		public void OnTabReselected(Tab tab)
+		{
 
+		}
 
-        void ChangeText (object sender, DatePickerDialog.DateSetEventArgs e)
-        {
-            dateView.Text = e.Date.ToString(Utils.DatePattern);
-            Vm.DateTime = e.Date;
-        }
+		public void OnTabSelected(Tab tab)
+		{
+			Vm.Tab = tab.Position;
+		}
 
-        public void OnTabReselected(Tab tab)
-        {
-           
-        }
+		public void OnTabUnselected(Tab tab)
+		{
 
-        public void OnTabSelected(Tab tab)
-        {
-            Vm.Tab = tab.Position;
-        }
-
-        public void OnTabUnselected(Tab tab)
-        {
-            
-        }
-
+		}
 
     }
 }

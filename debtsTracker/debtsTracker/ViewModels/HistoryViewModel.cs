@@ -33,9 +33,9 @@ namespace debtsTracker.ViewModels
             return Debt.Transactions;
         }
 
-        internal void AddPage()
+        internal void AddPage(bool positive)
         {
-            NavigationService.NavigateTo(Page.AddPage);
+            NavigationService.NavigateTo(Page.AddTransactionPage, Debt.Name, positive);
         }
 
 

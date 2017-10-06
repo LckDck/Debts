@@ -5,6 +5,7 @@ namespace debtsTracker.Utilities
     {
         MainPage,
         AddPage,
+        AddTransactionPage,
         HistoryPage
     }
 }

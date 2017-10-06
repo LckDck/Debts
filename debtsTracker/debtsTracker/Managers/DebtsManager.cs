@@ -28,6 +28,16 @@ namespace debtsTracker.Managers
             return true;
         }
 
+        public bool AddTransaction(Transaction trans)
+		{
+            if (!Debts.ContainsKey(trans.Name)) return false;
+
+            Debts[trans.Name].Transactions.Add(trans);
+			Storage.SaveDebts(Debts);
+			return true;
+		}
+
+
 		public bool MergeDebt(Debt debt)
 		{
             if (!Debts.ContainsKey(debt.Name)) return false;
@@ -49,11 +59,11 @@ namespace debtsTracker.Managers
             if (!Debts.ContainsKey(trans.Name)) return;
 
             var debt = Debts[trans.Name];
-            var foundDebt = debt.Transactions.Find(item => item.Date == trans.Date
-                                                   && item.Value == trans.Value
+            var foundTransaction = debt.Transactions.Find(item => item.Date == trans.Date
+                                                   && Math.Abs(item.Value - trans.Value) < double.Epsilon
                                                    && item.Comment == trans.Comment);
-            if (foundDebt != null){ 
-                debt.Transactions.Remove(foundDebt);
+            if (foundTransaction != null){ 
+                debt.Transactions.Remove(foundTransaction);
             }
             Storage.SaveDebts(Debts);
         }

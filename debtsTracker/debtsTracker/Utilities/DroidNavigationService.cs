@@ -58,17 +58,19 @@ namespace debtsTracker.Utilities
 			}
 		}
 
-		private Fragment CreateFragment (Page page, object parameter)
+        private Fragment CreateFragment (Page page, object parameter1, object parameter2)
 		{
-			object [] parameters = parameter != null ? new [] { parameter } : null;
+            object [] parameters = parameter1 != null && parameter2 != null ? new [] { parameter1, parameter2 } :
+            (parameter1 != null) ? new[] { parameter1 } :
+			null;
 			var fragment = Activator.CreateInstance (pagesByKey [page].Type, parameters) as Fragment;
 			return fragment;
 		}
 
-		public void NavigateTo (Page page, object parameter)
+        public void NavigateTo (Page page, object parameter1, object parameter2)
 		{
 			mainActivity.RunOnUiThread (() => {
-				if (page == CurrentPage && parameter == null) return;
+                if (page == CurrentPage && parameter1 == null && parameter2 == null) return;
 				BeforeNavigateEvent?.Invoke (this, page);
 				if (mainActivity == null)
 					throw new InvalidOperationException ("No MainActivity found");
@@ -77,7 +79,7 @@ namespace debtsTracker.Utilities
 					if (!pagesByKey.ContainsKey (page))
 						throw new ArgumentException ($"No such page: {page.ToString ()}. Did you forget to call NavigationService.Configure?");
 
-					var fragment = CreateFragment (page, parameter);
+                    var fragment = CreateFragment (page, parameter1, parameter2);
 
 					var transaction = fragmentManager
 						.BeginTransaction ()
@@ -110,9 +112,15 @@ namespace debtsTracker.Utilities
 			CrossCurrentActivity.Current.Activity.ApplicationContext.StartActivity (intent);
 		}
 
+
+        public void NavigateTo(Page page, object parameter)
+		{
+            NavigateTo(page, parameter, null);
+		}
+
 		public void NavigateTo (Page page)
 		{
-			NavigateTo (page, null);
+			NavigateTo (page, null, null);
 		}
 
 	}
