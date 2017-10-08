@@ -3,26 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     android:orientation="vertical"
     android:id="@+id/form"
     android:focusable="true"
+    android:background="@color/ripple"
     android:focusableInTouchMode="true">
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tabs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/ripple"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:tabIndicatorHeight="4dp"
-        app:tabSelectedTextColor="@color/accent"
-        app:tabIndicatorColor="@color/accent"
-        app:tabMode="fixed"
-        app:tabGravity="fill" />
     <android.support.design.widget.TextInputLayout
         android:id="@+id/input_layout_password"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp">
         <EditText
             android:hint="@string/amount"
             android:layout_width="match_parent"

@@ -7,7 +7,7 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/ic_thumb_up_black_24dp"/>
+            android:src="@drawable/screen"/>
     </item>
 
 </layer-list>

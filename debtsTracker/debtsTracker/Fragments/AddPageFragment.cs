@@ -21,7 +21,7 @@ namespace debtsTracker.Fragments
 {
     public class AddPageFragment : AddTransactionFragment, IOnTabSelectedListener
     {
-        public override AddPageViewModel Vm => vm ?? (vm = ServiceLocator.Current.GetInstance<AddTransactionPageViewModel>());
+        public override AddPageViewModel Vm => vm ?? (vm = ServiceLocator.Current.GetInstance<AddPageViewModel>());
 
 		TabLayout _tabs;
 
@@ -48,11 +48,14 @@ namespace debtsTracker.Fragments
 
         public override Android.Views.View OnCreateView (Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container, Android.OS.Bundle savedInstanceState)
         {
+            SetTitle(Resource.String.add_debt);
+			if (_view != null)
+			{
+				return _view;
+			}
             base.OnCreateView(inflater, container, savedInstanceState);
-			SetTitle(Resource.String.add_debt);
-            if (_view != null) {
-                return _view;
-            }
+			
+
 
 			_pager = (ViewPager)_view.FindViewById(Resource.Id.pager);
 			Java.Lang.String[] tabNames =

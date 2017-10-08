@@ -19,7 +19,7 @@ namespace debtsTracker.Fragments
     public class AddTransactionFragment : BaseFragment
     {
 		protected AddPageViewModel vm;
-        public virtual AddPageViewModel Vm => vm ?? (vm = ServiceLocator.Current.GetInstance<AddPageViewModel>());
+        public virtual AddPageViewModel Vm => vm ?? (vm = ServiceLocator.Current.GetInstance<AddTransactionPageViewModel>());
 
         readonly string _name;
         readonly bool _positive;

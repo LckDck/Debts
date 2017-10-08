@@ -259,6 +259,7 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_done_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_done_white_24dp.png" />
     <AndroidResource Include="Resources\layout\add_transaction.axml" />
+    <AndroidResource Include="Resources\drawable-mdpi\screen.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
