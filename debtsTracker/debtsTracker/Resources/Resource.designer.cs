@@ -2286,26 +2286,26 @@ namespace debtsTracker
 			// aapt resource value: 0x7f020054
 			public const int avd_hide_password = 2130837588;
 			
-			// aapt resource value: 0x7f02008c
-			public const int avd_hide_password_1 = 2130837644;
-			
-			// aapt resource value: 0x7f02008d
-			public const int avd_hide_password_2 = 2130837645;
-			
 			// aapt resource value: 0x7f02008e
-			public const int avd_hide_password_3 = 2130837646;
+			public const int avd_hide_password_1 = 2130837646;
+			
+			// aapt resource value: 0x7f02008f
+			public const int avd_hide_password_2 = 2130837647;
+			
+			// aapt resource value: 0x7f020090
+			public const int avd_hide_password_3 = 2130837648;
 			
 			// aapt resource value: 0x7f020055
 			public const int avd_show_password = 2130837589;
 			
-			// aapt resource value: 0x7f02008f
-			public const int avd_show_password_1 = 2130837647;
-			
-			// aapt resource value: 0x7f020090
-			public const int avd_show_password_2 = 2130837648;
-			
 			// aapt resource value: 0x7f020091
-			public const int avd_show_password_3 = 2130837649;
+			public const int avd_show_password_1 = 2130837649;
+			
+			// aapt resource value: 0x7f020092
+			public const int avd_show_password_2 = 2130837650;
+			
+			// aapt resource value: 0x7f020093
+			public const int avd_show_password_3 = 2130837651;
 			
 			// aapt resource value: 0x7f020056
 			public const int common_full_open_on_phone = 2130837590;
@@ -2413,61 +2413,67 @@ namespace debtsTracker
 			public const int ic_import_black_24dp = 2130837624;
 			
 			// aapt resource value: 0x7f020079
-			public const int ic_remove_black_24dp = 2130837625;
+			public const int ic_mode_edit_white_24dp = 2130837625;
 			
 			// aapt resource value: 0x7f02007a
-			public const int ic_settings_black_24dp = 2130837626;
+			public const int ic_remove_black_24dp = 2130837626;
 			
 			// aapt resource value: 0x7f02007b
-			public const int ic_thumb_up_black_24dp = 2130837627;
+			public const int ic_remove_white_24dp = 2130837627;
 			
 			// aapt resource value: 0x7f02007c
-			public const int navigation_empty_icon = 2130837628;
+			public const int ic_settings_black_24dp = 2130837628;
 			
 			// aapt resource value: 0x7f02007d
-			public const int notification_action_background = 2130837629;
+			public const int ic_thumb_up_black_24dp = 2130837629;
 			
 			// aapt resource value: 0x7f02007e
-			public const int notification_bg = 2130837630;
+			public const int navigation_empty_icon = 2130837630;
 			
 			// aapt resource value: 0x7f02007f
-			public const int notification_bg_low = 2130837631;
+			public const int notification_action_background = 2130837631;
 			
 			// aapt resource value: 0x7f020080
-			public const int notification_bg_low_normal = 2130837632;
+			public const int notification_bg = 2130837632;
 			
 			// aapt resource value: 0x7f020081
-			public const int notification_bg_low_pressed = 2130837633;
+			public const int notification_bg_low = 2130837633;
 			
 			// aapt resource value: 0x7f020082
-			public const int notification_bg_normal = 2130837634;
+			public const int notification_bg_low_normal = 2130837634;
 			
 			// aapt resource value: 0x7f020083
-			public const int notification_bg_normal_pressed = 2130837635;
+			public const int notification_bg_low_pressed = 2130837635;
 			
 			// aapt resource value: 0x7f020084
-			public const int notification_icon_background = 2130837636;
-			
-			// aapt resource value: 0x7f02008a
-			public const int notification_template_icon_bg = 2130837642;
-			
-			// aapt resource value: 0x7f02008b
-			public const int notification_template_icon_low_bg = 2130837643;
+			public const int notification_bg_normal = 2130837636;
 			
 			// aapt resource value: 0x7f020085
-			public const int notification_tile_bg = 2130837637;
+			public const int notification_bg_normal_pressed = 2130837637;
 			
 			// aapt resource value: 0x7f020086
-			public const int notify_panel_notification_icon_bg = 2130837638;
+			public const int notification_icon_background = 2130837638;
+			
+			// aapt resource value: 0x7f02008c
+			public const int notification_template_icon_bg = 2130837644;
+			
+			// aapt resource value: 0x7f02008d
+			public const int notification_template_icon_low_bg = 2130837645;
 			
 			// aapt resource value: 0x7f020087
-			public const int screen = 2130837639;
+			public const int notification_tile_bg = 2130837639;
 			
 			// aapt resource value: 0x7f020088
-			public const int shape = 2130837640;
+			public const int notify_panel_notification_icon_bg = 2130837640;
 			
 			// aapt resource value: 0x7f020089
-			public const int splash = 2130837641;
+			public const int screen = 2130837641;
+			
+			// aapt resource value: 0x7f02008a
+			public const int shape = 2130837642;
+			
+			// aapt resource value: 0x7f02008b
+			public const int splash = 2130837643;
 			
 			static Drawable()
 			{
@@ -2482,8 +2488,8 @@ namespace debtsTracker
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f0b00a1
-			public const int action0 = 2131427489;
+			// aapt resource value: 0x7f0b00a4
+			public const int action0 = 2131427492;
 			
 			// aapt resource value: 0x7f0b006b
 			public const int action_bar = 2131427435;
@@ -2506,17 +2512,17 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b0048
 			public const int action_bar_title = 2131427400;
 			
-			// aapt resource value: 0x7f0b009e
-			public const int action_container = 2131427486;
+			// aapt resource value: 0x7f0b00a1
+			public const int action_container = 2131427489;
 			
 			// aapt resource value: 0x7f0b006c
 			public const int action_context_bar = 2131427436;
 			
-			// aapt resource value: 0x7f0b00a5
-			public const int action_divider = 2131427493;
+			// aapt resource value: 0x7f0b00a8
+			public const int action_divider = 2131427496;
 			
-			// aapt resource value: 0x7f0b009f
-			public const int action_image = 2131427487;
+			// aapt resource value: 0x7f0b00a2
+			public const int action_image = 2131427490;
 			
 			// aapt resource value: 0x7f0b0003
 			public const int action_menu_divider = 2131427331;
@@ -2533,17 +2539,20 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b004a
 			public const int action_mode_close_button = 2131427402;
 			
-			// aapt resource value: 0x7f0b00a0
-			public const int action_text = 2131427488;
+			// aapt resource value: 0x7f0b00a3
+			public const int action_text = 2131427491;
 			
-			// aapt resource value: 0x7f0b00ae
-			public const int actions = 2131427502;
+			// aapt resource value: 0x7f0b00b1
+			public const int actions = 2131427505;
 			
 			// aapt resource value: 0x7f0b004b
 			public const int activity_chooser_view_content = 2131427403;
 			
 			// aapt resource value: 0x7f0b0026
 			public const int add = 2131427366;
+			
+			// aapt resource value: 0x7f0b009d
+			public const int add_button = 2131427485;
 			
 			// aapt resource value: 0x7f0b000f
 			public const int adjust_height = 2131427343;
@@ -2581,8 +2590,8 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b0097
 			public const int buttons = 2131427479;
 			
-			// aapt resource value: 0x7f0b00a2
-			public const int cancel_action = 2131427490;
+			// aapt resource value: 0x7f0b00a5
+			public const int cancel_action = 2131427493;
 			
 			// aapt resource value: 0x7f0b0082
 			public const int card_view = 2131427458;
@@ -2599,8 +2608,8 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b0062
 			public const int checkbox = 2131427426;
 			
-			// aapt resource value: 0x7f0b00aa
-			public const int chronometer = 2131427498;
+			// aapt resource value: 0x7f0b00ad
+			public const int chronometer = 2131427501;
 			
 			// aapt resource value: 0x7f0b0040
 			public const int clip_horizontal = 2131427392;
@@ -2662,11 +2671,14 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b001b
 			public const int disableHome = 2131427355;
 			
-			// aapt resource value: 0x7f0b009b
-			public const int done_button = 2131427483;
+			// aapt resource value: 0x7f0b009e
+			public const int done_button = 2131427486;
 			
 			// aapt resource value: 0x7f0b0098
 			public const int drawer_layout = 2131427480;
+			
+			// aapt resource value: 0x7f0b009b
+			public const int edit_button = 2131427483;
 			
 			// aapt resource value: 0x7f0b006d
 			public const int edit_query = 2131427437;
@@ -2674,8 +2686,8 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b0029
 			public const int end = 2131427369;
 			
-			// aapt resource value: 0x7f0b00b4
-			public const int end_padder = 2131427508;
+			// aapt resource value: 0x7f0b00b7
+			public const int end_padder = 2131427511;
 			
 			// aapt resource value: 0x7f0b0032
 			public const int enterAlways = 2131427378;
@@ -2692,8 +2704,8 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b0061
 			public const int expanded_menu = 2131427425;
 			
-			// aapt resource value: 0x7f0b00b5
-			public const int fab = 2131427509;
+			// aapt resource value: 0x7f0b00b8
+			public const int fab = 2131427512;
 			
 			// aapt resource value: 0x7f0b0042
 			public const int fill = 2131427394;
@@ -2722,8 +2734,8 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b0050
 			public const int icon = 2131427408;
 			
-			// aapt resource value: 0x7f0b00af
-			public const int icon_group = 2131427503;
+			// aapt resource value: 0x7f0b00b2
+			public const int icon_group = 2131427506;
 			
 			// aapt resource value: 0x7f0b0012
 			public const int icon_only = 2131427346;
@@ -2734,8 +2746,8 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b004d
 			public const int image = 2131427405;
 			
-			// aapt resource value: 0x7f0b00ab
-			public const int info = 2131427499;
+			// aapt resource value: 0x7f0b00ae
+			public const int info = 2131427502;
 			
 			// aapt resource value: 0x7f0b007d
 			public const int input_layout_password = 2131427453;
@@ -2752,11 +2764,11 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b0017
 			public const int light = 2131427351;
 			
-			// aapt resource value: 0x7f0b00b0
-			public const int line1 = 2131427504;
+			// aapt resource value: 0x7f0b00b3
+			public const int line1 = 2131427507;
 			
-			// aapt resource value: 0x7f0b00b2
-			public const int line3 = 2131427506;
+			// aapt resource value: 0x7f0b00b5
+			public const int line3 = 2131427509;
 			
 			// aapt resource value: 0x7f0b0086
 			public const int list = 2131427462;
@@ -2767,14 +2779,14 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b004f
 			public const int list_item = 2131427407;
 			
-			// aapt resource value: 0x7f0b009c
-			public const int main_content = 2131427484;
+			// aapt resource value: 0x7f0b009f
+			public const int main_content = 2131427487;
 			
-			// aapt resource value: 0x7f0b00b7
-			public const int masked = 2131427511;
+			// aapt resource value: 0x7f0b00ba
+			public const int masked = 2131427514;
 			
-			// aapt resource value: 0x7f0b00a4
-			public const int media_actions = 2131427492;
+			// aapt resource value: 0x7f0b00a7
+			public const int media_actions = 2131427495;
 			
 			// aapt resource value: 0x7f0b002a
 			public const int middle = 2131427370;
@@ -2791,20 +2803,20 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b007e
 			public const int name = 2131427454;
 			
-			// aapt resource value: 0x7f0b00ba
-			public const int nav_backup = 2131427514;
-			
-			// aapt resource value: 0x7f0b00b8
-			public const int nav_export = 2131427512;
-			
-			// aapt resource value: 0x7f0b00b9
-			public const int nav_import = 2131427513;
+			// aapt resource value: 0x7f0b00bd
+			public const int nav_backup = 2131427517;
 			
 			// aapt resource value: 0x7f0b00bb
-			public const int nav_upgrade = 2131427515;
+			public const int nav_export = 2131427515;
 			
-			// aapt resource value: 0x7f0b009d
-			public const int nav_view = 2131427485;
+			// aapt resource value: 0x7f0b00bc
+			public const int nav_import = 2131427516;
+			
+			// aapt resource value: 0x7f0b00be
+			public const int nav_upgrade = 2131427518;
+			
+			// aapt resource value: 0x7f0b00a0
+			public const int nav_view = 2131427488;
 			
 			// aapt resource value: 0x7f0b008f
 			public const int navigation_header_container = 2131427471;
@@ -2818,14 +2830,14 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b0019
 			public const int normal = 2131427353;
 			
-			// aapt resource value: 0x7f0b00ad
-			public const int notification_background = 2131427501;
+			// aapt resource value: 0x7f0b00b0
+			public const int notification_background = 2131427504;
 			
-			// aapt resource value: 0x7f0b00a7
-			public const int notification_main_column = 2131427495;
+			// aapt resource value: 0x7f0b00aa
+			public const int notification_main_column = 2131427498;
 			
-			// aapt resource value: 0x7f0b00a6
-			public const int notification_main_column_container = 2131427494;
+			// aapt resource value: 0x7f0b00a9
+			public const int notification_main_column_container = 2131427497;
 			
 			// aapt resource value: 0x7f0b007c
 			public const int pager = 2131427452;
@@ -2851,14 +2863,17 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b0064
 			public const int radio = 2131427428;
 			
+			// aapt resource value: 0x7f0b009c
+			public const int remove_button = 2131427484;
+			
 			// aapt resource value: 0x7f0b003c
 			public const int right = 2131427388;
 			
-			// aapt resource value: 0x7f0b00ac
-			public const int right_icon = 2131427500;
+			// aapt resource value: 0x7f0b00af
+			public const int right_icon = 2131427503;
 			
-			// aapt resource value: 0x7f0b00a8
-			public const int right_side = 2131427496;
+			// aapt resource value: 0x7f0b00ab
+			public const int right_side = 2131427499;
 			
 			// aapt resource value: 0x7f0b0022
 			public const int screen = 2131427362;
@@ -2956,8 +2971,8 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b003d
 			public const int start = 2131427389;
 			
-			// aapt resource value: 0x7f0b00a3
-			public const int status_bar_latest_event_content = 2131427491;
+			// aapt resource value: 0x7f0b00a6
+			public const int status_bar_latest_event_content = 2131427494;
 			
 			// aapt resource value: 0x7f0b0065
 			public const int submenuarrow = 2131427429;
@@ -2971,11 +2986,11 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b007b
 			public const int tabs = 2131427451;
 			
-			// aapt resource value: 0x7f0b00b3
-			public const int text = 2131427507;
+			// aapt resource value: 0x7f0b00b6
+			public const int text = 2131427510;
 			
-			// aapt resource value: 0x7f0b00b1
-			public const int text2 = 2131427505;
+			// aapt resource value: 0x7f0b00b4
+			public const int text2 = 2131427508;
 			
 			// aapt resource value: 0x7f0b0059
 			public const int textSpacerNoButtons = 2131427417;
@@ -2992,8 +3007,8 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b000d
 			public const int textinput_error = 2131427341;
 			
-			// aapt resource value: 0x7f0b00a9
-			public const int time = 2131427497;
+			// aapt resource value: 0x7f0b00ac
+			public const int time = 2131427500;
 			
 			// aapt resource value: 0x7f0b0051
 			public const int title = 2131427409;
@@ -3034,8 +3049,8 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0b000e
 			public const int view_offset_helper = 2131427342;
 			
-			// aapt resource value: 0x7f0b00b6
-			public const int visible = 2131427510;
+			// aapt resource value: 0x7f0b00b9
+			public const int visible = 2131427513;
 			
 			// aapt resource value: 0x7f0b0014
 			public const int wide = 2131427348;
