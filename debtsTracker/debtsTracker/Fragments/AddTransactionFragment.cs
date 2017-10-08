@@ -18,7 +18,7 @@ namespace debtsTracker.Fragments
 {
     public class AddTransactionFragment : BaseFragment
     {
-		protected AddPageViewModel vm;
+        protected AddPageViewModel vm;
         public virtual AddPageViewModel Vm => vm ?? (vm = ServiceLocator.Current.GetInstance<AddTransactionPageViewModel>());
 
         readonly string _name;
@@ -30,55 +30,59 @@ namespace debtsTracker.Fragments
             this._name = name;
         }
 
-		InterfaceUpdateManager _interfaceUpdateManager;
-		protected InterfaceUpdateManager InterfaceUpdateManager
-		{
-			get
-			{
-				return _interfaceUpdateManager ?? (_interfaceUpdateManager = ServiceLocator.Current.GetInstance<InterfaceUpdateManager>());
-			}
-		}
+        InterfaceUpdateManager _interfaceUpdateManager;
+        protected InterfaceUpdateManager InterfaceUpdateManager
+        {
+            get
+            {
+                return _interfaceUpdateManager ?? (_interfaceUpdateManager = ServiceLocator.Current.GetInstance<InterfaceUpdateManager>());
+            }
+        }
 
-		
-		ImageButton doneButton;
-		protected EditText amountView;
+
+        ImageButton doneButton;
+        protected EditText amountView;
         protected View _view;
-		LinearLayout _form;
-		EditText dateView;
-		private DatePickerDialog dialog;
+        LinearLayout _form;
+        EditText dateView;
+        private DatePickerDialog dialog;
 
 
         public override Android.Views.View OnCreateView(Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container, Android.OS.Bundle savedInstanceState)
         {
-            
+
 
             InitView(inflater, container);
-			amountView = _view.FindViewById<EditText>(Resource.Id.amount);
-			amountView.TextChanged += (sender, e) => {
-				Vm.Amount = string.IsNullOrEmpty(amountView.Text) ? 0 : Convert.ToDouble(amountView.Text);
-			};
+            amountView = _view.FindViewById<EditText>(Resource.Id.amount);
+            var hintResource = _positive ? Resource.String.amount : Resource.String.amount_refund;
+            amountView.Hint = Utils.GetStringFromResource(hintResource);
+            amountView.TextChanged += (sender, e) =>
+            {
+                Vm.Amount = string.IsNullOrEmpty(amountView.Text) ? 0 : Convert.ToDouble(amountView.Text);
+            };
 
 
-			var commentView = _view.FindViewById<EditText>(Resource.Id.comment);
-			commentView.TextChanged += (sender, e) => Vm.Comment = commentView.Text;
+            var commentView = _view.FindViewById<EditText>(Resource.Id.comment);
+            commentView.TextChanged += (sender, e) => Vm.Comment = commentView.Text;
 
-			_form = _view.FindViewById<LinearLayout>(Resource.Id.form);
+            _form = _view.FindViewById<LinearLayout>(Resource.Id.form);
 
-			dateView = _view.FindViewById<EditText>(Resource.Id.date);
+            dateView = _view.FindViewById<EditText>(Resource.Id.date);
 
-			dateView.Text = DateTime.Now.ToString(Utils.DatePattern);
-			dateView.Click += OnDateClick;
+            dateView.Text = DateTime.Now.ToString(Utils.DatePattern);
+            dateView.Click += OnDateClick;
 
-			doneButton = MainActivity.Current.FindViewById<ImageButton>(Resource.Id.done_button);
-			doneButton.Visibility = Android.Views.ViewStates.Visible;
-			doneButton.Click += CheckValid;
+            doneButton = MainActivity.Current.FindViewById<ImageButton>(Resource.Id.done_button);
+            doneButton.Visibility = Android.Views.ViewStates.Visible;
+            doneButton.Click += CheckValid;
             return _view;
         }
 
         protected virtual void InitView(Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container)
         {
             _view = inflater.Inflate(Resource.Layout.add_transaction, container, false);
-            SetTitle(_name);
+            var resource = _positive ? Resource.String.add_transaction : Resource.String.return_transaction;
+            SetTitle($"{Utils.GetStringFromResource(resource)} | {_name}");
         }
 
         private void OnDateClick(object sender, EventArgs e)
@@ -90,6 +94,7 @@ namespace debtsTracker.Fragments
 															calendar.Get(CalendarField.DayOfMonth));
 			dialog.Show();
 		}
+
 
 
 
