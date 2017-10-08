@@ -51,7 +51,7 @@ namespace debtsTracker.Fragments
         public override Android.Views.View OnCreateView(Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container, Android.OS.Bundle savedInstanceState)
         {
             
-            SetTitle(_name);
+
             InitView(inflater, container);
 			amountView = _view.FindViewById<EditText>(Resource.Id.amount);
 			amountView.TextChanged += (sender, e) => {
@@ -78,6 +78,7 @@ namespace debtsTracker.Fragments
         protected virtual void InitView(Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container)
         {
             _view = inflater.Inflate(Resource.Layout.add_transaction, container, false);
+            SetTitle(_name);
         }
 
         private void OnDateClick(object sender, EventArgs e)

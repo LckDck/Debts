@@ -44,11 +44,12 @@ namespace debtsTracker.Fragments
         protected override void InitView(LayoutInflater inflater, ViewGroup container)
         {
             _view = inflater.Inflate(Resource.Layout.add_debt, container, false);
+            SetTitle(Resource.String.add_debt);
         }
 
         public override Android.Views.View OnCreateView (Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container, Android.OS.Bundle savedInstanceState)
         {
-            SetTitle(Resource.String.add_debt);
+            
 			if (_view != null)
 			{
 				return _view;
