@@ -51,7 +51,7 @@ namespace debtsTracker.Fragments
         public override Android.Views.View OnCreateView(Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container, Android.OS.Bundle savedInstanceState)
         {
 
-
+            InitTitle();
             InitView(inflater, container);
             amountView = _view.FindViewById<EditText>(Resource.Id.amount);
             var hintResource = _positive ? Resource.String.amount : Resource.String.amount_refund;
@@ -81,8 +81,6 @@ namespace debtsTracker.Fragments
         protected virtual void InitView(Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container)
         {
             _view = inflater.Inflate(Resource.Layout.add_transaction, container, false);
-            var resource = _positive ? Resource.String.add_transaction : Resource.String.return_transaction;
-            SetTitle($"{Utils.GetStringFromResource(resource)} | {_name}");
         }
 
         private void OnDateClick(object sender, EventArgs e)
@@ -95,7 +93,11 @@ namespace debtsTracker.Fragments
 			dialog.Show();
 		}
 
-
+		protected virtual void InitTitle()
+		{
+			var resource = _positive ? Resource.String.add_transaction : Resource.String.return_transaction;
+			SetTitle($"{Utils.GetStringFromResource(resource)} | {_name}");
+		}
 
 
 		public override void OnDestroyView()
@@ -138,7 +140,5 @@ namespace debtsTracker.Fragments
 			dateView.Text = e.Date.ToString(Utils.DatePattern);
 			Vm.DateTime = e.Date;
 		}
-
-
 	}
 }

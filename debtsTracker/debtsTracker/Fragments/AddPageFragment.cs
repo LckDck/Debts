@@ -44,12 +44,11 @@ namespace debtsTracker.Fragments
         protected override void InitView(LayoutInflater inflater, ViewGroup container)
         {
             _view = inflater.Inflate(Resource.Layout.add_debt, container, false);
-            SetTitle(Resource.String.add_debt);
         }
 
         public override Android.Views.View OnCreateView (Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container, Android.OS.Bundle savedInstanceState)
         {
-            
+            InitTitle();
 			if (_view != null)
 			{
 				return _view;
@@ -85,7 +84,10 @@ namespace debtsTracker.Fragments
 			return _view;
         }
 
-
+        protected override void InitTitle()
+        {
+			SetTitle(Resource.String.add_debt);
+        }
 
         protected override void CheckValid(object sender, EventArgs e)
         {
