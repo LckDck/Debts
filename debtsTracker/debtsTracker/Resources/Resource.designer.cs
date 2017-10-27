@@ -3618,6 +3618,9 @@ namespace debtsTracker
 			// aapt resource value: 0x7f080054
 			public const int return_transaction = 2131230804;
 			
+			// aapt resource value: 0x7f080059
+			public const int save = 2131230809;
+			
 			// aapt resource value: 0x7f080024
 			public const int search_menu_title = 2131230756;
 			

@@ -31,4 +31,5 @@
     <string name="total">Total: {0}</string>
     <string name="close">close</string>
     <string name="add_transaction_failed">Add transaction failed, please try again.</string>
+    <string name="save">Save</string>
 </resources>

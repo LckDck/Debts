@@ -1,4 +1,5 @@
 ﻿using System;
+using Android.Content;
 using Android.Support.V7.Widget;
 using Android.Widget;
 using debtsTracker.Adapters;
@@ -10,7 +11,7 @@ using Plugin.CurrentActivity;
 
 namespace debtsTracker.Fragments
 {
-    public class HistoryFragment : BaseFragment
+    public class HistoryFragment : BaseFragment, IDialogInterfaceOnDismissListener
     {
         HistoryViewModel vm;
         public HistoryViewModel Vm => vm ?? (vm = ServiceLocator.Current.GetInstance<HistoryViewModel> ());
@@ -89,7 +90,27 @@ namespace debtsTracker.Fragments
 
 		private void EditName(object sender, EventArgs e)
         {
-            
+            var editText = new EditText(MainActivity.Current);
+            editText.Text = Vm.Debt.Name;
+            editText.Gravity = Android.Views.GravityFlags.Center;
+           
+			var alert = new Android.Support.V7.App.AlertDialog.Builder(MainActivity.Current);
+            alert.SetView(editText)
+                 .SetPositiveButton(Resource.String.save, (s, ev) =>
+                 {
+                     Vm.ChangeName(editText.Text);
+                     SetTitle(editText.Text);
+                     HideKeyboard();
+                 })
+                 .SetNeutralButton(Resource.String.cancel, (s, ev) =>
+                 {
+                     HideKeyboard();
+                 })
+                 .SetOnDismissListener(this);
+
+			alert.Create().Show();
+			editText.RequestFocus();
+            ShowKeyboard();
         }
 
         private void MinusTransaction(object sender, EventArgs e)
@@ -102,6 +123,9 @@ namespace debtsTracker.Fragments
             Vm.AddPage(true);
         }
 
-       
+        public void OnDismiss(IDialogInterface dialog)
+        {
+            HideKeyboard();
+        }
     }
 }

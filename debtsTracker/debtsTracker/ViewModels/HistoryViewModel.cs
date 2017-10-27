@@ -94,5 +94,15 @@ namespace debtsTracker.ViewModels
             var str = Utils.GetStringFromResource(Resource.String.total);
             return string.Format(str, debt.Value.ToString());
         }
+
+        internal void ChangeName(string text)
+        {
+            //check if the name already exists
+
+            //rename
+            Debt.Name = text;
+
+            //save changes
+        }
     }
 }
