@@ -19,11 +19,11 @@ namespace debtsTracker.Fragments
         public HistoryFragment (Debt debt)
         {
             Vm.Debt = debt;
-            SetTitle (debt.Name);
         }
 
         public override Android.Views.View OnCreateView (Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container, Android.OS.Bundle savedInstanceState)
         {
+            SetTitle(Vm.Debt.Name);
             var view = inflater.Inflate (Resource.Layout.history, container, false);
             var listView = view.FindViewById<RecyclerView> (Resource.Id.list);
             var total = view.FindViewById<TextView> (Resource.Id.total);
