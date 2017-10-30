@@ -30,8 +30,9 @@ namespace debtsTracker.ViewModels
             }
         }
 
-       
 
+
+        public bool Positive { get; set; } = true;
         public string Name { get; set; }
         public string Comment { get; set; }
         public double Amount { get; set; }

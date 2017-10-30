@@ -43,6 +43,12 @@ namespace debtsTracker.Managers
             if (!Debts.ContainsKey(debt.Name)) return false;
 
             var foundDebt = Debts[debt.Name];
+
+            if (foundDebt.ToMe != debt.ToMe) {
+                foreach (var transaction in debt.Transactions) {
+                    transaction.Value = - transaction.Value;
+                }
+            }
             foundDebt.Transactions.AddRange(debt.Transactions);
 			Storage.SaveDebts(Debts);
 			return true;

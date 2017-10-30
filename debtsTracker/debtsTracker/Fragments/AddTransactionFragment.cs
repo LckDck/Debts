@@ -21,13 +21,9 @@ namespace debtsTracker.Fragments
         protected AddPageViewModel vm;
         public virtual AddPageViewModel Vm => vm ?? (vm = ServiceLocator.Current.GetInstance<AddTransactionPageViewModel>());
 
-       
-        readonly bool _positive;
-
         public AddTransactionFragment(string name, bool positive)
         {
-            _positive = positive;
-            (Vm as AddTransactionPageViewModel).Positive = positive;
+            Vm.Positive = positive;
             Vm.Name = name;
         }
 
@@ -55,14 +51,14 @@ namespace debtsTracker.Fragments
             InitTitle();
             InitView(inflater, container);
             amountView = _view.FindViewById<EditText>(Resource.Id.amount);
-            var hintResource = _positive ? Resource.String.amount : Resource.String.amount_refund;
+            var hintResource = Vm.Positive ? Resource.String.amount : Resource.String.amount_refund;
             amountView.Hint = Utils.GetStringFromResource(hintResource);
             amountView.TextChanged += (sender, e) =>
             {
                 Vm.Amount = string.IsNullOrEmpty(amountView.Text) ? 0 : Convert.ToDouble(amountView.Text);
             };
 
-            amountView.SetTextColor(_positive ? Utils.Green : Utils.DarkGray);
+            amountView.SetTextColor(Vm.Positive ? Utils.Green : Utils.DarkGray);
 
             var commentView = _view.FindViewById<EditText>(Resource.Id.comment);
             commentView.TextChanged += (sender, e) => Vm.Comment = commentView.Text;
@@ -97,7 +93,7 @@ namespace debtsTracker.Fragments
 
 		protected virtual void InitTitle()
 		{
-			var resource = _positive ? Resource.String.add_transaction : Resource.String.return_transaction;
+			var resource = Vm.Positive ? Resource.String.add_transaction : Resource.String.return_transaction;
             SetTitle($"{Utils.GetStringFromResource(resource)} | {Vm.Name}");
 		}
 
