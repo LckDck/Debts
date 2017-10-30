@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using debtsTracker.Entities;
 using Microsoft.Practices.ServiceLocation;
+using Newtonsoft.Json;
 
 namespace debtsTracker.Managers
 {
@@ -12,6 +13,13 @@ namespace debtsTracker.Managers
         StorageManager Storage { 
             get {
                 return _storage ?? (_storage = ServiceLocator.Current.GetInstance<StorageManager>());
+            }
+        }
+
+        public Dictionary<string, Debt> CurrentDebts {
+            get
+            {
+                return Debts;
             }
         }
 
@@ -95,6 +103,13 @@ namespace debtsTracker.Managers
                 }
             }
             Debts = newDebts;
+            Storage.SaveDebts(Debts);
+        }
+
+
+        public void RestoreDebts(string json) {
+            if (string.IsNullOrEmpty(json)) return;
+            Debts = JsonConvert.DeserializeObject<Dictionary<string, Debt>>(json);
             Storage.SaveDebts(Debts);
         }
     }

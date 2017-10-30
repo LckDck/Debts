@@ -123,5 +123,19 @@ namespace debtsTracker.Utilities
 			NavigateTo (page, null, null);
 		}
 
+        public void PopToRoot() {
+			try
+			{
+                while (pageStack.Count > 1)
+                {
+                    pageStack.Pop();
+                    fragmentManager.PopBackStack();
+                }
+			}
+			catch (Exception ex)
+			{
+				System.Diagnostics.Debug.WriteLine($"failed to backstack {ex.Message}");
+			}
+        }
 	}
 }

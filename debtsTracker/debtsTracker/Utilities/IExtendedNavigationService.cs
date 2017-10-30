@@ -8,6 +8,7 @@ namespace debtsTracker.Utilities
         void NavigateTo (Page page);
         void NavigateUrl (string url);
         void GoBack ();
+        void PopToRoot ();
         int BackStackCount { get; }
 
         event EventHandler<Page> BeforeNavigateEvent;

@@ -10,7 +10,7 @@
     <string name="add_debt">Add debt</string>
     <string name="export">Export data</string>
 	<string name="import_str">Import data</string>
-    <string name="backup">Backup settings</string>
+    <string name="backup">Settings</string>
     <string name="no_ads">No Ads</string>
     <string name="other">Advanced</string>
     <string name="upload">Uploading a backup to Google Drive. Check {0} folder.</string>

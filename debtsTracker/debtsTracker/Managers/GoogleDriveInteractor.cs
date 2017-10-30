@@ -8,7 +8,10 @@ using Android.Gms.Drive.Query;
 using Android.OS;
 using Android.Runtime;
 using Android.Widget;
+using debtsTracker.Utilities;
 using Java.IO;
+using Microsoft.Practices.ServiceLocation;
+using Newtonsoft.Json;
 using Debug = System.Diagnostics.Debug;
 
 namespace debtsTracker.Managers
@@ -206,12 +209,44 @@ namespace debtsTracker.Managers
 			}
         }
 
+		DebtsManager _debtsManager;
+		protected DebtsManager DebtsManager
+		{
+			get
+			{
+				return _debtsManager ?? (_debtsManager = ServiceLocator.Current.GetInstance<DebtsManager>());
+			}
+		}
+
+		InterfaceUpdateManager _interfaceUpdateManager;
+		protected InterfaceUpdateManager InterfaceUpdateManager
+		{
+			get
+			{
+				return _interfaceUpdateManager ?? (_interfaceUpdateManager = ServiceLocator.Current.GetInstance<InterfaceUpdateManager>());
+			}
+		}
+
+		IExtendedNavigationService _navigationService;
+		protected IExtendedNavigationService NavigationService
+		{
+			get
+			{
+				return _navigationService ?? (_navigationService = ServiceLocator.Current.GetInstance<IExtendedNavigationService>());
+			}
+		}
+
         private void ReadDriveFile(Stream stream)
         {
             using (StreamReader streamReader = new StreamReader(stream))
             {
                 var json = streamReader.ReadToEnd();
+
                 Debug.WriteLine(json);
+                DebtsManager.RestoreDebts(json);
+
+                InterfaceUpdateManager.InvokeUpdateMainScreen();
+                NavigationService.PopToRoot();
                 var message = Utils.GetStringFromResource(Resource.String.read);
 				Utils.ShowToast(message);
             }
@@ -238,7 +273,8 @@ namespace debtsTracker.Managers
 
 			using (var streamWriter = new StreamWriter(filename, true))
 			{
-				streamWriter.WriteLine(DateTime.UtcNow);
+                var json = JsonConvert.SerializeObject(DebtsManager.CurrentDebts);
+				streamWriter.WriteLine(json);
 			}
 
 			var message = String.Format(Utils.GetStringFromResource(Resource.String.upload), Utils.GetStringFromResource(Resource.String.app_name));
