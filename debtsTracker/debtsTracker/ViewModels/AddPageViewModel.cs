@@ -9,7 +9,7 @@ namespace debtsTracker.ViewModels
 {
     public class AddPageViewModel : BaseVm
     {
-        
+
         RelayCommand _saveCommand;
 
         public RelayCommand SaveCommand
@@ -20,34 +20,47 @@ namespace debtsTracker.ViewModels
             }
         }
 
-        public int Tab { 
-            get {
+        public int Tab
+        {
+            get
+            {
                 return InterfaceUpdateManager.CurrrentTab;
             }
 
-            set { 
+            set
+            {
                 InterfaceUpdateManager.CurrrentTab = value;
             }
         }
 
 
-
-        public bool Positive { get; set; } = true;
+        bool _positive = true;
+        public bool Positive
+        {
+            get
+            {
+                return _positive;
+            }
+            set
+            {
+                _positive = value;
+            }
+        }
         public string Name { get; set; }
         public string Comment { get; set; }
         public double Amount { get; set; }
         public DateTime DateTime { get; set; }
 
-		DebtsManager _debtsManager;
-		protected DebtsManager DebtsManager
-		{
-			get
-			{
-				return _debtsManager ?? (_debtsManager = ServiceLocator.Current.GetInstance<DebtsManager>());
-			}
-		}
+        DebtsManager _debtsManager;
+        protected DebtsManager DebtsManager
+        {
+            get
+            {
+                return _debtsManager ?? (_debtsManager = ServiceLocator.Current.GetInstance<DebtsManager>());
+            }
+        }
 
-		InterfaceUpdateManager _interfaceUpdateManager;
+        InterfaceUpdateManager _interfaceUpdateManager;
         protected InterfaceUpdateManager InterfaceUpdateManager
         {
             get
@@ -56,10 +69,11 @@ namespace debtsTracker.ViewModels
             }
         }
 
-        
 
-        protected virtual void Save() {
-            
+
+        protected virtual void Save()
+        {
+
             var transaction = new Transaction
             {
                 Comment = Comment,
@@ -67,68 +81,72 @@ namespace debtsTracker.ViewModels
                 Name = Name,
                 Value = Amount
             };
-            var success = DebtsManager.AddDebt(new Debt{ 
+            var success = DebtsManager.AddDebt(new Debt
+            {
                 Name = Name,
                 ToMe = InterfaceUpdateManager.IsTabToMe,
-                Transactions = new List<Transaction> { 
-                    transaction} 
-                });
-            if (!success) {
+                Transactions = new List<Transaction> {
+                    transaction}
+            });
+            if (!success)
+            {
                 ShowAlert();
                 return;
             }
             NavigationService.GoBack();
         }
 
-       
+
 
         private void ShowAlert()
         {
-			var alert = new Android.Support.V7.App.AlertDialog.Builder(MainActivity.Current);
-			alert
-				 .SetMessage(Resource.String.merge_rename_descr)
+            var alert = new Android.Support.V7.App.AlertDialog.Builder(MainActivity.Current);
+            alert
+                 .SetMessage(Resource.String.merge_rename_descr)
                 .SetNegativeButton(Resource.String.rename, (sender, e) => Rename())
                 .SetPositiveButton(Resource.String.merge, (sender, e) => Merge());
 
-			alert.Create().Show();
+            alert.Create().Show();
         }
 
-        void Rename() {
+        void Rename()
+        {
             InterfaceUpdateManager.InvokeNameFocus();
         }
 
-        void Merge() {
-			var transaction = new Transaction
-			{
-				Comment = Comment,
-				Date = DateTime,
-				Value = Amount,
+        void Merge()
+        {
+            var transaction = new Transaction
+            {
+                Comment = Comment,
+                Date = DateTime,
+                Value = Amount,
                 Name = Name
-			};
+            };
             var success = DebtsManager.MergeDebt(new Debt
-			{
-				Name = Name,
-				ToMe = InterfaceUpdateManager.IsTabToMe,
-				Transactions = new List<Transaction> {
-					transaction}
-			});
-			if (!success)
-			{
-				ShowMergeFailedAlert();
-				return;
-			}
-			NavigationService.GoBack();
+            {
+                Name = Name,
+                ToMe = InterfaceUpdateManager.IsTabToMe,
+                Transactions = new List<Transaction> {
+                    transaction}
+            });
+            if (!success)
+            {
+                ShowMergeFailedAlert();
+                return;
+            }
+            NavigationService.GoBack();
         }
 
         private void ShowMergeFailedAlert()
         {
-			var alert = new Android.Support.V7.App.AlertDialog.Builder(MainActivity.Current);
-			alert
-				 .SetMessage(Resource.String.merge_failed)
+            var alert = new Android.Support.V7.App.AlertDialog.Builder(MainActivity.Current);
+            alert
+                 .SetMessage(Resource.String.merge_failed)
                 .SetPositiveButton(Resource.String.close, (sender, e) => { });
 
-			alert.Create().Show();
+            alert.Create().Show();
         }
     }
-       
+
 }

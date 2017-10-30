@@ -67,7 +67,9 @@ namespace debtsTracker.Fragments
 
             dateView = _view.FindViewById<EditText>(Resource.Id.date);
 
-            dateView.Text = DateTime.Now.ToString(Utils.DatePattern);
+            var nowTime = DateTime.Now;
+            dateView.Text = nowTime.ToString(Utils.DatePattern);
+            Vm.DateTime = nowTime;
             dateView.Click += OnDateClick;
 
             doneButton = MainActivity.Current.FindViewById<ImageButton>(Resource.Id.done_button);
@@ -85,10 +87,10 @@ namespace debtsTracker.Fragments
 		{
 			_form.RequestFocus();
 			Calendar calendar = Calendar.GetInstance(Java.Util.TimeZone.Default);
-			dialog = new DatePickerDialog(CrossCurrentActivity.Current.Activity, ChangeText,
+            dialog = new DatePickerDialog(CrossCurrentActivity.Current.Activity, DateSet,
 															calendar.Get(CalendarField.Year), calendar.Get(CalendarField.Month),
 															calendar.Get(CalendarField.DayOfMonth));
-			dialog.Show();
+            dialog.Show();
 		}
 
 		protected virtual void InitTitle()
@@ -133,7 +135,7 @@ namespace debtsTracker.Fragments
 		}
 
 
-		void ChangeText(object sender, DatePickerDialog.DateSetEventArgs e)
+		void DateSet(object sender, DatePickerDialog.DateSetEventArgs e)
 		{
 			dateView.Text = e.Date.ToString(Utils.DatePattern);
 			Vm.DateTime = e.Date;
