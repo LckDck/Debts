@@ -19,14 +19,15 @@ namespace debtsTracker.Fragments
         HistoryViewModel vm;
         public HistoryViewModel Vm => vm ?? (vm = ServiceLocator.Current.GetInstance<HistoryViewModel> ());
 
-
-        public HistoryFragment (Debt debt)
+        string _debtName;
+        public HistoryFragment (string name)
         {
-            Vm.Debt = debt;
+            _debtName = name;
         }
 
         public override Android.Views.View OnCreateView (Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container, Android.OS.Bundle savedInstanceState)
         {
+            Vm.UpdateInfo(_debtName);
             SetTitle(Vm.Debt.Name);
             var view = inflater.Inflate (Resource.Layout.history, container, false);
             var listView = view.FindViewById<RecyclerView> (Resource.Id.list);

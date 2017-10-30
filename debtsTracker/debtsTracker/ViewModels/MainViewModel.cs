@@ -22,9 +22,9 @@ namespace debtsTracker.ViewModels
         }
 
 
-        public void ShowDetails (Debt debt)
+        public void ShowDetails (string name)
         {
-            NavigationService.NavigateTo (Page.HistoryPage, debt);
+            NavigationService.NavigateTo (Page.HistoryPage, name);
         }
 
 		InterfaceUpdateManager _interfaceUpdateManager;

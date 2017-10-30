@@ -6,8 +6,7 @@ namespace debtsTracker.ViewModels
 {
     public class AddTransactionPageViewModel : AddPageViewModel
     {
-        public bool Positive { get; set; }
-
+        
         protected override void Save()
 		{
 
@@ -25,6 +24,7 @@ namespace debtsTracker.ViewModels
 				return;
 			}
 			NavigationService.GoBack();
+            InterfaceUpdateManager.InvokeUpdateMainScreen();
 		}
 
         private void ShowAlert()

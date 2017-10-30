@@ -70,7 +70,7 @@ namespace debtsTracker.Fragments
 
         void OnItemClick (object sender, int e)
         {
-            Vm.ShowDetails (_items [e]);
+            Vm.ShowDetails (_items [e].Name);
         }
     }
 }

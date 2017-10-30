@@ -81,12 +81,17 @@ namespace debtsTracker.ViewModels
 
         private void OnItemRemoved(object sender, EventArgs e)
         {
-            var newDebt = DebtsManager.GetDebt(Debt.Name);
-            if (newDebt != null)
-            {
-                Debt = newDebt;
-                TotalText = GetTotalText(Debt);
-            }
+            UpdateInfo(Debt.Name);
+        }
+
+        public void UpdateInfo(string name)
+        {
+			var newDebt = DebtsManager.GetDebt(name);
+			if (newDebt != null)
+			{
+				Debt = newDebt;
+				TotalText = GetTotalText(Debt);
+			}
         }
 
         private string GetTotalText(Debt debt)
