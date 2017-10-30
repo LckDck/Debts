@@ -95,14 +95,23 @@ namespace debtsTracker.ViewModels
             return string.Format(str, debt.Value.ToString());
         }
 
-        internal void ChangeName(string text)
+        internal bool ChangeName(string text)
         {
+            if (Debt.Name == text) return true;
+
             //check if the name already exists
+            if (DebtsManager.GetDebt(text) != null) {
+                return false;
+            }
 
             //rename
+            var oldName = Debt.Name;
             Debt.Name = text;
 
             //save changes
+            DebtsManager.RenameDebt(oldName, Debt.Name);
+            InterfaceUpdateManager.InvokeUpdateMainScreen();
+            return true;
         }
     }
 }

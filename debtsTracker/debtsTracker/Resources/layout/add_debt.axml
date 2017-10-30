@@ -45,8 +45,8 @@
                     android:capitalize="words"
                     android:singleLine="true"
                     android:layout_marginTop="10dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_marginBottom="5dp" />
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
@@ -62,8 +62,8 @@
                     android:singleLine="true"
                     android:inputType="numberDecimal"
                     android:layout_marginTop="10dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_marginBottom="5dp" />
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
@@ -79,8 +79,8 @@
                     android:singleLine="true"
                     android:textColor="@color/primary_dark"
                     android:layout_marginTop="10dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_marginBottom="5dp" />
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
@@ -94,8 +94,8 @@
                     android:id="@+id/date"
                     android:text="17 june 2017"
                     android:layout_marginTop="10dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_marginBottom="16dp"
                     android:textColor="@color/primary_dark"
                     android:focusable="false"

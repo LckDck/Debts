@@ -1,6 +1,9 @@
 ﻿using System;
 using Android.Content;
+using Android.Support.Design.Widget;
+using Android.Support.V7.App;
 using Android.Support.V7.Widget;
+using Android.Text;
 using Android.Widget;
 using debtsTracker.Adapters;
 using debtsTracker.Entities;
@@ -50,6 +53,10 @@ namespace debtsTracker.Fragments
         ImageButton plusButton;
         ImageButton minusButton;
         ImageButton editButton;
+        private AlertDialog _dialog;
+        private Button _dialogPositiveButton;
+        private Button _dialogNegativeButton;
+        private TextInputLayout _editText;
 
         private void InitActionBarButtons()
         {
@@ -90,28 +97,79 @@ namespace debtsTracker.Fragments
 
 		private void EditName(object sender, EventArgs e)
         {
-            var editText = new EditText(MainActivity.Current);
-            editText.Text = Vm.Debt.Name;
-            editText.Gravity = Android.Views.GravityFlags.Center;
-           
-			var alert = new Android.Support.V7.App.AlertDialog.Builder(MainActivity.Current);
-            alert.SetView(editText)
-                 .SetPositiveButton(Resource.String.save, (s, ev) =>
-                 {
-                     Vm.ChangeName(editText.Text);
-                     SetTitle(editText.Text);
-                     HideKeyboard();
-                 })
-                 .SetNeutralButton(Resource.String.cancel, (s, ev) =>
-                 {
-                     HideKeyboard();
-                 })
-                 .SetOnDismissListener(this);
+            
+            _editText = (TextInputLayout) LayoutInflater.Inflate(Resource.Layout.edit_name, null);
 
-			alert.Create().Show();
-			editText.RequestFocus();
-            ShowKeyboard();
+            _editText.EditText.Text = Vm.Debt.Name;
+            _editText.EditText.Gravity = Android.Views.GravityFlags.Center;
+
+            using (var alert = new AlertDialog.Builder(MainActivity.Current))
+            {
+                alert.SetView(_editText)
+                     .SetPositiveButton(Resource.String.save, (s, ev) =>
+                     {
+                         
+                     })
+                     .SetNeutralButton(Resource.String.cancel, (s, ev) =>
+                     {
+                         HideKeyboard();
+                     })
+                     .SetOnDismissListener(this);
+
+                _dialog = alert.Create();
+            }
+
+            _dialog.Show();
+
+			_dialogPositiveButton = _dialog.GetButton((int)DialogButtonType.Positive);
+            _dialogNegativeButton = _dialog.GetButton((int)DialogButtonType.Neutral);
+
+			_dialogPositiveButton.Click += HandleDialogPositiveButtonClick;
+			_dialogNegativeButton.Click += HandleDialogNegativeButtonClick;
+            _editText.EditText.TextChanged += OnTextChanged;
+
+			
+			_editText.RequestFocus();
+			ShowKeyboard();
         }
+
+        private void OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            _editText.Error = string.Empty;
+        }
+
+        private void HandleDialogPositiveButtonClick(object sender, EventArgs e)
+		{
+            var success = Vm.ChangeName(_editText.EditText.Text);
+			if (success)
+			{
+				SetTitle(_editText.EditText.Text);
+				HideKeyboard();
+                DismissDialog();
+			}
+			else
+			{
+				_editText.Error = "Name exists";
+			}
+			
+		}
+
+		private void HandleDialogNegativeButtonClick(object sender, EventArgs e)
+		{
+			DismissDialog();
+		}
+
+		private void DismissDialog()
+		{
+			_dialogPositiveButton.Click -= HandleDialogPositiveButtonClick;
+			_dialogNegativeButton.Click -= HandleDialogNegativeButtonClick;
+            _editText.EditText.TextChanged -= OnTextChanged;
+			_dialog.Dismiss();
+            _dialog = null;
+            _editText = null;
+            _dialogNegativeButton = null;
+            _dialogPositiveButton = null;
+		}
 
         private void MinusTransaction(object sender, EventArgs e)
         {

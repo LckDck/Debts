@@ -21,13 +21,13 @@ namespace debtsTracker.Fragments
         protected AddPageViewModel vm;
         public virtual AddPageViewModel Vm => vm ?? (vm = ServiceLocator.Current.GetInstance<AddTransactionPageViewModel>());
 
-        readonly string _name;
+       
         readonly bool _positive;
 
         public AddTransactionFragment(string name, bool positive)
         {
             this._positive = positive;
-            this._name = name;
+            Vm.Name = name;
         }
 
         InterfaceUpdateManager _interfaceUpdateManager;
@@ -96,7 +96,7 @@ namespace debtsTracker.Fragments
 		protected virtual void InitTitle()
 		{
 			var resource = _positive ? Resource.String.add_transaction : Resource.String.return_transaction;
-			SetTitle($"{Utils.GetStringFromResource(resource)} | {_name}");
+            SetTitle($"{Utils.GetStringFromResource(resource)} | {Vm.Name}");
 		}
 
 

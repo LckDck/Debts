@@ -16,6 +16,7 @@ namespace debtsTracker.Utilities
             //builder.RegisterModule<CrossPlatformModule> ();
 			
             builder.RegisterType<AddPageViewModel>();
+            builder.RegisterType<AddTransactionPageViewModel>();
             builder.RegisterType<HistoryViewModel>();
             builder.RegisterType<MainViewModel>();
 

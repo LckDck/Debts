@@ -71,5 +71,25 @@ namespace debtsTracker.Managers
         public Debt GetDebt(string name) {
             return Debts.ContainsKey(name) ? Debts[name] : null;
         }
+
+        public void RenameDebt(string oldName, string newName) { 
+            if (!Debts.ContainsKey(oldName)) return;
+            var newDebts = new Dictionary<string, Debt>();
+            foreach (var debt in Debts) {
+                if (debt.Key != oldName)
+                {
+                    newDebts.Add(debt.Key, debt.Value);
+                }
+                else {
+                    newDebts.Add(newName, debt.Value);
+                    debt.Value.Name = newName;
+                    foreach (var transaction in debt.Value.Transactions) {
+                        transaction.Name = newName;
+                    }
+                }
+            }
+            Debts = newDebts;
+            Storage.SaveDebts(Debts);
+        }
     }
 }
