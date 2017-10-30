@@ -26,7 +26,8 @@ namespace debtsTracker.Fragments
 
         public AddTransactionFragment(string name, bool positive)
         {
-            this._positive = positive;
+            _positive = positive;
+            (Vm as AddTransactionPageViewModel).Positive = positive;
             Vm.Name = name;
         }
 
@@ -61,6 +62,7 @@ namespace debtsTracker.Fragments
                 Vm.Amount = string.IsNullOrEmpty(amountView.Text) ? 0 : Convert.ToDouble(amountView.Text);
             };
 
+            amountView.SetTextColor(_positive ? Utils.Green : Utils.DarkGray);
 
             var commentView = _view.FindViewById<EditText>(Resource.Id.comment);
             commentView.TextChanged += (sender, e) => Vm.Comment = commentView.Text;

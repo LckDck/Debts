@@ -6,16 +6,17 @@ namespace debtsTracker.ViewModels
 {
     public class AddTransactionPageViewModel : AddPageViewModel
     {
+        public bool Positive { get; set; }
 
         protected override void Save()
 		{
 
-			var transaction = new Transaction
-			{
-				Comment = Comment,
-				Date = DateTime,
-				Name = Name,
-				Value = Amount
+            var transaction = new Transaction
+            {
+                Comment = Comment,
+                Date = DateTime,
+                Name = Name,
+                Value = Positive ? Amount : -Amount
 			};
             var success = DebtsManager.AddTransaction(transaction);
 			if (!success)

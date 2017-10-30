@@ -23,7 +23,6 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/accent"
                     android:id="@+id/amount"
                     android:textAlignment="center"
                     android:singleLine="true"
