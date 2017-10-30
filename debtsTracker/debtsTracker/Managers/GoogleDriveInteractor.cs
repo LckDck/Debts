@@ -116,7 +116,7 @@ namespace debtsTracker.Managers
                                 if (res.MetadataBuffer.Count > 0)
                                 {
                                     var folder = driveId.AsDriveFolder();
-                                    folder.Trash(_googleApiClient);
+                                    folder.Delete(_googleApiClient);
                                 }
                                 else
                                 {
