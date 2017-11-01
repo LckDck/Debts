@@ -32,4 +32,7 @@
     <string name="close">close</string>
     <string name="add_transaction_failed">Add transaction failed, please try again.</string>
     <string name="save">Save</string>
+    <string name="ok">Ok</string>
+    <string name="no_backup_found">No EasyDebts backup found, would you like to check another Google Account?</string>
+    <string name="empty_backup">Unable to read backup, file is damaged or empty.</string>
 </resources>

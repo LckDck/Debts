@@ -45,20 +45,27 @@ namespace debtsTracker.Managers
         }
 
         private DriveAction _driveAction;
-        public void GoogleDriveAction() {
-            _googleApiClient.Connect();
-           switch (_driveAction)
-           {
-               case DriveAction.Read:
-                   _driveAction = DriveAction.None;
-                   ReadFileFromDrive();
-                   break;
 
-               case DriveAction.Write:
-                   _driveAction = DriveAction.None;
-                   UploadToDrive();
-                   break;
-           }
+        public void GoogleDriveAction() {
+            var connected = _googleApiClient.IsConnected;
+
+            if (!connected)
+            {
+                _googleApiClient.Connect();
+            }
+            else
+            {
+                switch (_driveAction)
+                {
+                    case DriveAction.Read:
+                        ReadFileFromDrive();
+                        break;
+
+                    case DriveAction.Write:
+                        UploadToDrive();
+                        break;
+                }
+            }
         }
 
 
@@ -92,26 +99,26 @@ namespace debtsTracker.Managers
         }
 
         void CheckIDriveApiMetadataBufferResult(Java.Lang.Object result) {
-			try
-			{
-				var res = result.JavaCast<IDriveApiMetadataBufferResult>();
-				if (res != null)
-				{
-					if (!res.Status.IsSuccess)
-					{
-						Debug.WriteLine("Cannot create folder in the root.");
-					}
-					else
-					{
-						bool isFound = false;
+            try
+            {
+                var res = result.JavaCast<IDriveApiMetadataBufferResult>();
+                if (res != null)
+                {
+                    if (!res.Status.IsSuccess)
+                    {
+                        Debug.WriteLine("Cannot create folder in the root.");
+                    }
+                    else
+                    {
+                        bool isFound = false;
+                        bool readFileExists = false;
+                        foreach (var m in res.MetadataBuffer)
+                        {
+                            if (m.Title.Equals(FolderName) && _driveAction == DriveAction.Write)
+                            {
+                                Debug.WriteLine("Folder exists");
 
-						foreach (var m in res.MetadataBuffer)
-						{
-							if (m.Title.Equals(FolderName))
-							{
-								Debug.WriteLine("Folder exists");
-								
-								var driveId = m.DriveId;
+                                var driveId = m.DriveId;
 
                                 if (res.MetadataBuffer.Count > 0)
                                 {
@@ -123,39 +130,49 @@ namespace debtsTracker.Managers
                                     isFound = true;
                                     CreateFileInFolder(driveId);
                                 }
-								break;
-							}
-
-                            if (m.Title.Equals(Constants.BackupFileName) && !m.IsTrashed) {
-                                Debug.WriteLine("file exists");
-                                var file = m.DriveId.AsDriveFile();
-                                file.Open(_googleApiClient, DriveFile.ModeReadOnly, null).SetResultCallback(this); 
-								return;
+                                break;
                             }
+
+                            if (m.Title.Equals(Constants.BackupFileName) && !m.IsTrashed)
+                            {
+                                Debug.WriteLine("file exists");
+                                readFileExists = true;
+                                var file = m.DriveId.AsDriveFile();
+                                file.Open(_googleApiClient, DriveFile.ModeReadOnly, null).SetResultCallback(this);
+
+							}
+                        }
+
+                        if (_driveAction == DriveAction.Read && !readFileExists)
+						{
+                            Utils.ShowNothigToRead(Relogin);
+							return;
 						}
 
-						if (!isFound)
-						{
-							Debug.WriteLine("Folder not found; creating it.");
-							MetadataChangeSet changeSet = new MetadataChangeSet.Builder().SetTitle(FolderName).Build();
-							DriveClass.DriveApi.GetRootFolder(_googleApiClient)
-									  .CreateFolder(_googleApiClient, changeSet)
-									  .SetResultCallback(this);
-						}
-					}
-				}
-			}
-			catch (Exception e)
-			{
-				Debug.WriteLine("miscast", e);
-			}
+
+                        if (_driveAction == DriveAction.Write && !isFound)
+                        {
+                            Debug.WriteLine("Folder not found; creating it.");
+                            MetadataChangeSet changeSet = new MetadataChangeSet.Builder().SetTitle(FolderName).Build();
+                            DriveClass.DriveApi.GetRootFolder(_googleApiClient)
+                                      .CreateFolder(_googleApiClient, changeSet)
+                                      .SetResultCallback(this);
+                            
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("miscast 2", e);
+            }
         }
 
 
         void CheckIDriveFolderDriveFolderResult(Java.Lang.Object result) {
 			try
 			{
-				var res = result.JavaCast<IDriveFolderDriveFolderResult>();
+                var res = result.JavaCast<IDriveFolderDriveFolderResult>();
 				if (res != null)
 				{
 					if (!res.Status.IsSuccess)
@@ -170,9 +187,9 @@ namespace debtsTracker.Managers
 					}
 				}
 			}
-			catch (Exception e)
+            catch (Exception e)
 			{
-				Debug.WriteLine("miscast", e);
+				Debug.WriteLine("miscast 3", e);
 			}
 
 		}
@@ -195,15 +212,17 @@ namespace debtsTracker.Managers
                     {
                         stream = res.DriveContents.OutputStream;
                         WriteDriveFile(stream, res);
+                        _driveAction = DriveAction.None;
                     }
                     catch (Exception e)
                     {
                         stream = res.DriveContents.InputStream;
                         ReadDriveFile(stream);
+                        _driveAction = DriveAction.None;
                     }
 				}
 			}
-			catch (Exception e)
+            catch (Exception e)
 			{
 				Debug.WriteLine("miscast", e);
 			}
@@ -321,7 +340,7 @@ namespace debtsTracker.Managers
 			}
 			catch (Exception e)
 			{
-				Debug.WriteLine("miscast", e);
+				Debug.WriteLine("miscast 1", e);
 			}
         }
 
@@ -329,10 +348,12 @@ namespace debtsTracker.Managers
 		public void OnResult(Java.Lang.Object result)
         {
             Debug.WriteLine("OnResult!");
+
             CheckIDriveApiMetadataBufferResult(result);
             CheckIDriveFolderDriveFolderResult(result);
             CheckIDriveApiDriveContentsResult(result);
             CheckIDriveFolderDriveFileResult(result);
+
         }
 
 
@@ -401,6 +422,11 @@ namespace debtsTracker.Managers
             Debug.WriteLine("Google API connection suspended");
         }
 
+        void Relogin() {
+            if (_googleApiClient.HasConnectedApi(DriveClass.API)) { 
+                _googleApiClient.ClearDefaultAccountAndReconnect();
+            }
+		}
 
     }
 }

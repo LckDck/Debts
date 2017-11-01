@@ -3570,6 +3570,9 @@ namespace debtsTracker
 			// aapt resource value: 0x7f080050
 			public const int done = 2131230800;
 			
+			// aapt resource value: 0x7f08005c
+			public const int empty_backup = 2131230812;
+			
 			// aapt resource value: 0x7f080042
 			public const int export = 2131230786;
 			
@@ -3599,6 +3602,12 @@ namespace debtsTracker
 			
 			// aapt resource value: 0x7f080045
 			public const int no_ads = 2131230789;
+			
+			// aapt resource value: 0x7f08005b
+			public const int no_backup_found = 2131230811;
+			
+			// aapt resource value: 0x7f08005a
+			public const int ok = 2131230810;
 			
 			// aapt resource value: 0x7f080046
 			public const int other = 2131230790;

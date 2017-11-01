@@ -31,7 +31,31 @@ namespace debtsTracker
         public static void ShowToast(string message)
         {
 			Toast.MakeText(MainActivity.Current, message, ToastLength.Long).Show();
+		}
+
+        public static void ShowNothigToRead(Action relogin)
+		{
+            var alert = new Android.Support.V7.App.AlertDialog.Builder(MainActivity.Current);
+            alert
+                 .SetMessage(Resource.String.no_backup_found)
+                .SetNegativeButton(Resource.String.close, (sender, e) => { })
+                .SetPositiveButton(Resource.String.yes, (sender, e) => relogin());
+
+            alert.Create().Show();
+           
+		}
+
+        public static void ShowEmptyFile() 
+        {
+			var alert = new Android.Support.V7.App.AlertDialog.Builder(MainActivity.Current);
+			alert
+				.SetMessage(Resource.String.empty_backup)
+                .SetPositiveButton(Resource.String.ok, (sender, e) => { });
+
+			alert.Create().Show();
 
 		}
+
+		
     }
 }

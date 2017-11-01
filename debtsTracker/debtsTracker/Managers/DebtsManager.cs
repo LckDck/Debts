@@ -108,8 +108,16 @@ namespace debtsTracker.Managers
 
 
         public void RestoreDebts(string json) {
-            if (string.IsNullOrEmpty(json)) return;
+            if (string.IsNullOrEmpty(json))
+            {
+                Utils.ShowEmptyFile();
+                return;
+            }
             Debts = JsonConvert.DeserializeObject<Dictionary<string, Debt>>(json);
+            if (Debts == null) { 
+                Utils.ShowEmptyFile();
+                return;
+            }
             Storage.SaveDebts(Debts);
         }
     }
