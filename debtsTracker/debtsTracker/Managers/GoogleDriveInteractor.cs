@@ -255,7 +255,7 @@ namespace debtsTracker.Managers
 			}
 		}
 
-        private void ReadDriveFile(Stream stream)
+        public void ReadDriveFile(Stream stream)
         {
             using (StreamReader streamReader = new StreamReader(stream))
             {

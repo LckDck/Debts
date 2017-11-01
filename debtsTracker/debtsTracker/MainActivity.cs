@@ -133,6 +133,7 @@ namespace debtsTracker
                     _driveManager.ReadFile();
                     break;
                 case 1:
+                    
     		         Intent mediaIntent = new Intent(Intent.ActionGetContent);
     		         mediaIntent.SetType("text/plain"); //set mime type as per requirement
 					StartActivityForResult(mediaIntent, REQUESTCODE_PICK_TEXT);
@@ -240,7 +241,13 @@ namespace debtsTracker
                 case REQUESTCODE_PICK_TEXT:
 					if (resultCode == Result.Ok)
 					{
-                        System.Diagnostics.Debug.WriteLine("ssss");
+
+                        string uri = data.DataString;
+                        Android.Net.Uri uris = Android.Net.Uri.FromParts(data.Data.Scheme, data.Data.SchemeSpecificPart, data.Data.Fragment);
+                        System.IO.Stream input = ContentResolver.OpenInputStream(data.Data);
+                        //var stream = new FileStream (data.DataString, FileMode.Open, FileAccess.Read);
+                        _driveManager.ReadDriveFile(input);
+
 					}
                     break;
             }
