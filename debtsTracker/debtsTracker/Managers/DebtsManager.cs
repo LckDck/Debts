@@ -113,7 +113,14 @@ namespace debtsTracker.Managers
                 Utils.ShowEmptyFile();
                 return;
             }
-            Debts = JsonConvert.DeserializeObject<Dictionary<string, Debt>>(json);
+            try
+            {
+                Debts = JsonConvert.DeserializeObject<Dictionary<string, Debt>>(json);
+            }
+            catch (Exception e) {
+				Utils.ShowEmptyFile();
+				return;
+            }
             if (Debts == null) { 
                 Utils.ShowEmptyFile();
                 return;

@@ -14,7 +14,7 @@
     <string name="no_ads">No Ads</string>
     <string name="other">Advanced</string>
     <string name="upload">Uploading a backup to Google Drive. Check {0} folder.</string>
-    <string name="read">Successful read backup file from Google Drive.</string>
+    <string name="read">Successful read backup file</string>
     <string name="from_drive">From Google Drive backup</string>
     <string name="from_device">From disk</string>
     <string name="sure_delete">Are you sure you want to delete this debt?</string>
@@ -34,5 +34,5 @@
     <string name="save">Save</string>
     <string name="ok">Ok</string>
     <string name="no_backup_found">No EasyDebts backup found, would you like to check another Google Account?</string>
-    <string name="empty_backup">Unable to read backup, file is damaged or empty.</string>
+    <string name="empty_backup">No backup found in file.</string>
 </resources>

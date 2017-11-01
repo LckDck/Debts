@@ -241,11 +241,9 @@ namespace debtsTracker
                 case REQUESTCODE_PICK_TEXT:
 					if (resultCode == Result.Ok)
 					{
-
                         string uri = data.DataString;
                         Android.Net.Uri uris = Android.Net.Uri.FromParts(data.Data.Scheme, data.Data.SchemeSpecificPart, data.Data.Fragment);
                         System.IO.Stream input = ContentResolver.OpenInputStream(data.Data);
-                        //var stream = new FileStream (data.DataString, FileMode.Open, FileAccess.Read);
                         _driveManager.ReadDriveFile(input);
 
 					}
