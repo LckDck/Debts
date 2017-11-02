@@ -205,11 +205,6 @@
     <AndroidResource Include="Resources\layout\debt_item.axml" />
     <AndroidResource Include="Resources\layout\history_item.axml" />
     <AndroidResource Include="Resources\layout\add_debt.axml" />
-    <AndroidResource Include="Resources\drawable-hdpi\ic_account_plus_black_24dp.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\ic_account_plus_black_24dp.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_account_plus_black_24dp.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_account_plus_black_24dp.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_account_plus_black_24dp.png" />
     <AndroidResource Include="Resources\layout\history.axml" />
     <AndroidResource Include="Resources\menu\nav_menu.axml" />
     <AndroidResource Include="Resources\layout\drawer_header.axml" />
@@ -275,6 +270,7 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_remove_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_mode_edit_white_24dp.png" />
     <AndroidResource Include="Resources\layout\edit_name.axml" />
+    <AndroidResource Include="Resources\values-ru\Strings.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
@@ -292,6 +288,7 @@
     <Folder Include="Resources\anim\" />
     <Folder Include="Managers\" />
     <Folder Include="Iterfaces\" />
+    <Folder Include="Resources\values-ru\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.GooglePlayServices.Basement.42.1021.1\build\MonoAndroid70\Xamarin.GooglePlayServices.Basement.targets" Condition="Exists('..\packages\Xamarin.GooglePlayServices.Basement.42.1021.1\build\MonoAndroid70\Xamarin.GooglePlayServices.Basement.targets')" />

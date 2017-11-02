@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">EasyDebts</string>
+    <string name="comment">Комментарий</string>
+    <string name="name">Имя</string>
+    <string name="amount">Размер долга</string>
+    <string name="amount_refund">Размер возврата</string>
+    <string name="my_debts">Я должен</string>
+    <string name="debts_to_me">Мне должны</string>
+    <string name="add_debt">Добавить долг</string>
+    <string name="export">Экспорт данных</string>
+	<string name="import_str">Импорт данных</string>
+    <string name="backup">Настройки</string>
+    <string name="no_ads">Без рекламы</string>
+    <string name="other">Прочее</string>
+    <string name="upload">Загрузка данных в папку {0} на Google Drive.</string>
+    <string name="read">Данные успешно получены</string>
+    <string name="from_drive">Искать на Google Drive</string>
+    <string name="from_device">Выбрать файл</string>
+    <string name="sure_delete">Удалить этот долг навсегда?</string>
+    <string name="yes">Да</string>
+    <string name="cancel">Отмена</string>
+    <string name="rename">Переименовать</string>
+    <string name="merge">Объединить</string>
+    <string name="done">Готово</string>
+    <string name="merge_rename_descr">У вас уже есть долг с таким именем.</string>
+    <string name="merge_failed">Объединение потерпело крах. Пожалуйста, попробуйте еще раз.</string>
+    <string name="add">Добавить</string>
+    <string name="return_transaction">Новый возврат</string>
+    <string name="add_transaction">Новый долг</string>
+    <string name="total">Итого: {0}</string>
+    <string name="close">Закрыть</string>
+    <string name="add_transaction_failed">Добавление транзакии потерпело крах. Пожалуйста, попробуйте еще раз.</string>
+    <string name="save">Сохранить</string>
+    <string name="ok">Ок</string>
+    <string name="no_backup_found">Не найдено файлов EasyDebts, хотите проверить другой аккаунт?</string>
+    <string name="empty_backup">В файле отсутствует информация о долгах.</string>
+</resources>
