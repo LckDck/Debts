@@ -2404,10 +2404,10 @@ namespace debtsTracker
 			public const int ic_done_white_24dp = 2130837621;
 			
 			// aapt resource value: 0x7f020076
-			public const int ic_export_black_24dp = 2130837622;
+			public const int ic_file_download_black_24dp = 2130837622;
 			
 			// aapt resource value: 0x7f020077
-			public const int ic_import_black_24dp = 2130837623;
+			public const int ic_file_upload_black_24dp = 2130837623;
 			
 			// aapt resource value: 0x7f020078
 			public const int ic_mode_edit_white_24dp = 2130837624;

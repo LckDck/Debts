@@ -217,16 +217,6 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_settings_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_settings_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_settings_black_24dp.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\ic_export_black_24dp.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\ic_import_black_24dp.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\ic_export_black_24dp.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\ic_import_black_24dp.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_export_black_24dp.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_import_black_24dp.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_export_black_24dp.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_import_black_24dp.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_export_black_24dp.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_import_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_thumb_up_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_thumb_up_black_24dp.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_thumb_up_black_24dp.png" />
@@ -271,6 +261,16 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_mode_edit_white_24dp.png" />
     <AndroidResource Include="Resources\layout\edit_name.axml" />
     <AndroidResource Include="Resources\values-ru\Strings.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_file_download_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_file_upload_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_file_download_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_file_upload_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_file_download_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_file_upload_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_file_download_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_file_upload_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_file_download_black_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_file_upload_black_24dp.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

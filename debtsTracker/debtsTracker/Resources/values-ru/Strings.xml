@@ -30,7 +30,7 @@
     <string name="add_transaction">Новый долг</string>
     <string name="total">Итого: {0}</string>
     <string name="close">Закрыть</string>
-    <string name="add_transaction_failed">Добавление транзакии потерпело крах. Пожалуйста, попробуйте еще раз.</string>
+    <string name="add_transaction_failed">Добавление транзакции потерпело крах. Пожалуйста, попробуйте еще раз.</string>
     <string name="save">Сохранить</string>
     <string name="ok">Ок</string>
     <string name="no_backup_found">Не найдено файлов EasyDebts, хотите проверить другой аккаунт?</string>

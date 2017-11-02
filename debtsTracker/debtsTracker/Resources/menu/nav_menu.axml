@@ -3,12 +3,12 @@
 	<group android:checkableBehavior="none">
 		<item 
 			android:id="@+id/nav_export" 
-		    android:icon="@drawable/ic_export_black_24dp" 
+		    android:icon="@drawable/ic_file_upload_black_24dp" 
 		    android:title="@string/export"
 		    />
 		<item 
 		    android:id="@+id/nav_import" 
-            android:icon="@drawable/ic_import_black_24dp" 
+            android:icon="@drawable/ic_file_download_black_24dp" 
 		    android:title="@string/import_str"
 		    />
 		<item 
@@ -17,7 +17,9 @@
 		    android:title="@string/backup" 
 		    />
 	</group>
-	<item android:title="@string/other">
+	<item 
+		android:title="@string/other"
+		>
 		<menu>
 			<group android:checkableBehavior="none">
 				<item 
