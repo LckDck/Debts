@@ -32,6 +32,7 @@ using System.IO;
 using Android.Gms.Drive.Query;
 using Java.IO;
 using debtsTracker.Managers;
+using Debts.Interfaces;
 
 namespace debtsTracker
 {
@@ -89,6 +90,7 @@ namespace debtsTracker
                         break;
 
                     case Resource.Id.nav_upgrade:
+                        Buy();
                         break;
                     default:
                         break;
@@ -113,6 +115,25 @@ namespace debtsTracker
 
 			_driveManager = ServiceLocator.Current.GetInstance<GoogleDriveInteractor>();
             _driveManager.Init (Utils.GetStringFromResource(Resource.String.app_name));
+
+			_inapp = ServiceLocator.Current.GetInstance<IInAppPurchase>();
+            LoadProducts();
+        }
+
+		async void LoadProducts()
+		{
+			var product = await _inapp.GetProdutctInfo(_inapp.PaidItem);
+			if (product != null)
+			{
+				//Paid = product.Bought;
+				//_storage.Store(Constants.Paid, product.Bought);
+			}
+		}
+
+        IInAppPurchase _inapp;
+        private async Task Buy()
+        {
+            await _inapp.BuyProduct(_inapp.PaidItem);
         }
 
         private void AskImportSource()

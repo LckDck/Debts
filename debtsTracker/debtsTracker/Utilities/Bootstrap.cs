@@ -1,6 +1,8 @@
 ﻿using System;
 using Android.Support.V7.App;
 using Autofac;
+using Debts.Interfaces;
+using Debts.Managers;
 using debtsTracker.Fragments;
 using debtsTracker.Managers;
 using Newtonsoft.Json;
@@ -33,7 +35,10 @@ namespace debtsTracker.Utilities
             builder.RegisterInstance (new StorageManager()).AsSelf ();
             builder.RegisterInstance (new DebtsManager()).AsSelf ();
             builder.RegisterInstance (new InterfaceUpdateManager()).AsSelf ();
-
+			builder.RegisterInstance(new TimerInstance())
+				   .As<ITimerInstance>();
+			builder.RegisterInstance(new InAppPurchase())
+				   .As<IInAppPurchase>();
 			// Platform modules registration
 			//builder.RegisterModule<PlatformModule> ();
 			ViewModelLocator.RegisterServices (builder);

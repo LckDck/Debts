@@ -137,6 +137,9 @@
     <Reference Include="Xamarin.GooglePlayServices.Auth">
       <HintPath>..\packages\Xamarin.GooglePlayServices.Auth.42.1021.1\lib\MonoAndroid70\Xamarin.GooglePlayServices.Auth.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.InAppBilling">
+      <HintPath>..\Components\xamarin.inappbilling-2.2\lib\android\Xamarin.InAppBilling.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -180,6 +183,12 @@
     <Compile Include="SplashActivity.cs" />
     <Compile Include="Fragments\AddTransactionFragment.cs" />
     <Compile Include="ViewModels\AddTransactionPageViewModel.cs" />
+    <Compile Include="Managers\InAppPurchase.cs" />
+    <Compile Include="Iterfaces\IInAppPurchase.cs" />
+    <Compile Include="Iterfaces\TimerInstance.cs" />
+    <Compile Include="Iterfaces\ProductInfo.cs" />
+    <Compile Include="Iterfaces\SimpleTimerContainer.cs" />
+    <Compile Include="Iterfaces\ITimerInstance.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -289,6 +298,12 @@
     <Folder Include="Managers\" />
     <Folder Include="Iterfaces\" />
     <Folder Include="Resources\values-ru\" />
+  </ItemGroup>
+  <ItemGroup>
+    <XamarinComponentReference Include="xamarin.inappbilling">
+      <Version>2.2</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.GooglePlayServices.Basement.42.1021.1\build\MonoAndroid70\Xamarin.GooglePlayServices.Basement.targets" Condition="Exists('..\packages\Xamarin.GooglePlayServices.Basement.42.1021.1\build\MonoAndroid70\Xamarin.GooglePlayServices.Basement.targets')" />
