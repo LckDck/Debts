@@ -75,10 +75,12 @@
             android:fitsSystemWindows="true" />
     </LinearLayout>
     <android.support.design.widget.NavigationView
+        android:background="@color/ripple"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:id="@+id/nav_view"
         app:menu="@menu/nav_menu"
-        app:headerLayout="@layout/drawer_header" />
+        app:headerLayout="@layout/drawer_header"
+        app:itemBackground="@color/ripple" />
 </android.support.v4.widget.DrawerLayout>
