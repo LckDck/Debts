@@ -33,6 +33,7 @@ using Android.Gms.Drive.Query;
 using Java.IO;
 using debtsTracker.Managers;
 using Debts.Interfaces;
+using Android.Gms.Ads;
 
 namespace debtsTracker
 {
@@ -118,6 +119,13 @@ namespace debtsTracker
 
 			_inapp = ServiceLocator.Current.GetInstance<IInAppPurchase>();
             LoadProducts();
+            MobileAds.Initialize(this, Constants.AdMobId);
+			mAdView = FindViewById<Android.Gms.Ads.AdView>(Resource.Id.adView);
+
+			var builder = new AdRequest.Builder();
+			var adRequest = builder.Build();
+
+			mAdView.LoadAd(adRequest);
         }
 
 		async void LoadProducts()
@@ -131,6 +139,8 @@ namespace debtsTracker
 		}
 
         IInAppPurchase _inapp;
+        private AdView mAdView;
+
         private async Task Buy()
         {
             await _inapp.BuyProduct(_inapp.PaidItem);
