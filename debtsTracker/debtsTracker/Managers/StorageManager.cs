@@ -9,11 +9,29 @@ namespace debtsTracker.Managers
     public class StorageManager
     {
         string DebtsKey = "DebtsKey";
+        string BoughtKey = "Bought";
 
         DroidLocalStorage _localStorage;
         DroidLocalStorage LocalStorage { 
             get {
                 return _localStorage ?? (_localStorage = ServiceLocator.Current.GetInstance<DroidLocalStorage>());
+            }
+        }
+
+        bool? _bought = null;
+        public bool Bought
+        {
+            set
+            {
+                _bought = value;
+                LocalStorage.SetBoolValue(BoughtKey, _bought.Value);
+            }
+
+            get {
+                if (!_bought.HasValue) {
+                    _bought = LocalStorage.GetBoolValue(BoughtKey);
+                }
+                return _bought.Value;
             }
         }
 

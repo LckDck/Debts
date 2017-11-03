@@ -114,32 +114,42 @@ namespace debtsTracker
             _navigationService = ServiceLocator.Current.GetInstance<IExtendedNavigationService>();
             _navigationService.NavigateTo(Page.MainPage);
 
-			_driveManager = ServiceLocator.Current.GetInstance<GoogleDriveInteractor>();
+            _storage = ServiceLocator.Current.GetInstance<StorageManager>();
+			
+            _driveManager = ServiceLocator.Current.GetInstance<GoogleDriveInteractor>();
             _driveManager.Init (Utils.GetStringFromResource(Resource.String.app_name));
 
 			_inapp = ServiceLocator.Current.GetInstance<IInAppPurchase>();
-            LoadProducts();
-            MobileAds.Initialize(this, Constants.AdMobId);
-			mAdView = FindViewById<Android.Gms.Ads.AdView>(Resource.Id.adView);
+            if (!_storage.Bought)
+            {
+                LoadProducts();
+            }
 
-			var builder = new AdRequest.Builder();
-			var adRequest = builder.Build();
-
-			mAdView.LoadAd(adRequest);
         }
 
 		async void LoadProducts()
 		{
 			var product = await _inapp.GetProdutctInfo(_inapp.PaidItem);
 			if (product != null)
-			{
-				//Paid = product.Bought;
-				//_storage.Store(Constants.Paid, product.Bought);
+            {
+                if (!product.Bought)
+                {
+                    MobileAds.Initialize(this, Constants.AdMobId);
+                    mAdView = FindViewById<Android.Gms.Ads.AdView>(Resource.Id.adView);
+                    mAdView.Visibility = ViewStates.Visible;
+
+                    var builder = new AdRequest.Builder();
+                    var adRequest = builder.Build();
+                    mAdView.LoadAd(adRequest);
+                }
+
+                _storage.Bought = product.Bought;
 			}
 		}
 
         IInAppPurchase _inapp;
         private AdView mAdView;
+        private StorageManager _storage;
 
         private async Task Buy()
         {
