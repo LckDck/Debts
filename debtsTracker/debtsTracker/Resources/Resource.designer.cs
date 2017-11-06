@@ -2822,8 +2822,8 @@ namespace debtsTracker
 			// aapt resource value: 0x7f0c00be
 			public const int nav_import = 2131493054;
 			
-			// aapt resource value: 0x7f0c00c0
-			public const int nav_upgrade = 2131493056;
+			// aapt resource value: 0x7f0c00c1
+			public const int nav_upgrade = 2131493057;
 			
 			// aapt resource value: 0x7f0c00a1
 			public const int nav_view = 2131493025;
@@ -2851,6 +2851,9 @@ namespace debtsTracker
 			
 			// aapt resource value: 0x7f0c007c
 			public const int pager = 2131492988;
+			
+			// aapt resource value: 0x7f0c00c0
+			public const int paid_section = 2131493056;
 			
 			// aapt resource value: 0x7f0c003e
 			public const int parallax = 2131492926;

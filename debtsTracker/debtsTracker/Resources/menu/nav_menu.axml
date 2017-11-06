@@ -19,6 +19,7 @@
 	</group>
 	<item 
 		android:title="@string/other"
+		android:id="@+id/paid_section"
 		>
 		<menu>
 			<group android:checkableBehavior="none">

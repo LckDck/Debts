@@ -80,6 +80,7 @@ namespace debtsTracker
 
 
             navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+            boughtItem = navigationView.Menu.FindItem(Resource.Id.paid_section);
 
             navigationView.NavigationItemSelected += (sender, e) =>
             {
@@ -131,6 +132,9 @@ namespace debtsTracker
             {
                 LoadProducts();
             }
+            else {
+                boughtItem.SetVisible(false);
+            }
 
         }
 
@@ -158,6 +162,7 @@ namespace debtsTracker
         private AdView mAdView;
         private StorageManager _storage;
         private InAppPurchase _iInAppPurchase;
+        private IMenuItem boughtItem;
 
         private async Task Buy()
         {
@@ -173,6 +178,7 @@ namespace debtsTracker
             if (mAdView != null) {
                 mAdView.Visibility = ViewStates.Gone;
                 _storage.Bought = true;
+                boughtItem.SetVisible(false);
             }
         }
 
