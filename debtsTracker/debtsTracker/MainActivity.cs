@@ -161,7 +161,19 @@ namespace debtsTracker
 
         private async Task Buy()
         {
-            await _inapp.BuyProduct(_inapp.PaidItem);
+            var result = await _inapp.BuyProduct(_inapp.PaidItem);
+			if (result != null)
+			{
+                MakeAppPaid();
+			}
+        }
+
+        private void MakeAppPaid()
+        {
+            if (mAdView != null) {
+                mAdView.Visibility = ViewStates.Gone;
+                _storage.Bought = true;
+            }
         }
 
         private void AskImportSource()
