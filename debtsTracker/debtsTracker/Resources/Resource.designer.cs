@@ -3523,6 +3523,9 @@ namespace debtsTracker
 			// aapt resource value: 0x7f070062
 			public const int close = 2131165282;
 			
+			// aapt resource value: 0x7f070068
+			public const int com_crashlytics_android_build_id = 2131165288;
+			
 			// aapt resource value: 0x7f070046
 			public const int comment = 2131165254;
 			

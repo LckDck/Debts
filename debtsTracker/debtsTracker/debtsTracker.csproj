@@ -153,6 +153,24 @@
     <Reference Include="Xamarin.GooglePlayServices.Ads">
       <HintPath>..\packages\Xamarin.GooglePlayServices.Ads.42.1021.1\lib\MonoAndroid70\Xamarin.GooglePlayServices.Ads.dll</HintPath>
     </Reference>
+    <Reference Include="FabricSdk">
+      <HintPath>..\packages\Fabric.1.4\lib\MonoAndroid10\FabricSdk.dll</HintPath>
+    </Reference>
+    <Reference Include="FabricSdk.Platform">
+      <HintPath>..\packages\Fabric.1.4\lib\MonoAndroid10\FabricSdk.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="AnswersKit">
+      <HintPath>..\packages\Crashlytics.1.4\lib\MonoAndroid10\AnswersKit.dll</HintPath>
+    </Reference>
+    <Reference Include="AnswersKit.Platform">
+      <HintPath>..\packages\Crashlytics.1.4\lib\MonoAndroid10\AnswersKit.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="CrashlyticsKit">
+      <HintPath>..\packages\Crashlytics.1.4\lib\MonoAndroid10\CrashlyticsKit.dll</HintPath>
+    </Reference>
+    <Reference Include="CrashlyticsKit.Platform">
+      <HintPath>..\packages\Crashlytics.1.4\lib\MonoAndroid10\CrashlyticsKit.Platform.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />

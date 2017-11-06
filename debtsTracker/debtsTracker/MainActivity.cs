@@ -34,6 +34,9 @@ using Java.IO;
 using debtsTracker.Managers;
 using Debts.Interfaces;
 using Android.Gms.Ads;
+using Debts.Managers;
+using FabricSdk;
+using CrashlyticsKit;
 
 namespace debtsTracker
 {
@@ -54,6 +57,7 @@ namespace debtsTracker
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            InitCrashlytics();
             Current = this;
             Bootstrap.RegisterServices(this, Resource.Id.main_content);
             // Set our view from the "main" layout resource
@@ -119,6 +123,9 @@ namespace debtsTracker
             _driveManager = ServiceLocator.Current.GetInstance<GoogleDriveInteractor>();
             _driveManager.Init (Utils.GetStringFromResource(Resource.String.app_name));
 
+			_iInAppPurchase = ServiceLocator.Current.GetInstance<IInAppPurchase>() as InAppPurchase;
+
+
 			_inapp = ServiceLocator.Current.GetInstance<IInAppPurchase>();
             if (!_storage.Bought)
             {
@@ -150,6 +157,7 @@ namespace debtsTracker
         IInAppPurchase _inapp;
         private AdView mAdView;
         private StorageManager _storage;
+        private InAppPurchase _iInAppPurchase;
 
         private async Task Buy()
         {
@@ -269,6 +277,11 @@ namespace debtsTracker
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
+			if (_iInAppPurchase != null)
+			{
+				_iInAppPurchase.OnActivityResult(requestCode, resultCode, data);
+			}
+
             System.Diagnostics.Debug.WriteLine("ActivityResult");
             switch (requestCode)
             {
@@ -291,6 +304,20 @@ namespace debtsTracker
                     break;
             }
         }
+
+		void InitCrashlytics()
+		{
+
+
+			Crashlytics.Instance.Initialize();
+#if DEBUG
+            Fabric.Instance.Debug = true;
+#endif
+			Fabric.Instance.Initialize(this);
+
+		}
+
+		
     }
 }
 

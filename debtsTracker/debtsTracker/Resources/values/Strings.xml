@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="com.crashlytics.android.build_id">1.0(3)</string>
     <string name="app_name">EasyDebts</string>
     <string name="comment">Comment (optional)</string>
     <string name="name">Person name</string>
