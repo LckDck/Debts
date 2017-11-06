@@ -90,6 +90,7 @@
             app:headerLayout="@layout/drawer_header" />
     </android.support.v4.widget.DrawerLayout>
     <com.google.android.gms.ads.AdView
+        android:background="@color/ripple"
         android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

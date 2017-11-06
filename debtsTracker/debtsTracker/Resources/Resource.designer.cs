@@ -3484,50 +3484,50 @@ namespace debtsTracker
 			// aapt resource value: 0x7f070012
 			public const int accept = 2131165202;
 			
-			// aapt resource value: 0x7f07005e
-			public const int add = 2131165278;
+			// aapt resource value: 0x7f07005f
+			public const int add = 2131165279;
 			
-			// aapt resource value: 0x7f07004c
-			public const int add_debt = 2131165260;
+			// aapt resource value: 0x7f07004d
+			public const int add_debt = 2131165261;
 			
-			// aapt resource value: 0x7f070060
-			public const int add_transaction = 2131165280;
+			// aapt resource value: 0x7f070061
+			public const int add_transaction = 2131165281;
 			
-			// aapt resource value: 0x7f070063
-			public const int add_transaction_failed = 2131165283;
-			
-			// aapt resource value: 0x7f070048
-			public const int amount = 2131165256;
+			// aapt resource value: 0x7f070064
+			public const int add_transaction_failed = 2131165284;
 			
 			// aapt resource value: 0x7f070049
-			public const int amount_refund = 2131165257;
+			public const int amount = 2131165257;
 			
-			// aapt resource value: 0x7f070045
-			public const int app_name = 2131165253;
+			// aapt resource value: 0x7f07004a
+			public const int amount_refund = 2131165258;
+			
+			// aapt resource value: 0x7f070046
+			public const int app_name = 2131165254;
 			
 			// aapt resource value: 0x7f07003d
 			public const int appbar_scrolling_view_behavior = 2131165245;
 			
-			// aapt resource value: 0x7f07004f
-			public const int backup = 2131165263;
+			// aapt resource value: 0x7f070050
+			public const int backup = 2131165264;
 			
 			// aapt resource value: 0x7f07003e
 			public const int bottom_sheet_behavior = 2131165246;
 			
-			// aapt resource value: 0x7f070058
-			public const int cancel = 2131165272;
+			// aapt resource value: 0x7f070059
+			public const int cancel = 2131165273;
 			
 			// aapt resource value: 0x7f07003f
 			public const int character_counter_pattern = 2131165247;
 			
-			// aapt resource value: 0x7f070062
-			public const int close = 2131165282;
+			// aapt resource value: 0x7f070063
+			public const int close = 2131165283;
 			
-			// aapt resource value: 0x7f070068
-			public const int com_crashlytics_android_build_id = 2131165288;
+			// aapt resource value: 0x7f070045
+			public const int com_crashlytics_android_build_id = 2131165253;
 			
-			// aapt resource value: 0x7f070046
-			public const int comment = 2131165254;
+			// aapt resource value: 0x7f070047
+			public const int comment = 2131165255;
 			
 			// aapt resource value: 0x7f070002
 			public const int common_google_play_services_enable_button = 2131165186;
@@ -3586,8 +3586,8 @@ namespace debtsTracker
 			// aapt resource value: 0x7f070014
 			public const int create_calendar_title = 2131165204;
 			
-			// aapt resource value: 0x7f07004b
-			public const int debts_to_me = 2131165259;
+			// aapt resource value: 0x7f07004c
+			public const int debts_to_me = 2131165260;
 			
 			// aapt resource value: 0x7f070015
 			public const int debug_menu_ad_information = 2131165205;
@@ -3604,53 +3604,53 @@ namespace debtsTracker
 			// aapt resource value: 0x7f070019
 			public const int decline = 2131165209;
 			
-			// aapt resource value: 0x7f07005b
-			public const int done = 2131165275;
+			// aapt resource value: 0x7f07005c
+			public const int done = 2131165276;
 			
-			// aapt resource value: 0x7f070067
-			public const int empty_backup = 2131165287;
-			
-			// aapt resource value: 0x7f07004d
-			public const int export = 2131165261;
-			
-			// aapt resource value: 0x7f070055
-			public const int from_device = 2131165269;
-			
-			// aapt resource value: 0x7f070054
-			public const int from_drive = 2131165268;
+			// aapt resource value: 0x7f070068
+			public const int empty_backup = 2131165288;
 			
 			// aapt resource value: 0x7f07004e
-			public const int import_str = 2131165262;
+			public const int export = 2131165262;
+			
+			// aapt resource value: 0x7f070056
+			public const int from_device = 2131165270;
+			
+			// aapt resource value: 0x7f070055
+			public const int from_drive = 2131165269;
+			
+			// aapt resource value: 0x7f07004f
+			public const int import_str = 2131165263;
 			
 			// aapt resource value: 0x7f070000
 			public const int library_name = 2131165184;
 			
-			// aapt resource value: 0x7f07005a
-			public const int merge = 2131165274;
+			// aapt resource value: 0x7f07005b
+			public const int merge = 2131165275;
+			
+			// aapt resource value: 0x7f07005e
+			public const int merge_failed = 2131165278;
 			
 			// aapt resource value: 0x7f07005d
-			public const int merge_failed = 2131165277;
+			public const int merge_rename_descr = 2131165277;
 			
-			// aapt resource value: 0x7f07005c
-			public const int merge_rename_descr = 2131165276;
+			// aapt resource value: 0x7f07004b
+			public const int my_debts = 2131165259;
 			
-			// aapt resource value: 0x7f07004a
-			public const int my_debts = 2131165258;
-			
-			// aapt resource value: 0x7f070047
-			public const int name = 2131165255;
-			
-			// aapt resource value: 0x7f070050
-			public const int no_ads = 2131165264;
-			
-			// aapt resource value: 0x7f070066
-			public const int no_backup_found = 2131165286;
-			
-			// aapt resource value: 0x7f070065
-			public const int ok = 2131165285;
+			// aapt resource value: 0x7f070048
+			public const int name = 2131165256;
 			
 			// aapt resource value: 0x7f070051
-			public const int other = 2131165265;
+			public const int no_ads = 2131165265;
+			
+			// aapt resource value: 0x7f070067
+			public const int no_backup_found = 2131165287;
+			
+			// aapt resource value: 0x7f070066
+			public const int ok = 2131165286;
+			
+			// aapt resource value: 0x7f070052
+			public const int other = 2131165266;
 			
 			// aapt resource value: 0x7f070040
 			public const int password_toggle_content_description = 2131165248;
@@ -3667,17 +3667,17 @@ namespace debtsTracker
 			// aapt resource value: 0x7f070044
 			public const int path_password_strike_through = 2131165252;
 			
-			// aapt resource value: 0x7f070053
-			public const int read = 2131165267;
+			// aapt resource value: 0x7f070054
+			public const int read = 2131165268;
 			
-			// aapt resource value: 0x7f070059
-			public const int rename = 2131165273;
+			// aapt resource value: 0x7f07005a
+			public const int rename = 2131165274;
 			
-			// aapt resource value: 0x7f07005f
-			public const int return_transaction = 2131165279;
+			// aapt resource value: 0x7f070060
+			public const int return_transaction = 2131165280;
 			
-			// aapt resource value: 0x7f070064
-			public const int save = 2131165284;
+			// aapt resource value: 0x7f070065
+			public const int save = 2131165285;
 			
 			// aapt resource value: 0x7f07002f
 			public const int search_menu_title = 2131165231;
@@ -3691,17 +3691,17 @@ namespace debtsTracker
 			// aapt resource value: 0x7f07001b
 			public const int store_picture_title = 2131165211;
 			
-			// aapt resource value: 0x7f070056
-			public const int sure_delete = 2131165270;
-			
-			// aapt resource value: 0x7f070061
-			public const int total = 2131165281;
-			
-			// aapt resource value: 0x7f070052
-			public const int upload = 2131165266;
-			
 			// aapt resource value: 0x7f070057
-			public const int yes = 2131165271;
+			public const int sure_delete = 2131165271;
+			
+			// aapt resource value: 0x7f070062
+			public const int total = 2131165282;
+			
+			// aapt resource value: 0x7f070053
+			public const int upload = 2131165267;
+			
+			// aapt resource value: 0x7f070058
+			public const int yes = 2131165272;
 			
 			static String()
 			{

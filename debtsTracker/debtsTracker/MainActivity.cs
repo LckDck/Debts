@@ -313,8 +313,7 @@ namespace debtsTracker
 #if DEBUG
             Fabric.Instance.Debug = true;
 #endif
-			Fabric.Instance.Initialize(this);
-
+            Fabric.Instance.Initialize(this);
 		}
 
 		
