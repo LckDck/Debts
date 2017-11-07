@@ -18,7 +18,7 @@
     <string name="read">Successful read backup file</string>
     <string name="from_drive">From Google Drive backup</string>
     <string name="from_device">From disk</string>
-    <string name="sure_delete">Are you sure you want to delete this debt?</string>
+    <string name="sure_delete">Remove this debt?</string>
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
     <string name="rename">Rename</string>
@@ -34,6 +34,6 @@
     <string name="add_transaction_failed">Add transaction failed, please try again.</string>
     <string name="save">Save</string>
     <string name="ok">Ok</string>
-    <string name="no_backup_found">No EasyDebts backup found, would you like to check another Google Account?</string>
+    <string name="no_backup_found">No EasyDebts backup found, check another Google Account?</string>
     <string name="empty_backup">No backup found in file.</string>
 </resources>

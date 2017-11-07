@@ -10,6 +10,7 @@ namespace debtsTracker.Managers
     {
         string DebtsKey = "DebtsKey";
         string BoughtKey = "Bought";
+        string Tab = "Tab";
 
         DroidLocalStorage _localStorage;
         DroidLocalStorage LocalStorage { 
@@ -47,6 +48,15 @@ namespace debtsTracker.Managers
             if (string.IsNullOrEmpty(readString)) return empty;
             var debts = JsonConvert.DeserializeObject<Dictionary<string,Debt>>(readString);
             return debts ?? empty;
+        }
+
+        public void SaveTab(int tab) { 
+            LocalStorage.SetIntValue(Tab, tab);
+        }
+
+        public int GetTab()
+        {
+            return LocalStorage.GetIntValue(Tab);
         }
     }
 }

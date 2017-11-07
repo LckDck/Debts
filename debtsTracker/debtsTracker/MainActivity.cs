@@ -120,14 +120,14 @@ namespace debtsTracker
             _navigationService.NavigateTo(Page.MainPage);
 
             _storage = ServiceLocator.Current.GetInstance<StorageManager>();
-			
+
             _driveManager = ServiceLocator.Current.GetInstance<GoogleDriveInteractor>();
-            _driveManager.Init (Utils.GetStringFromResource(Resource.String.app_name));
+            _driveManager.Init(Utils.GetStringFromResource(Resource.String.app_name));
 
-			_iInAppPurchase = ServiceLocator.Current.GetInstance<IInAppPurchase>() as InAppPurchase;
-
-
-			_inapp = ServiceLocator.Current.GetInstance<IInAppPurchase>();
+            _iInAppPurchase = ServiceLocator.Current.GetInstance<IInAppPurchase>() as InAppPurchase;
+            _interfaceUpdateManager = ServiceLocator.Current.GetInstance<InterfaceUpdateManager>();
+            _interfaceUpdateManager.CurrrentTab = _storage.GetTab();
+            _inapp = ServiceLocator.Current.GetInstance<IInAppPurchase>();
             if (!_storage.Bought)
             {
                 LoadProducts();
@@ -163,6 +163,7 @@ namespace debtsTracker
         private StorageManager _storage;
         private InAppPurchase _iInAppPurchase;
         private IMenuItem boughtItem;
+        private InterfaceUpdateManager _interfaceUpdateManager;
 
         private async Task Buy()
         {
@@ -334,7 +335,17 @@ namespace debtsTracker
             Fabric.Instance.Initialize(this);
 		}
 
-		
+
+        protected override void OnStop()
+        {
+            base.OnStop();
+            SaveState();
+        }
+
+        private void SaveState()
+        {
+            _storage.SaveTab(_interfaceUpdateManager.CurrrentTab);
+        }
     }
 }
 
